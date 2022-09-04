@@ -1,0 +1,84 @@
+﻿using Account.API.Profile.Queries;
+using Account.API.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Net;
+
+namespace Account.API.Account.Profile.Controllers
+{
+    [ApiController]
+    [Route("[account]")]
+    public class ProfileQueryController : Controller
+    {
+
+        private readonly IProfileQueries _queryService;
+        private readonly ILogger<ProfileQueryController> _logger;
+
+        public ProfileQueryController(IProfileQueries queryService, ILogger<ProfileQueryController> logger)
+        {
+            _queryService = queryService;
+            _logger = logger;   
+        }
+
+        [HttpGet]
+        [Route("[Profile]/{userid}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetProfileInformation(int userId)
+        {
+            try
+            {
+                var profileInformation = await _queryService.GetProfileInformation(userId);
+                return new OkObjectResult(profileInformation);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("[Followers]/{userid}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetUserFollowers(int userId)
+        {
+            try
+            {
+                var followerCollection = await _queryService.GetUserFollowers(userId);
+                return new OkObjectResult(followerCollection);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("[Following]/{userid}")]
+        [ProducesResponseType(typeof(IEnumerable<OkObjectResult>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IEnumerable<IActionResult>> GetUserFollowing(int userId)
+        {
+            try
+            {
+                IEnumerable<OkObjectResult> followerCollection = 
+                    (IEnumerable<OkObjectResult>)await _queryService.GetUserFollowing(userId);
+
+                return followerCollection;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                IEnumerable<BadRequestObjectResult> badRequest = new List<BadRequestObjectResult>()
+                {
+                    new BadRequestObjectResult(ex.Message)
+                };
+                
+                return badRequest;
+            }
+        }
+    }
+}
