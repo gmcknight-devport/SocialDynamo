@@ -18,10 +18,10 @@ namespace Account.API.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
+        [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> Post(AddFollowerCommand command)
+        public async Task<IActionResult> Put(AddFollowerCommand command)
         {
             try
             {

@@ -12,15 +12,13 @@ namespace Account.API.Profile.Queries
         private readonly IUserRepository _userRepository;
         private readonly IFollowerRepository _followerRepository;
         private readonly ILogger<ProfileQueries> _logger;
-        ITestOutputHelper _output;
                 
         public ProfileQueries(IUserRepository userRepository, IFollowerRepository followerRepository,
-                             ILogger<ProfileQueries> logger, ITestOutputHelper output)
+                             ILogger<ProfileQueries> logger)
         {
             _userRepository = userRepository;
             _followerRepository = followerRepository;
             _logger = logger;
-            _output = output;
         }
 
         public async Task<IActionResult> GetProfileInformation(int userId)

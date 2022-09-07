@@ -1,7 +1,5 @@
 ﻿using Account.API.Profile.Queries;
-using Account.API.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Net;
 
 namespace Account.API.Account.Profile.Controllers
@@ -21,7 +19,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Profile]/{userid}")]
+        [Route("[Profile]/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetProfileInformation(int userId)
@@ -39,7 +37,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Followers]/{userid}")]
+        [Route("[Followers]/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserFollowers(int userId)
@@ -57,7 +55,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Following]/{userid}")]
+        [Route("[Following]/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<OkObjectResult>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IEnumerable<IActionResult>> GetUserFollowing(int userId)

@@ -1,0 +1,18 @@
+﻿using MediatR;
+using Posts.Domain.ValueObjects;
+using System.ComponentModel.DataAnnotations;
+
+namespace Posts.API.Commands
+{
+    public class CreatePostCommand : IRequest<bool>
+    {
+        [Required]
+        public int AuthorId{ get; set; }
+
+        [Required]
+        public string Caption { get; set; }
+
+        [Required]
+        public List<MediaItemId> MediaItemIds { get; set; }
+    }
+}

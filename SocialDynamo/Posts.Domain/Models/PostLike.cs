@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Posts.Domain.Models
+{
+    public record PostLike : Like
+    {
+        public Post Post { get; init; }
+    }
+}

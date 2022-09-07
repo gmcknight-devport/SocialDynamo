@@ -29,6 +29,7 @@ namespace Account.Models.Users
 
         public string ProfileDescription { get; set; }
 
+        [MaxLength(36)]
         public string RefreshToken { get; set; }
         public DateTime RefreshExpires { get; set; }
 

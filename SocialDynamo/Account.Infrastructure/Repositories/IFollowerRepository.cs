@@ -5,7 +5,7 @@ namespace Account.API.Infrastructure.Repositories
 {
     public interface IFollowerRepository
     {
-        Task AddFollower(Follower follower);
+        Task AddFollower(int userId, Follower follower);
         Task<IEnumerable<Follower>> GetFollowersAsync(int userId);
         Task<IEnumerable<Follower>> GetUserFollowingAsync(int userId);
         Task<IActionResult> GetFollowerCountAsync(int userId);

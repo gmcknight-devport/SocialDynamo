@@ -32,7 +32,7 @@ namespace Account.Tests.Profile.Commands
             {                
                 //Mock repository and method within used in test
                 mock.Mock<IFollowerRepository>()
-                    .Setup(x => x.AddFollower(It.IsAny<Follower>()))
+                    .Setup(x => x.AddFollower(follower.UserId, It.IsAny<Follower>()))
                     .Verifiable();
 
                 //Create instance of class and call method
@@ -41,7 +41,7 @@ namespace Account.Tests.Profile.Commands
 
                 //Verify method on mock was called once
                 mock.Mock<IFollowerRepository>()
-                    .Verify(x => x.AddFollower(It.Is<Follower>(f => f.UserId == follower.UserId && 
+                    .Verify(x => x.AddFollower(follower.UserId, It.Is<Follower>(f => f.UserId == follower.UserId && 
                                                               f.FollowerId == follower.FollowerId)), 
                                                               Times.Exactly(1));
             }

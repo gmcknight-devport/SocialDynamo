@@ -18,7 +18,7 @@ namespace Account.API.Authentication.Authentication.Controllers
             _logger = logger;
         }
 
-        [HttpPost("register")]
+        [HttpPut("register")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Register(RegisterUserCommand command)
@@ -36,7 +36,7 @@ namespace Account.API.Authentication.Authentication.Controllers
 
         }
 
-        [HttpPost("login")]
+        [HttpPut("login")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Login(LoginUserCommand command)
@@ -53,7 +53,7 @@ namespace Account.API.Authentication.Authentication.Controllers
             }
         }
 
-        [HttpPost("logout")]
+        [HttpPut("logout")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Logout(LogoutUserCommand command)
@@ -70,7 +70,7 @@ namespace Account.API.Authentication.Authentication.Controllers
             }
         }
 
-        [HttpPost("refresh-token")]
+        [HttpPut("refresh-token")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> RefreshToken(RefreshJwtTokenCommand command)

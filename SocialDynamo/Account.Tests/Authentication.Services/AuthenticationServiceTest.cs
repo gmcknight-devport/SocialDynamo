@@ -1,5 +1,4 @@
 ﻿using Account.API.Commands;
-using Account.API.Common.ViewModels;
 using Account.API.Infrastructure.Repositories;
 using Account.API.Services;
 using Account.API.ViewModels;
@@ -50,7 +49,7 @@ namespace Account.Tests.Authentication.Services
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<IUserRepository>()
-                    .Setup(x => x.AddUser(It.IsAny<User>()))
+                    .Setup(x => x.AddUserAsync(It.IsAny<User>()))
                     .Verifiable();
 
                 //Create instance of class and call method
@@ -59,7 +58,7 @@ namespace Account.Tests.Authentication.Services
 
                 //Verify method on mock was called once
                 mock.Mock<IUserRepository>()                    
-                    .Verify(x => x.AddUser(It.Is<User>(u => u.UserId == user.UserId &&
+                    .Verify(x => x.AddUserAsync(It.Is<User>(u => u.UserId == user.UserId &&
                                                                u.Password == user.Password &&
                                                                u.Forename == user.Forename &&
                                                                u.Surname == user.Surname)),

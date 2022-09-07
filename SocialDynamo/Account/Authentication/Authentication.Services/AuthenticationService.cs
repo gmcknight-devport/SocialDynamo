@@ -43,10 +43,11 @@ namespace Account.API.Services
                 EmailAddress = command.EmailAddress,
                 Password = command.Password,
                 Forename = command.Forename,
-                Surname = command.Surname
+                Surname = command.Surname,
+                Followers = new List<Follower>()
             };
 
-            await _userRepository.AddUser(newUser);
+            await _userRepository.AddUserAsync(newUser);
         }
 
         public async Task HandleCommandAsync(LogoutUserCommand command)

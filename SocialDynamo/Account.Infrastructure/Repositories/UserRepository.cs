@@ -14,7 +14,7 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
-        public async Task AddUser(User user)
+        public async Task AddUserAsync(User user)
         {
             if (user == null)
             {
@@ -24,7 +24,7 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext.Users.Add(user);
             await _accountDbContext.SaveChangesAsync();
         }
-        public async Task DeleteUser(int userId)
+        public async Task DeleteUserAsync(int userId)
         {
             var user = await _accountDbContext.Users.FirstOrDefaultAsync(x => x.UserId == userId);
             if (user == null)
@@ -49,8 +49,7 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<User> GetUserAsync(string emailAddress)
         {
-            List<User> user = await _accountDbContext.Users
-                .Include(u => u.EmailAddress)                
+            List<User> user = await _accountDbContext.Users 
                 .Where(u => u.EmailAddress == emailAddress).ToListAsync();
 
             if (user == null)

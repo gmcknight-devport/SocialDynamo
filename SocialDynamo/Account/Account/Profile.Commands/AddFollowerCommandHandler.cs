@@ -24,7 +24,7 @@ namespace Account.API.Profile.Commands
                 UserId = addFollowerCommand.UserId
             };
 
-            await _followerRepository.AddFollower(follower);
+            await _followerRepository.AddFollower(addFollowerCommand.UserId, follower);
             return true;
         }        
     }
