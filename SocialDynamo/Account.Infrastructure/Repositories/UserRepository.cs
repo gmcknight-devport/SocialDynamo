@@ -14,6 +14,15 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
+        public async Task<bool> IsUserIdUnique(string userId)
+        {
+            var existsInDatabase = await _accountDbContext.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            if (existsInDatabase == null)
+                return true;
+
+            return false;
+        }
+
         public async Task AddUserAsync(User user)
         {
             if (user == null)

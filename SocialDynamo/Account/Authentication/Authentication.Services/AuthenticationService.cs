@@ -2,6 +2,7 @@
 using Account.API.Common.ViewModels;
 using Account.API.Infrastructure.Repositories;
 using Account.API.ViewModels;
+using Account.Exceptions;
 using Account.Models.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,9 @@ namespace Account.API.Services
 
         public async Task HandleCommandAsync(RegisterUserCommand command)
         {
+            if (!_userRepository.IsUserIdUnique(command.UserId).Result)
+                throw new InvalidUserStateException("UserId is not unique");
+
             var newUser = new User
             {
                 EmailAddress = command.EmailAddress,

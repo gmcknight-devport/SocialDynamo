@@ -4,6 +4,7 @@ namespace Account.API.Infrastructure.Repositories
 {
     public interface IUserRepository
     {
+        Task<bool> IsUserIdUnique(string userId);
         Task AddUserAsync(User user);
         Task DeleteUserAsync(string userId);
         Task<User> GetUserAsync(string userId);
