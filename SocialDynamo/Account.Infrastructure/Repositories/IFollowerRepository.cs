@@ -5,10 +5,10 @@ namespace Account.API.Infrastructure.Repositories
 {
     public interface IFollowerRepository
     {
-        Task AddFollower(int userId, Follower follower);
-        Task<IEnumerable<Follower>> GetFollowersAsync(int userId);
-        Task<IEnumerable<Follower>> GetUserFollowingAsync(int userId);
-        Task<IActionResult> GetFollowerCountAsync(int userId);
+        Task AddFollower(string userId, Follower follower);
+        Task<IEnumerable<Follower>> GetFollowersAsync(string userId);
+        Task<IEnumerable<Follower>> GetUserFollowingAsync(string userId);
+        Task<IActionResult> GetFollowerCountAsync(string userId);
         Task RemoveFollower(Follower follower);
     }
 }

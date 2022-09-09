@@ -108,3 +108,5 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastruct
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastructure\obj\Debug\net6.0\Account.Infrastructure.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastructure\obj\Debug\net6.0\Account.Infrastructure.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastructure\obj\Debug\net6.0\ref\Account.Infrastructure.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastructure\bin\Debug\net6.0\Common.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Infrastructure\bin\Debug\net6.0\Common.pdb

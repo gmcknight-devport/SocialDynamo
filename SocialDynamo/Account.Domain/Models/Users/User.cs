@@ -1,5 +1,4 @@
-﻿using Account.ValueObjects;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
 namespace Account.Models.Users
@@ -7,8 +6,9 @@ namespace Account.Models.Users
     public class User : IdentityUser
     {
         [Key]
-        [MaxLength(20)]
-        public int UserId { get; init; }
+        [MaxLength(100)]
+        [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
+        public string UserId { get; init; }
 
         [EmailAddress]
         [Required]

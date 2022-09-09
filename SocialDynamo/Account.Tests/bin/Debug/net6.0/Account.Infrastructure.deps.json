@@ -9,6 +9,7 @@
       "Account.Infrastructure/1.0.0": {
         "dependencies": {
           "Account.Domain": "1.0.0",
+          "Common": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.8",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
@@ -1723,6 +1724,15 @@
         "runtime": {
           "Account.Domain.dll": {}
         }
+      },
+      "Common/1.0.0": {
+        "dependencies": {
+          "Moq": "4.18.2",
+          "xunit": "2.4.2"
+        },
+        "runtime": {
+          "Common.dll": {}
+        }
       }
     }
   },
@@ -2860,6 +2870,11 @@
       "hashPath": "xunit.runner.visualstudio.2.4.5.nupkg.sha512"
     },
     "Account.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Common/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

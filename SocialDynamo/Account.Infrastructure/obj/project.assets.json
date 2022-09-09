@@ -2446,6 +2446,20 @@
         "runtime": {
           "bin/placeholder/Account.Domain.dll": {}
         }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Moq": "4.18.2",
+          "xunit": "2.4.2"
+        },
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
       }
     }
   },
@@ -7815,11 +7829,17 @@
       "type": "project",
       "path": "../Account.Domain/Account.Domain.csproj",
       "msbuildProject": "../Account.Domain/Account.Domain.csproj"
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Account.Domain >= 1.0.0",
+      "Common >= 1.0.0",
       "Microsoft.AspNetCore.Identity >= 2.2.0",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.8",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
@@ -7867,6 +7887,9 @@
           "projectReferences": {
             "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Account.Domain\\Account.Domain.csproj": {
               "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Account.Domain\\Account.Domain.csproj"
+            },
+            "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {
+              "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj"
             }
           }
         }

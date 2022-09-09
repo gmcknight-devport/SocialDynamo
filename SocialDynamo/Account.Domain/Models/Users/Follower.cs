@@ -1,5 +1,4 @@
-﻿using Account.ValueObjects;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Account.Models.Users
@@ -7,13 +6,15 @@ namespace Account.Models.Users
     public class Follower
     {
         [ForeignKey("UserForeignKey")]
-        [MaxLength(20)]
+        [MaxLength(100)]
         [Required]
-        public int UserId;
+        [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
+        public string UserId;
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         [Required]
-        public int FollowerId { get; set; }
+        [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
+        public string FollowerId { get; set; }
 
         public User User { get; set; }
     }

@@ -20,6 +20,9 @@ namespace Posts.Domain.Models
         [MaxLength(20)]
         public int AuthorId { get; init; }
 
+        [MaxLength(120)]
+        public string Hashtag { get; set; }
+
         [Required]
         [MaxLength(2200)]
         public string Caption { get; set; }

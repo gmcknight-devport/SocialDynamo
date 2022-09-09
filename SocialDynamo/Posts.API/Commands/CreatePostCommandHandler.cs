@@ -17,9 +17,15 @@ namespace Posts.API.Commands
 
         public async Task<bool> Handle(CreatePostCommand command, CancellationToken cancellationToken)
         {
+            string hashtag = string.Empty;
+
+            if (command.Hashtag != null)
+                hashtag = command.Hashtag;
+
             Post post = new()
             {
                 AuthorId = command.AuthorId,
+                Hashtag = hashtag,
                 Caption = command.Caption,
                 MediaItemIds = command.MediaItemIds,
                 PostedAt = DateTime.UtcNow,

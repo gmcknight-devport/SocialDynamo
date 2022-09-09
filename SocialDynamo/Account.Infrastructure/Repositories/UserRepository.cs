@@ -1,11 +1,11 @@
 ﻿using Account.Infrastructure.Persistence;
 using Account.Models.Users;
-using Microsoft.AspNetCore.Mvc;
+using Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace Account.API.Infrastructure.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : IUserRepository, IFuzzySearch
     {
         private readonly AccountDbContext _accountDbContext;
 
@@ -24,7 +24,7 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext.Users.Add(user);
             await _accountDbContext.SaveChangesAsync();
         }
-        public async Task DeleteUserAsync(int userId)
+        public async Task DeleteUserAsync(string userId)
         {
             var user = await _accountDbContext.Users.FirstOrDefaultAsync(x => x.UserId == userId);
             if (user == null)
@@ -36,7 +36,7 @@ namespace Account.API.Infrastructure.Repositories
             await _accountDbContext.SaveChangesAsync();
         }
 
-        public async Task<User> GetUserAsync(int userId)
+        public async Task<User> GetUserAsync(string userId)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 
@@ -46,19 +46,7 @@ namespace Account.API.Infrastructure.Repositories
             }
             return user;
         }
-
-        public async Task<User> GetUserAsync(string emailAddress)
-        {
-            List<User> user = await _accountDbContext.Users 
-                .Where(u => u.EmailAddress == emailAddress).ToListAsync();
-
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-            return user.ElementAt(0);
-        }
-
+        
         public async Task UpdateUserAsync(User user)
         {
             if (user == null)
@@ -69,5 +57,11 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext.Users.Update(user);
             await _accountDbContext.SaveChangesAsync();
         }        
+
+        public async Task<IEnumerable<object>> FuzzySearch(string fuzzyUserId)
+        {
+            var results = _accountDbContext.Users.Where(d => EF.Functions.FreeText(d.UserId, fuzzyUserId));
+            return results;
+        }
     }
 }

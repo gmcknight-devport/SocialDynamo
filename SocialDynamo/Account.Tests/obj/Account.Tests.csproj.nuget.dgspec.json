@@ -120,6 +120,9 @@
             "projectReferences": {
               "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Account.Domain\\Account.Domain.csproj": {
                 "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Account.Domain\\Account.Domain.csproj"
+              },
+              "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {
+                "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj"
               }
             }
           }

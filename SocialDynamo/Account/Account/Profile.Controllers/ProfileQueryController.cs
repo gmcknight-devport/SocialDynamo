@@ -22,7 +22,7 @@ namespace Account.API.Account.Profile.Controllers
         [Route("[Profile]/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetProfileInformation(int userId)
+        public async Task<IActionResult> GetProfileInformation(string userId)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace Account.API.Account.Profile.Controllers
         [Route("[Followers]/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUserFollowers(int userId)
+        public async Task<IActionResult> GetUserFollowers(string userId)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace Account.API.Account.Profile.Controllers
         [Route("[Following]/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<OkObjectResult>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IEnumerable<IActionResult>> GetUserFollowing(int userId)
+        public async Task<IEnumerable<IActionResult>> GetUserFollowing(string userId)
         {
             try
             {

@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Common;
+using Microsoft.EntityFrameworkCore;
 using Posts.Domain.Models;
 using Posts.Infrastructure.Persistence;
 
 namespace Posts.Infrastructure.Repositories
 {   
-    public class PostRepository : IPostRepository
+    public class PostRepository : IPostRepository, IFuzzySearch
     {
         private readonly PostsDbContext _postsDbContext;
 
@@ -116,6 +117,12 @@ namespace Posts.Infrastructure.Repositories
 
             _postsDbContext.Update(post);
             await _postsDbContext.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<object>> FuzzySearch(string fuzzyHashtag)
+        {
+            var results = _postsDbContext.Posts.Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag));
+            return results;
         }
     }
 }

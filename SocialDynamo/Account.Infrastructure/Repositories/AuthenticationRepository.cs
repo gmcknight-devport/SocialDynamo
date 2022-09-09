@@ -12,7 +12,7 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
-        public async Task<bool> AuthenticateUser(int userId, string password)
+        public async Task<bool> AuthenticateUser(string userId, string password)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
             if (user != null &&  user.UserId == userId && user.Password == password)
@@ -21,7 +21,7 @@ namespace Account.API.Infrastructure.Repositories
             }
             return false;
         }
-        public async Task RemoveToken(int userId)
+        public async Task RemoveToken(string userId)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 
@@ -32,7 +32,7 @@ namespace Account.API.Infrastructure.Repositories
             }
         }
                 
-        public async Task UpdateToken(int userId, string refreshToken, DateTime expiresAt)
+        public async Task UpdateToken(string userId, string refreshToken, DateTime expiresAt)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 
@@ -44,7 +44,7 @@ namespace Account.API.Infrastructure.Repositories
             }
         }
 
-        public async Task<IActionResult?> GetRefreshToken(int userId)
+        public async Task<IActionResult?> GetRefreshToken(string userId)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 

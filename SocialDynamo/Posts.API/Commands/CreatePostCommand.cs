@@ -9,6 +9,8 @@ namespace Posts.API.Commands
         [Required]
         public int AuthorId{ get; set; }
 
+        public string Hashtag { get; set; }
+
         [Required]
         public string Caption { get; set; }
 

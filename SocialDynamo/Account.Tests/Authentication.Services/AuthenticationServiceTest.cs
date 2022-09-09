@@ -33,6 +33,7 @@ namespace Account.Tests.Authentication.Services
             RegisterUserCommand command = new RegisterUserCommand()
             {
                 EmailAddress = "goo@goo.com",
+                UserId = "ThisID",
                 Password = "password",
                 Forename = "Forefore",
                 Surname = "Sursur"
@@ -41,6 +42,7 @@ namespace Account.Tests.Authentication.Services
             User user = new()
             {
                 EmailAddress = command.EmailAddress,
+                UserId = command.UserId,
                 Password = command.Password,
                 Forename = command.Forename,
                 Surname = command.Surname
@@ -71,7 +73,7 @@ namespace Account.Tests.Authentication.Services
         {
             LogoutUserCommand command = new LogoutUserCommand()
             {
-                UserId = 1
+                UserId = "USERID"
             };
 
             using (var mock = AutoMock.GetLoose())
@@ -333,6 +335,7 @@ namespace Account.Tests.Authentication.Services
             User user = new()
             {
                 EmailAddress = "gg@gg.com",
+                UserId = "UserIdHere",
                 Password = "password",
                 Forename = "Joe",
                 Surname = "Else"
@@ -347,7 +350,7 @@ namespace Account.Tests.Authentication.Services
             {
                 Token = "blah",
                 RefreshToken = "bluh",
-                UserId = 23
+                UserId = "AnotherId"
             };
 
             return command;
@@ -383,19 +386,19 @@ namespace Account.Tests.Authentication.Services
             {
                 Token = "Blah",
                 RefreshToken = "Bluh",
-                UserId = 23
+                UserId = "AnotherId"
             };
 
             return refreshToken;
         }
 
-        private JwtSecurityToken GenerateToken(int userId, IConfiguration configuration, bool validAlgorithm)
+        private JwtSecurityToken GenerateToken(string userId, IConfiguration configuration, bool validAlgorithm)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JWT:Secret"]));
             var expiresAt = DateTime.UtcNow.AddMinutes(20);
             var authClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, userId),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
             var algorithm = SecurityAlgorithms.HmacSha256;

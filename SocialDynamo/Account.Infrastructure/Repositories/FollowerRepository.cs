@@ -14,7 +14,7 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
-        public async Task<IEnumerable<Follower>> GetFollowersAsync(int userId)
+        public async Task<IEnumerable<Follower>> GetFollowersAsync(string userId)
         {
             var followers = await _accountDbContext.Followers
                 .Where(u => u.UserId == userId).ToListAsync();
@@ -22,7 +22,7 @@ namespace Account.API.Infrastructure.Repositories
             return followers;
         }
 
-        public async Task<IEnumerable<Follower>> GetUserFollowingAsync(int userId)
+        public async Task<IEnumerable<Follower>> GetUserFollowingAsync(string userId)
         {
             var following = await _accountDbContext.Followers
                 .Where(f => f.FollowerId == userId).ToListAsync();
@@ -30,7 +30,7 @@ namespace Account.API.Infrastructure.Repositories
             return following;
         }
 
-        public async Task<IActionResult> GetFollowerCountAsync(int userId)
+        public async Task<IActionResult> GetFollowerCountAsync(string userId)
         {
             int followerCount = await _accountDbContext.Followers
                 .Where(u => u.UserId == userId)
@@ -39,7 +39,7 @@ namespace Account.API.Infrastructure.Repositories
             return new ObjectResult(followerCount);
         }
 
-        public async Task AddFollower(int userId, Follower follower)
+        public async Task AddFollower(string userId, Follower follower)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 

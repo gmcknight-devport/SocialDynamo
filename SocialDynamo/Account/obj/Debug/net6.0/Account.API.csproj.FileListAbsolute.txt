@@ -176,3 +176,5 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\n
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\net6.0\Account.API.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\net6.0\Account.API.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\net6.0\ref\Account.API.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Common.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Common.pdb

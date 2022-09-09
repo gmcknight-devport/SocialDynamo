@@ -21,6 +21,7 @@ namespace Posts.Tests.Commands
             CreatePostCommand command = new()
             {
                 AuthorId = 20,
+                Hashtag = "#tag",
                 Caption = "Post caption",
                 MediaItemIds = new()
                 {
@@ -42,9 +43,10 @@ namespace Posts.Tests.Commands
 
                 mock.Mock<IPostRepository>()
                     .Verify(x => x.CreatePostAsync(It.Is<Post>(p => p.AuthorId == command.AuthorId &&
-                                                              p.Caption == command.Caption &&
-                                                              p.MediaItemIds == command.MediaItemIds)),
-                                                              Times.Exactly(1));
+                                                               p.Hashtag == command.Hashtag &&
+                                                               p.Caption == command.Caption &&
+                                                               p.MediaItemIds == command.MediaItemIds)),
+                                                               Times.Exactly(1));
             }
         }
     }

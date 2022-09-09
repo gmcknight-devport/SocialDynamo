@@ -9,5 +9,6 @@ namespace Posts.API.Queries
         Task<IEnumerable<Comment>> GetPostCommentsAsync(Guid postId);
         Task<IEnumerable<PostLike>> GetPostLikesAsync(Guid postId);
         Task<IEnumerable<CommentLike>> GetCommentLikesAsync(Guid commentId);
+        Task<IEnumerable<Post>> FuzzySearchHashtag(string hashtag);
     }
 }

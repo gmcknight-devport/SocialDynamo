@@ -5,9 +5,8 @@ namespace Account.API.Infrastructure.Repositories
     public interface IUserRepository
     {
         Task AddUserAsync(User user);
-        Task DeleteUserAsync(int userId);
-        Task<User> GetUserAsync(int userId);
-        Task<User> GetUserAsync(string emailAddress);
+        Task DeleteUserAsync(string userId);
+        Task<User> GetUserAsync(string userId);
         Task UpdateUserAsync(User user);
     }
 }

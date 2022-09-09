@@ -90,7 +90,56 @@ namespace Posts.Tests.Commands
                 mock.Mock<IPostRepository>()
                     .Verify(p => p.UpdatePostAsync(It.Is<Post>(p => p.PostId == command.PostId &&
                                                               p.AuthorId == originalPost.AuthorId &&
+                                                              p.Hashtag == originalPost.Hashtag &&
                                                               p.Caption == newPost.Caption &&
+                                                              p.MediaItemIds == originalPost.MediaItemIds)),
+                                                              Times.Exactly(1));
+            }
+        }
+
+        [Fact]
+        public async Task Handle_UpdatePost_HashtagOnly()
+        {
+            Post originalPost = new()
+            {
+                PostId = Guid.NewGuid(),
+                AuthorId = 11,
+                PostedAt = DateTime.UtcNow,
+                Likes = new List<PostLike>(),
+                Comments = new List<Comment>(),
+                MediaItemIds = new List<MediaItemId>(),
+                Caption = "Old caption :("
+            };
+
+            UpdatePostCommand command = new()
+            {
+                PostId = originalPost.PostId,
+                Hashtag = "#tag"
+            };
+
+            Post newPost = originalPost;
+            newPost.Hashtag = command.Hashtag;
+
+            CancellationToken token = new();
+
+            using (var mock = AutoMock.GetLoose())
+            {
+                mock.Mock<IPostRepository>()
+                       .Setup(p => p.GetPostAsync(command.PostId))
+                       .Returns(Task.FromResult(originalPost));
+
+                mock.Mock<IPostRepository>()
+                    .Setup(p => p.UpdatePostAsync(It.IsAny<Post>()))
+                    .Verifiable();
+
+                var testClass = mock.Create<UpdatePostCommandHandler>();
+                await testClass.Handle(command, token);
+
+                mock.Mock<IPostRepository>()
+                    .Verify(p => p.UpdatePostAsync(It.Is<Post>(p => p.PostId == command.PostId &&
+                                                              p.AuthorId == originalPost.AuthorId &&
+                                                              p.Hashtag == newPost.Hashtag &&
+                                                              p.Caption == originalPost.Caption &&
                                                               p.MediaItemIds == originalPost.MediaItemIds)),
                                                               Times.Exactly(1));
             }
@@ -144,6 +193,7 @@ namespace Posts.Tests.Commands
                 mock.Mock<IPostRepository>()
                     .Verify(p => p.UpdatePostAsync(It.Is<Post>(p => p.PostId == command.PostId &&
                                                               p.AuthorId == originalPost.AuthorId &&
+                                                              p.Hashtag == originalPost.Hashtag &&
                                                               p.Caption == originalPost.Caption &&
                                                               newPost.MediaItemIds.All(p.MediaItemIds.Contains))),
                                                               Times.Exactly(1));
@@ -171,6 +221,7 @@ namespace Posts.Tests.Commands
             UpdatePostCommand command = new()
             {
                 PostId = originalPost.PostId,
+                Hashtag = "#Tag",
                 Caption = "Nice new caption",
                 MediaItemIds = new List<MediaItemId>()
                 {
@@ -181,6 +232,7 @@ namespace Posts.Tests.Commands
             Post newPost = originalPost;
             newPost.MediaItemIds = command.MediaItemIds;
             newPost.Caption = command.Caption;
+            newPost.Hashtag = command.Hashtag;
 
             CancellationToken token = new();
 
@@ -200,6 +252,7 @@ namespace Posts.Tests.Commands
                 mock.Mock<IPostRepository>()
                     .Verify(p => p.UpdatePostAsync(It.Is<Post>(p => p.PostId == command.PostId &&
                                                               p.AuthorId == originalPost.AuthorId &&
+                                                              p. Hashtag == newPost.Hashtag &&
                                                               p.Caption == newPost.Caption &&
                                                               newPost.MediaItemIds.All(p.MediaItemIds.Contains))),
                                                               Times.Exactly(1));

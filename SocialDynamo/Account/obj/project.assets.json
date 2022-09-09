@@ -2556,6 +2556,7 @@
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
           "Account.Domain": "1.0.0",
+          "Common": "1.0.0",
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "6.0.8",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
@@ -2569,6 +2570,20 @@
         },
         "runtime": {
           "bin/placeholder/Account.Infrastructure.dll": {}
+        }
+      },
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Moq": "4.18.2",
+          "xunit": "2.4.2"
+        },
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
         }
       }
     }
@@ -8332,6 +8347,11 @@
       "type": "project",
       "path": "../Account.Infrastructure/Account.Infrastructure.csproj",
       "msbuildProject": "../Account.Infrastructure/Account.Infrastructure.csproj"
+    },
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
     }
   },
   "projectFileDependencyGroups": {

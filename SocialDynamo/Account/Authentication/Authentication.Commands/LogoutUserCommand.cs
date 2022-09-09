@@ -1,7 +1,10 @@
-﻿namespace Account.API.Commands
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Account.API.Commands
 {
     public class LogoutUserCommand
     {
-        public int UserId { get; set; }
+        [Required]
+        public string UserId { get; set; }
     }
 }

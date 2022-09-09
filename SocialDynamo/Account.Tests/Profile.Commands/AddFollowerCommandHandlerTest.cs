@@ -49,8 +49,8 @@ namespace Account.Tests.Profile.Commands
 
         private Follower GetSampleFollower()
         {
-            int followerId = 1892;
-            int userId = 12;
+            string followerId = "1892";
+            string userId = "12";
             Follower sampleFollower = new()
             {
                 UserId = userId,

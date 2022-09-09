@@ -41,6 +41,7 @@ namespace Account.API.Services
             var newUser = new User
             {
                 EmailAddress = command.EmailAddress,
+                UserId = command.UserId,
                 Password = command.Password,
                 Forename = command.Forename,
                 Surname = command.Surname,
@@ -142,13 +143,13 @@ namespace Account.API.Services
             });
         }
 
-        private JwtSecurityToken GenerateToken(int userId)
+        private JwtSecurityToken GenerateToken(string userId)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
             var expiresAt = DateTime.UtcNow.AddMinutes(20);
             var authClaims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, userId.ToString()),
+                new Claim(JwtRegisteredClaimNames.Sub, userId),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

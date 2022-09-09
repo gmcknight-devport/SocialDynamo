@@ -56,7 +56,7 @@ namespace Account.Tests.Profile.Commands
         {
             User sampleUser = new()
             {
-                UserId = 233,
+                UserId = "AnId233",
                 Password = "password",
                 Forename = "Phil",
                 Surname = "Philington"

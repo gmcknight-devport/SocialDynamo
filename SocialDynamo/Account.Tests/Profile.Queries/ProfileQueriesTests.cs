@@ -55,7 +55,7 @@ namespace Account.Tests.Profile.Queries
         [Fact]
         public async void GetUserFollowers_ReturnsProfileInfo()
         {
-            int userId = GetSampleUser().UserId;
+            string userId = GetSampleUser().UserId;
             IEnumerable<Follower> followers = GetSampleFollowers()
                                                 .Where(f => f.UserId == userId);
 
@@ -81,15 +81,15 @@ namespace Account.Tests.Profile.Queries
                 //Create instance of class and call method
                 var testClass = mock.Create<ProfileQueries>();
                                 
-                List<FollowDataVM> expected = new()
+                List<UserDataVM> expected = new()
                 {
-                    new FollowDataVM
+                    new UserDataVM
                     {
                         UserId = userFollowers.ElementAt(0).UserId,
                         Forename = userFollowers.ElementAt(0).Forename,
                         Surname = userFollowers.ElementAt(0).Surname
                     },
-                    new FollowDataVM
+                    new UserDataVM
                     {
                         UserId = userFollowers.ElementAt(1).UserId,
                         Forename = userFollowers.ElementAt(1).Forename,
@@ -105,7 +105,7 @@ namespace Account.Tests.Profile.Queries
         [Fact]
         public void GetUserFollowers_ThrowsException()
         {
-            int userId = GetSampleUser().UserId;
+            string userId = GetSampleUser().UserId;
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -124,7 +124,7 @@ namespace Account.Tests.Profile.Queries
         [Fact]
         public async Task GetUserFollowing_ReturnsProfileInfoAsync()
         {
-            int userId = GetSampleUser().UserId;
+            string userId = GetSampleUser().UserId;
             IEnumerable<Follower> following = GetSampleFollowers()
                                                 .Where(f => f.FollowerId == userId);
 
@@ -154,21 +154,21 @@ namespace Account.Tests.Profile.Queries
                 //Create instance of class and call method
                 var testClass = mock.Create<ProfileQueries>();
 
-                List<FollowDataVM> expected = new()
+                List<UserDataVM> expected = new()
                 {
-                    new FollowDataVM
+                    new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(0).UserId,
                         Forename = userFollowing.ElementAt(0).Forename,
                         Surname = userFollowing.ElementAt(0).Surname
                     },
-                    new FollowDataVM
+                    new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(1).UserId,
                         Forename = userFollowing.ElementAt(1).Forename,
                         Surname = userFollowing.ElementAt(1).Surname
                     },
-                    new FollowDataVM
+                    new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(2).UserId,
                         Forename = userFollowing.ElementAt(2).Forename,
@@ -184,7 +184,7 @@ namespace Account.Tests.Profile.Queries
         [Fact]
         public void GetUserFollowing_ThrowsException()
         {
-            int userId = GetSampleUser().UserId;
+            string userId = GetSampleUser().UserId;
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -204,7 +204,7 @@ namespace Account.Tests.Profile.Queries
         {
             User sampleUser = new()
             {
-                UserId = 1,
+                UserId = "1",
                 Password = "password",
                 Forename = "Phil",
                 Surname = "Philington",
@@ -220,69 +220,69 @@ namespace Account.Tests.Profile.Queries
             {
                 new Follower
                 {
-                    UserId = 1,
-                    FollowerId = 10
+                    UserId = "1",
+                    FollowerId = "10"
                 },
                 new Follower
                 {
-                    UserId = 1,
-                    FollowerId = 11
+                    UserId = "1",
+                    FollowerId = "11"
                 },
                 new Follower
                 {
-                    UserId = 10,
-                    FollowerId = 1
+                    UserId = "10",
+                    FollowerId = "1"
                 },
                 new Follower
                 {
-                    UserId = 14,
-                    FollowerId = 1
+                    UserId = "14",
+                    FollowerId = "1"
                 },
                 new Follower
                 {
-                    UserId = 20,
-                    FollowerId = 1
+                    UserId = "20",
+                    FollowerId = "1"
                 }
             };            
 
             return followers;
         }
 
-        private User GetUser(int followerId)
+        private User GetUser(string followerId)
         {
             List<User> followers = new()
             {
                 new User
                 {
-                    UserId = 1,
+                    UserId = "1",
                     Password = "password",
                     Forename = "Bob",
                     Surname = "Someone"
                 },
                 new User
                 {
-                    UserId = 10,
+                    UserId = "10",
                     Password = "password",
                     Forename = "Other",
                     Surname = "Person"
                 },
                 new User
                 {
-                    UserId = 11,
+                    UserId = "11",
                     Password = "password",
                     Forename = "Amir",
                     Surname = "Khan"
                 },
                 new User
                 {
-                    UserId = 14,
+                    UserId = "14",
                     Password = "password",
                     Forename = "Ariel",
                     Surname = "Mermaidus"
                 },
                 new User
                 {
-                    UserId = 20,
+                    UserId = "20",
                     Password = "password",
                     Forename = "Another",
                     Surname = "Name"
