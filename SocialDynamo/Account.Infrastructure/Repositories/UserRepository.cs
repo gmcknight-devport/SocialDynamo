@@ -69,7 +69,7 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<IEnumerable<object>> FuzzySearch(string fuzzyUserId)
         {
-            var results = _accountDbContext.Users.Where(d => EF.Functions.FreeText(d.UserId, fuzzyUserId));
+            var results = _accountDbContext.Users.Where(d => EF.Functions.FreeText(d.UserId, fuzzyUserId)).Take(5);
             return results;
         }
     }

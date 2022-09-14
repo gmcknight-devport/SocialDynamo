@@ -18,14 +18,14 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[user]/{userId}")]
+        [Route("[user]/{userId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUserPosts(int userId)
+        public async Task<IActionResult> GetUserPosts(int userId, int page)
         {
             try
             {
-                var userPosts = await _postService.GetUserPostsAsync(userId);
+                var userPosts = await _postService.GetUserPostsAsync(userId, page);
                 return new OkObjectResult(userPosts);
             }
             catch (Exception ex)
@@ -36,14 +36,14 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[users]")]
+        [Route("[users]/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUsersPosts(List<int> userId)
+        public async Task<IActionResult> GetUsersPosts(List<int> userId, int page)
         {
             try
             {
-                var userPosts = await _postService.GetUsersPostsAsync(userId);
+                var userPosts = await _postService.GetUsersPostsAsync(userId, page);
                 return new OkObjectResult(userPosts);
             }
             catch (Exception ex)
@@ -54,14 +54,14 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[comments]/{postId}")]
+        [Route("[comments]/{postId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetPostComments(Guid postId)
+        public async Task<IActionResult> GetPostComments(Guid postId, int page)
         {
             try
             {
-                var userPosts = await _postService.GetPostCommentsAsync(postId);
+                var userPosts = await _postService.GetPostCommentsAsync(postId, page);
                 return new OkObjectResult(userPosts);
             }
             catch (Exception ex)

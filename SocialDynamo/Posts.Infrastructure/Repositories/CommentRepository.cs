@@ -51,13 +51,16 @@ namespace Posts.Infrastructure.Repositories
             return likes;
         }
 
-        public async Task<IEnumerable<Comment>> GetPostCommentsAsync(Guid postId)
+        public async Task<IEnumerable<Comment>> GetPostCommentsAsync(Guid postId, int page)
         {
             var post = await _postsDbContext.Posts.FindAsync(postId);
+            var resultsPerPage = 10;
 
             List<Comment> comments = await _postsDbContext.Comments
                                                           .Where(c => c.Post == post)
                                                           .OrderByDescending(c => c.PostedAt)
+                                                          .Skip((page - 1) * resultsPerPage)
+                                                          .Take(resultsPerPage)
                                                           .ToListAsync();
 
             return comments;

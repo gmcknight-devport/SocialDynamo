@@ -32,12 +32,12 @@ namespace Posts.Tests.Queries
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<IPostRepository>()
-                    .Setup(x => x.GetUserPostsAsync(userId))
+                    .Setup(x => x.GetUserPostsAsync(userId, 1))
                     .Returns(Task.FromResult(expected.AsEnumerable()));
 
                 var testClass = mock.Create<PostsQueries>();
 
-                var actual = await testClass.GetUserPostsAsync(userId);
+                var actual = await testClass.GetUserPostsAsync(userId, 1);
 
                 Assert.Equivalent(expected, actual);
             }
@@ -68,12 +68,12 @@ namespace Posts.Tests.Queries
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<IPostRepository>()
-                    .Setup(x => x.GetUsersPostsAsync(userIds))
+                    .Setup(x => x.GetUsersPostsAsync(userIds, 1))
                     .Returns(Task.FromResult(expected.AsEnumerable()));
 
                 var testClass = mock.Create<PostsQueries>();
 
-                var actual = await testClass.GetUsersPostsAsync(userIds);
+                var actual = await testClass.GetUsersPostsAsync(userIds, 1);
 
                 Assert.Equivalent(expected, actual);
             }
@@ -89,12 +89,12 @@ namespace Posts.Tests.Queries
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<ICommentRepository>()
-                    .Setup(x => x.GetPostCommentsAsync(post.PostId))
+                    .Setup(x => x.GetPostCommentsAsync(post.PostId, 1))
                     .Returns(Task.FromResult(expected.AsEnumerable()));
                                 
                 var testClass = mock.Create<PostsQueries>();
 
-                var actual = await testClass.GetPostCommentsAsync(post.PostId);
+                var actual = await testClass.GetPostCommentsAsync(post.PostId, 1);
 
                 Assert.Equivalent(expected, actual);
             }        

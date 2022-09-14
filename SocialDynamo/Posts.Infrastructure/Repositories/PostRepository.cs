@@ -59,11 +59,14 @@ namespace Posts.Infrastructure.Repositories
             return postLikes;
         }
 
-        public async Task<IEnumerable<Post>> GetUserPostsAsync(int userId)
+        public async Task<IEnumerable<Post>> GetUserPostsAsync(int userId, int page)
         {
+            int resultsPerPage = 12;
             List<Post> posts = await _postsDbContext.Posts
                                     .Where(p => p.AuthorId == userId)
                                     .OrderByDescending(p => p.PostedAt)
+                                    .Skip((page - 1) * resultsPerPage)
+                                    .Take(resultsPerPage)
                                     .ToListAsync();
 
             if(posts == null)
@@ -74,11 +77,14 @@ namespace Posts.Infrastructure.Repositories
             return posts;
         }
 
-        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<int> userIds)
+        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<int> userIds, int page)
         {
+            int resultsPerPage = 10;
             List<Post> posts = await _postsDbContext.Posts
                                                     .Where(p => userIds.Contains(p.AuthorId))
                                                     .OrderByDescending(p => p.PostedAt)
+                                                    .Skip((page - 1) * resultsPerPage)
+                                                    .Take(resultsPerPage)
                                                     .ToListAsync();
 
             if (posts == null)
@@ -121,7 +127,7 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task<IEnumerable<object>> FuzzySearch(string fuzzyHashtag)
         {
-            var results = _postsDbContext.Posts.Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag));
+            var results = _postsDbContext.Posts.Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag)).Take(5);
             return results;
         }
     }
