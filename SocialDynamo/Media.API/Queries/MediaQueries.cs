@@ -1,0 +1,32 @@
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Media.API.Exceptions;
+
+namespace Media.API.Queries
+{
+    public class MediaQueries : IMediaQueries
+    {
+        private readonly IConfiguration _configuration;
+
+        public MediaQueries(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
+        public async Task<BlobDownloadResult> GetBlob(string userId, string mediaItemId)
+        {
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionString"]);
+            var container = blobServiceClient.GetBlobContainerClient(userId);
+
+            if (!container.Exists())
+                throw new NoUserContainerException("No user container to upload blob");
+
+            var blob = await container.GetBlobClient(mediaItemId).DownloadContentAsync();
+            
+            if(blob == null)
+                throw new NullReferenceException(nameof(blob));
+
+            return blob;
+        }
+    }
+}

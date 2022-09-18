@@ -59,7 +59,7 @@ namespace Posts.Infrastructure.Repositories
             return postLikes;
         }
 
-        public async Task<IEnumerable<Post>> GetUserPostsAsync(int userId, int page)
+        public async Task<IEnumerable<Post>> GetUserPostsAsync(string userId, int page)
         {
             int resultsPerPage = 12;
             List<Post> posts = await _postsDbContext.Posts
@@ -77,7 +77,7 @@ namespace Posts.Infrastructure.Repositories
             return posts;
         }
 
-        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<int> userIds, int page)
+        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<string> userIds, int page)
         {
             int resultsPerPage = 10;
             List<Post> posts = await _postsDbContext.Posts
@@ -95,7 +95,7 @@ namespace Posts.Infrastructure.Repositories
             return posts;
         }
 
-        public async Task LikePostAsync(Guid postId, int userId)
+        public async Task LikePostAsync(Guid postId, string userId)
         {
             var post = await _postsDbContext.Posts.FindAsync(postId);
            

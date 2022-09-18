@@ -18,7 +18,7 @@ namespace Posts.Tests.Commands
         {
             LikeCommentCommand command = new()
             {
-                LikeUserId = 422,
+                LikeUserId = "422",
                 CommentId = Guid.NewGuid()
             };
             CancellationToken token = new CancellationToken();

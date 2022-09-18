@@ -1,0 +1,72 @@
+﻿using Media.API.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Net;
+
+namespace Media.API.Controllers
+{
+    [ApiController]
+    [Route("[media]")]
+    public class MediaController : ControllerBase
+    {
+        private readonly Mediator _mediator;
+        private readonly ILogger<MediaController> _logger;
+
+        public MediaController(Mediator mediator, ILogger<MediaController> logger)
+        {
+            _mediator = mediator;
+            _logger = logger;
+        }
+
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Put(AddUserBlobContainerCommand command)
+        {
+            try
+            {
+                bool executed = await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Put(DeleteBlobCommand command)
+        {
+            try
+            {
+                bool executed = await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Put(UploadBlobCommand command)
+        {
+            try
+            {
+                bool executed = await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+}

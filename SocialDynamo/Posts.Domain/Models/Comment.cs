@@ -17,7 +17,7 @@ namespace Posts.Domain.Models
 
         [Required]
         [MaxLength(20)]
-        public int AuthorId { get; init; }
+        public string AuthorId { get; init; }
 
         [Required]
         public DateTime PostedAt { get; init; }

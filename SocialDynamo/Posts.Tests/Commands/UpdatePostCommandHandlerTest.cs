@@ -25,7 +25,7 @@ namespace Posts.Tests.Commands
             Post post = new()
             {
                 PostId = Guid.NewGuid(),
-                AuthorId = 11,
+                AuthorId = "11",
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
@@ -55,7 +55,7 @@ namespace Posts.Tests.Commands
             Post originalPost = new()
             {
                 PostId = Guid.NewGuid(),
-                AuthorId = 11,
+                AuthorId = "11",
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
@@ -103,7 +103,7 @@ namespace Posts.Tests.Commands
             Post originalPost = new()
             {
                 PostId = Guid.NewGuid(),
-                AuthorId = 11,
+                AuthorId = "11",
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
@@ -151,14 +151,14 @@ namespace Posts.Tests.Commands
             Post originalPost = new()
             {
                 PostId = Guid.NewGuid(),
-                AuthorId = 11,
+                AuthorId = "11",
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
                 MediaItemIds = new List<MediaItemId>()
                 {                    
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11),
+                    MediaItemId.Create("11"),
+                    MediaItemId.Create("11"),
                 },
                 Caption = "Old caption :("
             };
@@ -168,8 +168,8 @@ namespace Posts.Tests.Commands
                 PostId = originalPost.PostId,
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(998237289),
-                    MediaItemId.Create(123456789),
+                    MediaItemId.Create("998237289"),
+                    MediaItemId.Create("123456789"),
                 }
             };
             Post newPost = originalPost;
@@ -206,14 +206,14 @@ namespace Posts.Tests.Commands
             Post originalPost = new()
             {
                 PostId = Guid.NewGuid(),
-                AuthorId = 11,
+                AuthorId = "11",
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11),
+                    MediaItemId.Create("11"),
+                    MediaItemId.Create("11"),
                 },
                 Caption = "Old caption :("
             };
@@ -225,8 +225,8 @@ namespace Posts.Tests.Commands
                 Caption = "Nice new caption",
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(998237289),
-                    MediaItemId.Create(123456789),
+                    MediaItemId.Create("998237289"),
+                    MediaItemId.Create("123456789"),
                 }
             };
             Post newPost = originalPost;

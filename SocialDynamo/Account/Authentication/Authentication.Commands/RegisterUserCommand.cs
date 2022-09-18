@@ -7,6 +7,7 @@ namespace Account.API.Commands
         [Required]
         public string EmailAddress { get; set; }
         [Required]
+        [RegularExpression("(?i)^[a-zA-Z0-9]*$")]
         public string UserId { get; set; }
         [Required]
         public string Password { get; set; }

@@ -48,7 +48,7 @@ namespace Posts.Tests.Commands
         {
             Post post = new()
             {
-                AuthorId = 20,
+                AuthorId = "20",
                 Caption = "Captione",
                 PostedAt = DateTime.UtcNow,
                 MediaItemIds = new List<MediaItemId>(),

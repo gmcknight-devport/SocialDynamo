@@ -7,7 +7,7 @@ namespace Posts.API.Commands
     public class CreatePostCommand : IRequest<bool>
     {
         [Required]
-        public int AuthorId{ get; set; }
+        public string AuthorId{ get; set; }
 
         public string Hashtag { get; set; }
 

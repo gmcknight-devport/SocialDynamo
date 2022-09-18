@@ -18,7 +18,7 @@ namespace Posts.Domain.Models
 
         [Required]
         [MaxLength(20)]
-        public int AuthorId { get; init; }
+        public string AuthorId { get; init; }
 
         [RegularExpression("/ (^|)#(?![0-9]+\b)([a-zA-Z0-9]{1,30})(\b|\r)/g")]
         [MaxLength(120)]

@@ -66,7 +66,7 @@ namespace Posts.Infrastructure.Repositories
             return comments;
         }
 
-        public async Task LikeCommentAsync(Guid commentId, int userId)
+        public async Task LikeCommentAsync(Guid commentId, string userId)
         {
             var comment = await _postsDbContext.Comments.FindAsync(commentId);
 

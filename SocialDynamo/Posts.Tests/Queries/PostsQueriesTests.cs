@@ -3,11 +3,6 @@ using Posts.API.Queries;
 using Posts.Domain.Models;
 using Posts.Domain.ValueObjects;
 using Posts.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace Posts.Tests.Queries
@@ -18,7 +13,7 @@ namespace Posts.Tests.Queries
         public async Task GetUserPosts_ReturnsSpecifiedUserPosts()
         {
             List<Post> posts = GetSampleData().ToList();
-            int userId = posts.ElementAt(0).AuthorId;
+            string userId = posts.ElementAt(0).AuthorId;
 
             List<Post> expected = new();
             foreach (Post post in posts)
@@ -47,7 +42,7 @@ namespace Posts.Tests.Queries
         public async Task GetUsersPosts_ReturnsMultipleSpecifiedUsersPosts()
         {
             List<Post> posts = GetSampleData().ToList();
-            List<int> userIds = new()
+            List<string> userIds = new()
             {
                 posts.ElementAt(0).AuthorId,
                 posts.ElementAt(2).AuthorId
@@ -56,7 +51,7 @@ namespace Posts.Tests.Queries
             List<Post> expected = new();
             foreach (Post post in posts)
             {
-                foreach (int id in userIds)
+                foreach (string id in userIds)
                 {
                     if (post.AuthorId == id)
                     {
@@ -147,13 +142,13 @@ namespace Posts.Tests.Queries
 
             Post post1 = new()
             {
-                AuthorId = 11,
+                AuthorId = "11",
                 Caption = "Caption test val",
                 PostedAt = DateTime.Now.AddDays(-1),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("11"),
+                    MediaItemId.Create("11")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>(),
@@ -161,13 +156,13 @@ namespace Posts.Tests.Queries
 
             Post post2 = new()
             {
-                AuthorId = 11,
+                AuthorId = "11",
                 Caption = "Another lovely caption",
                 PostedAt = DateTime.Now.AddDays(-2),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("11"),
+                    MediaItemId.Create("11")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>()
@@ -175,13 +170,13 @@ namespace Posts.Tests.Queries
 
             Post post3 = new()
             {
-                AuthorId = 11,
+                AuthorId = "11",
                 Caption = "A caption I can't believe",
                 PostedAt = DateTime.Now.AddDays(-3),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("11"),
+                    MediaItemId.Create("11")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>()
@@ -189,13 +184,13 @@ namespace Posts.Tests.Queries
 
             Post post4 = new()
             {
-                AuthorId = 22,
+                AuthorId = "22",
                 Caption = "A different user with a post",
                 PostedAt = DateTime.Now.AddDays(-1),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("22"),
+                    MediaItemId.Create("22")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>()
@@ -203,13 +198,13 @@ namespace Posts.Tests.Queries
 
             Post post5 = new()
             {
-                AuthorId = 22,
+                AuthorId = "22",
                 Caption = "A different user with a second post",
                 PostedAt = DateTime.Now,
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("22"),
+                    MediaItemId.Create("22")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>()
@@ -217,13 +212,13 @@ namespace Posts.Tests.Queries
 
             Post post6 = new()
             {
-                AuthorId = 33,
+                AuthorId = "33",
                 Caption = "A third user?!?",
                 PostedAt = DateTime.Now.AddDays(-1),
                 MediaItemIds = new List<MediaItemId>()
                 {
-                    MediaItemId.Create(11),
-                    MediaItemId.Create(11)
+                    MediaItemId.Create("33"),
+                    MediaItemId.Create("33")
                 },
                 Likes = new List<PostLike>(),
                 Comments = new List<Comment>()
@@ -249,37 +244,37 @@ namespace Posts.Tests.Queries
 
             PostLike postLike1 = new()
             {
-                LikeUserId = 11,
+                LikeUserId = "11",
                 Post = post2
             };
 
             PostLike postLike2 = new()
             {
-                LikeUserId = 11,
+                LikeUserId = "11",
                 Post = post1
             };
 
             PostLike postLike3 = new()
             {
-                LikeUserId = 22,
+                LikeUserId = "22",
                 Post = post2
             };
 
             CommentLike commentLike1 = new()
             {
-                LikeUserId = 11,
+                LikeUserId = "11",
                 Comment = comment1
             };
 
             CommentLike commentLike2 = new()
             {
-                LikeUserId = 22,
+                LikeUserId = "22",
                 Comment = comment1
             };
 
             CommentLike commentLike3 = new()
             {
-                LikeUserId = 11,
+                LikeUserId = "11",
                 Comment = comment2
             };
 

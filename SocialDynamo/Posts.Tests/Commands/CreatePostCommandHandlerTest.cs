@@ -20,14 +20,14 @@ namespace Posts.Tests.Commands
         {
             CreatePostCommand command = new()
             {
-                AuthorId = 20,
+                AuthorId = "20",
                 Hashtag = "#tag",
                 Caption = "Post caption",
                 MediaItemIds = new()
                 {
-                    MediaItemId.Create(20),
-                    MediaItemId.Create(20),
-                    MediaItemId.Create(20)
+                    MediaItemId.Create("20"),
+                    MediaItemId.Create("20"),
+                    MediaItemId.Create("20")
                 }
             };
             CancellationToken token = new CancellationToken();

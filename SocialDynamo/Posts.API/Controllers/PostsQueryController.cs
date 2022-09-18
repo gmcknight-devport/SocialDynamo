@@ -21,7 +21,7 @@ namespace Posts.API.Controllers
         [Route("[user]/{userId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUserPosts(int userId, int page)
+        public async Task<IActionResult> GetUserPosts(string userId, int page)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace Posts.API.Controllers
         [Route("[users]/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUsersPosts(List<int> userId, int page)
+        public async Task<IActionResult> GetUsersPosts(List<string> userId, int page)
         {
             try
             {

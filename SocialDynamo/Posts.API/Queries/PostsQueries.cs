@@ -44,13 +44,13 @@ namespace Posts.API.Queries
             return postLikes;
         }
 
-        public async Task<IEnumerable<Post>> GetUserPostsAsync(int userId, int page)
+        public async Task<IEnumerable<Post>> GetUserPostsAsync(string userId, int page)
         {
             var userPosts = await _postRepository.GetUserPostsAsync(userId, page);
             return userPosts;
         }
 
-        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<int> userIds, int page)
+        public async Task<IEnumerable<Post>> GetUsersPostsAsync(List<string> userIds, int page)
         {
             var usersPosts = await _postRepository.GetUsersPostsAsync(userIds, page);
             return usersPosts;

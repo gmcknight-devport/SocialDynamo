@@ -8,6 +8,6 @@ namespace Posts.API.Commands
         [Required]
         public Guid PostId { get; set; }
         [Required]
-        public int LikeUserId { get; set; }
+        public string LikeUserId { get; set; }
     }
 }

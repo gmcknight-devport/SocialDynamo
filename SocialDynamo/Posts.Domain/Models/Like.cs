@@ -9,6 +9,6 @@ namespace Posts.Domain.Models
 {
     public abstract record Like
     {
-        public int LikeUserId { get; init; }
+        public string LikeUserId { get; init; }
     }
 }
