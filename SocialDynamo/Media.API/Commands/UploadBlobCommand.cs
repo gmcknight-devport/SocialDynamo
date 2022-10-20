@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Media.API.Extensions;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
 namespace Media.API.Commands
@@ -10,6 +12,7 @@ namespace Media.API.Commands
         [Required]
         public string MediaItemId { get; set; }
         [Required]
+        [AllowedExtensions(new string[] { ".jpg", ".jpeg", ".png", ".mp4", ".mov" })]        
         public IFormFile File { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Media.API.Commands
 
         public async Task<bool> Handle(DeleteBlobCommand command, CancellationToken cancellationToken)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionString"]);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorage"]);
             var container = blobServiceClient.GetBlobContainerClient(command.UserId);
             
 

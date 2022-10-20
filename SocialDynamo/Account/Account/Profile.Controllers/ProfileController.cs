@@ -6,7 +6,7 @@ using System.Net;
 namespace Account.API.Controllers
 {
     [ApiController]
-    [Route("[account]")]
+    [Route("account")]
     public class ProfileController : ControllerBase
     {
         private readonly Mediator _mediator;
@@ -18,7 +18,7 @@ namespace Account.API.Controllers
             _logger = logger;
         }
 
-        [HttpPut]
+        [HttpPut("addfollower")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(AddFollowerCommand command)
@@ -35,7 +35,7 @@ namespace Account.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("changepassword")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(ChangePasswordCommand command)
@@ -52,7 +52,7 @@ namespace Account.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("updateprofiledescription")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(UpdateProfileDescriptionCommand command)
@@ -69,7 +69,7 @@ namespace Account.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("updateuserdetails")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(UpdateUserDetailsCommand command)

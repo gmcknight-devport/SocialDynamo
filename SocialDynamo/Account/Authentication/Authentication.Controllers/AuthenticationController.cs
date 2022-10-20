@@ -9,10 +9,10 @@ namespace Account.API.Authentication.Authentication.Controllers
     [Route("authentication")]
     public class AuthenticationController : Controller
     {
-        private readonly AuthenticationService _authenticationService;
+        private readonly IAuthenticationService _authenticationService;
         private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(AuthenticationService authenticationService, ILogger<AuthenticationController> logger)
+        public AuthenticationController(IAuthenticationService authenticationService, ILogger<AuthenticationController> logger)
         {
             _authenticationService = authenticationService;
             _logger = logger;

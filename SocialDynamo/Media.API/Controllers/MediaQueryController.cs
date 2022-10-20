@@ -5,7 +5,7 @@ using System.Net;
 namespace Media.API.Controllers
 {
     [ApiController]
-    [Route("[posts]")]
+    [Route("media")]
     public class MediaQueryController : ControllerBase
     {
         private readonly IMediaQueries _mediaQueries;
@@ -18,7 +18,7 @@ namespace Media.API.Controllers
         }
 
         [HttpGet]
-        [Route("[user]/{userId}/{mediaItemId}")]
+        [Route("user/{userId}/{mediaItemId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserPosts(string userId, string mediaItemId)

@@ -54,6 +54,10 @@ namespace Account.Tests.Authentication.Services
                     .Setup(x => x.AddUserAsync(It.IsAny<User>()))
                     .Verifiable();
 
+                mock.Mock<IUserRepository>()
+                    .Setup(x => x.IsUserIdUnique(command.UserId))
+                    .Returns(Task.FromResult(true));
+
                 //Create instance of class and call method
                 var testClass = mock.Create<AuthenticationService>();
                 await testClass.HandleCommandAsync(command);
@@ -122,7 +126,7 @@ namespace Account.Tests.Authentication.Services
             authMock.Setup(x => x.AuthenticateUser(user.UserId, user.Password))
                     .Returns(Task.FromResult(true));
 
-            var testClass = new AuthenticationService(null, configuration, null, authMock.Object, mock.Object, null);
+            var testClass = new AuthenticationService(null, configuration, authMock.Object, mock.Object, null);
 
             var expected = new OkObjectResult(new AuthResultVM());
 
@@ -225,7 +229,7 @@ namespace Account.Tests.Authentication.Services
                             (new Tuple<string, DateTime>
                             (user.RefreshToken, user.RefreshExpires)) as IActionResult));
 
-            var testClass = new AuthenticationService(null, configuration, tokenValidationParameters, authMock.Object, null, null);
+            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, null);
 
             OkObjectResult result = (OkObjectResult)await testClass.HandleCommandAsync(command);
             AuthResultVM? actual = result.Value as AuthResultVM;
@@ -284,7 +288,7 @@ namespace Account.Tests.Authentication.Services
                             new OkObjectResult(new Tuple<string, DateTime>(user.RefreshToken, user.RefreshExpires)) 
                             as IActionResult));
             
-            var testClass = new AuthenticationService(null, configuration, tokenValidationParameters, authMock.Object, null, null);
+            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, null);
 
             var expected = new BadRequestObjectResult("Invalid refresh token");
 
@@ -314,7 +318,7 @@ namespace Account.Tests.Authentication.Services
                 IssuerSigningKey = securityKey
             };
 
-            var testClass = new AuthenticationService(null, configuration, tokenValidationParameters, null, null, null);
+            var testClass = new AuthenticationService(null, configuration, null, null, null);
 
             await Assert.ThrowsAsync<SecurityTokenException>(() => testClass.HandleCommandAsync(command));
         }

@@ -18,20 +18,17 @@ namespace Account.API.Services
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly TokenValidationParameters _tokenValidationParameters;
         private readonly IAuthenticationRepository _authenticationRepo;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<AuthenticationService> _logger;
 
         public AuthenticationService(UserManager<User> userManager, IConfiguration configuration,
-                                    TokenValidationParameters tokenValidationParameters,
                                     IAuthenticationRepository authenticationRepo,
                                     IUserRepository userRepository,
                                     ILogger<AuthenticationService> logger)
         {
             _userManager = userManager;
             _configuration = configuration;
-            _tokenValidationParameters = tokenValidationParameters;
             _authenticationRepo = authenticationRepo;
             _userRepository = userRepository;
             _logger = logger;
@@ -46,7 +43,7 @@ namespace Account.API.Services
             {
                 EmailAddress = command.EmailAddress,
                 UserId = command.UserId,
-                Password = command.Password,
+                Password = HashPassword(command.Password),
                 Forename = command.Forename,
                 Surname = command.Surname,
                 Followers = new List<Follower>()
@@ -67,7 +64,7 @@ namespace Account.API.Services
 
             if (user != null)
             {
-                if (await _authenticationRepo.AuthenticateUser(user.UserId, command.Password))
+                if (await _authenticationRepo.AuthenticateUser(user.UserId, HashPassword(command.Password)))
                 //if(await _userManager.CheckPasswordAsync(user, command.Password))
                 {                    
                     //Generate tokens
@@ -147,6 +144,30 @@ namespace Account.API.Services
             });
         }
 
+        private static string HashPassword(string password)
+        {
+            using var sha = SHA256.Create();
+            var asBytes = Encoding.Default.GetBytes(password);
+            var hashed = sha.ComputeHash(asBytes);
+
+            return Convert.ToBase64String(hashed);
+        }
+
+        private TokenValidationParameters GetTokenValidationParameters()
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+            TokenValidationParameters tokenValidationParameters = new()
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = _configuration["JWT:Issuer"],
+                ValidAudience = _configuration["JWT:Audience"],
+                IssuerSigningKey = securityKey
+            };
+
+            return tokenValidationParameters;
+        }
         private JwtSecurityToken GenerateToken(string userId)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
@@ -179,6 +200,7 @@ namespace Account.API.Services
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+            var _tokenValidationParameters = GetTokenValidationParameters();
             ClaimsPrincipal principal;
             
             principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out SecurityToken securityToken);

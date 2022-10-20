@@ -6,7 +6,7 @@ using System.Net;
 namespace Posts.API.Controllers
 {
     [ApiController]
-    [Route("[posts]")]
+    [Route("posts")]
     public class PostsController : ControllerBase
     {
         private readonly Mediator _mediator;
@@ -18,7 +18,7 @@ namespace Posts.API.Controllers
             _logger = logger;
         }
 
-        [HttpPut]
+        [HttpPut("comment")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(AddCommentCommand command)
@@ -35,7 +35,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("post")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(CreatePostCommand command)
@@ -52,7 +52,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("deletecomment")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(DeleteCommentCommand command)
@@ -69,7 +69,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("deletepost")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(DeletePostCommand command)
@@ -86,7 +86,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("likecomment")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(LikeCommentCommand command)
@@ -103,7 +103,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("likepost")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(LikePostCommand command)
@@ -120,7 +120,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpPut("updatepost")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(UpdatePostCommand command)

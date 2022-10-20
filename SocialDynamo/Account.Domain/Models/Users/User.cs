@@ -16,7 +16,7 @@ namespace Account.Models.Users
         public string EmailAddress { get; init; }
 
         [Required]
-        [MaxLength(24)]
+        [MaxLength(64)]
         public string Password { get; set; }
 
         [Required]

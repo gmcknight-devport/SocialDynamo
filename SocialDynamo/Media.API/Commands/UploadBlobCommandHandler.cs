@@ -15,7 +15,7 @@ namespace Media.API.Commands
 
         public async Task<bool> Handle(UploadBlobCommand command, CancellationToken cancellationToken)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionString"]);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorage"]);
             var container = blobServiceClient.GetBlobContainerClient(command.UserId);
 
             if (!container.Exists())
@@ -24,10 +24,7 @@ namespace Media.API.Commands
             //Upload blob
             BlobClient blob = container.GetBlobClient(command.MediaItemId);
             await using (Stream stream = command.File.OpenReadStream())
-            {
-                //Scan for viruses
-                FileScanner.FileScanner.Run(stream);
-
+            {                
                 //Upload
                 await blob.UploadAsync(stream);
             }

@@ -5,7 +5,7 @@ using System.Net;
 namespace Account.API.Account.Profile.Controllers
 {
     [ApiController]
-    [Route("[account]")]
+    [Route("account")]
     public class ProfileQueryController : Controller
     {
 
@@ -19,7 +19,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Profile]/{userId}")]
+        [Route("Profile/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetProfileInformation(string userId)
@@ -37,7 +37,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Followers]/{userId}")]
+        [Route("Followers/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserFollowers(string userId)
@@ -55,7 +55,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("[Following]/{userId}")]
+        [Route("Following/{userId}")]
         [ProducesResponseType(typeof(IEnumerable<OkObjectResult>), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IEnumerable<IActionResult>> GetUserFollowing(string userId)

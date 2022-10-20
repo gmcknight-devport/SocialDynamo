@@ -5,7 +5,7 @@ using System.Net;
 namespace Posts.API.Controllers
 {
     [ApiController]
-    [Route("[posts]")]
+    [Route("posts")]
     public class PostsQueryController : ControllerBase
     {
         private readonly IPostsQueries _postService;
@@ -18,7 +18,7 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[user]/{userId}/{page}")]
+        [Route("user/{userId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserPosts(string userId, int page)
@@ -36,7 +36,7 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[users]/{page}")]
+        [Route("users/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUsersPosts(List<string> userId, int page)
@@ -54,7 +54,7 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[comments]/{postId}/{page}")]
+        [Route("comments/{postId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetPostComments(Guid postId, int page)
@@ -72,7 +72,7 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[postlikes]/{postId}")]
+        [Route("postlikes/{postId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetPostLikes(Guid postId)
@@ -90,7 +90,7 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("[commentlikes]/{commentId}")]
+        [Route("commentlikes/{commentId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetCommentLikes(Guid commentId)

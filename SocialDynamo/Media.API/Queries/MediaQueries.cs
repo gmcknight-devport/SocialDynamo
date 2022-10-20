@@ -15,11 +15,11 @@ namespace Media.API.Queries
 
         public async Task<BlobDownloadResult> GetBlob(string userId, string mediaItemId)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionString"]);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage:ConnectionString"]);
             var container = blobServiceClient.GetBlobContainerClient(userId);
 
             if (!container.Exists())
-                throw new NoUserContainerException("No user container to upload blob");
+                throw new NoUserContainerException("No user container found");
 
             var blob = await container.GetBlobClient(mediaItemId).DownloadContentAsync();
             

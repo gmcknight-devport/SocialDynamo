@@ -87,12 +87,6 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Authentication\obj\
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Authentication\obj\Debug\net6.0\Account.API.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Authentication\obj\Debug\net6.0\Account.API.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Authentication\obj\Debug\net6.0\ref\Account.API.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Domain.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Domain.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Domain.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Infrastructure.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Infrastructure.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Account.Infrastructure.exe
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\appsettings.Development.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\appsettings.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
@@ -110,7 +104,6 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\n
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
@@ -129,7 +122,6 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\n
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.OpenApi.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Moq.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -178,3 +170,16 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\n
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\obj\Debug\net6.0\ref\Account.API.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Common.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Common.pdb
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Humanizer.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.AspNetCore.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Formatting.Compact.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Sinks.Console.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Serilog.Sinks.File.dll

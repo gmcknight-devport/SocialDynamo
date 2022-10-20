@@ -2,7 +2,6 @@
 using Account.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Account.API.Infrastructure.Repositories;
-using Xunit.Abstractions;
 using Account.API.Common.ViewModels;
 using Common;
 

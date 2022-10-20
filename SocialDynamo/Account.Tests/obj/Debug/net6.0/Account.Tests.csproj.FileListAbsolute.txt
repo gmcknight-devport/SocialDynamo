@@ -1,11 +1,5 @@
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\CoverletSourceRootsMapping
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\testhost.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Domain.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Domain.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Domain.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Infrastructure.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Infrastructure.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.Infrastructure.exe
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.API.deps.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Account.API.runtimeconfig.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\appsettings.Development.json
@@ -167,3 +161,10 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\D
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\ref\Account.Tests.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.Settings.Configuration.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.AspNetCore.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll

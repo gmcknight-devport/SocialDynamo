@@ -1,6 +1,4 @@
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.exe
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.runtimeconfig.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.csproj.AssemblyReference.cache
@@ -11,5 +9,4 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\De
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\refint\Posts.Domain.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\ref\Posts.Domain.dll

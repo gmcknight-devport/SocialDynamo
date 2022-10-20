@@ -22,6 +22,14 @@ namespace Posts.Infrastructure.Persistence
             modelBuilder.Entity<Comment>()
                 .Property(c => c.CommentId)
                 .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<CommentLike>()
+                .HasOne(c => c.Comment)
+                .WithMany(l => l.Likes);
+
+            modelBuilder.Entity<PostLike>()
+                .HasOne(p => p.Post)
+                .WithMany(l => l.Likes);
         }
     }
 }
