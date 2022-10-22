@@ -1,4 +1,4 @@
-﻿using Account.API.Infrastructure.Repositories;
+﻿using Account.Domain.Repositories;
 using Account.Models.Users;
 using MediatR;
 

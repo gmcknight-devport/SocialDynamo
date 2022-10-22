@@ -1,6 +1,6 @@
 ﻿using Account.API.Commands;
 using Account.API.Common.ViewModels;
-using Account.API.Infrastructure.Repositories;
+using Account.Domain.Repositories;
 using Account.API.ViewModels;
 using Account.Exceptions;
 using Account.Models.Users;

@@ -1,6 +1,7 @@
 ﻿using Autofac.Extras.Moq;
 using Moq;
 using Posts.API.Commands;
+using Posts.Domain.Repositories;
 using Posts.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;

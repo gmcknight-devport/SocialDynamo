@@ -1,6 +1,6 @@
 ﻿using Common;
 using Posts.Domain.Models;
-using Posts.Infrastructure.Repositories;
+using Posts.Domain.Repositories;
 
 namespace Posts.API.Queries
 {

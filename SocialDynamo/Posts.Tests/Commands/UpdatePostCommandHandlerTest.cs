@@ -2,6 +2,7 @@
 using Moq;
 using Posts.API.Commands;
 using Posts.Domain.Models;
+using Posts.Domain.Repositories;
 using Posts.Domain.ValueObjects;
 using Posts.Infrastructure.Repositories;
 using System.Linq;

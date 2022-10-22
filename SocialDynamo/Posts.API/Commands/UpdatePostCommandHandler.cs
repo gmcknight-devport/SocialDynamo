@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Posts.Domain.Models;
 using Posts.Domain.ValueObjects;
-using Posts.Infrastructure.Repositories;
+using Posts.Domain.Repositories;
 
 namespace Posts.API.Commands
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Posts.Infrastructure.Repositories;
+using Posts.Domain.Repositories;
 
 namespace Posts.API.Commands
 {

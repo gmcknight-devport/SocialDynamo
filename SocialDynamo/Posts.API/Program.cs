@@ -2,6 +2,7 @@ using Common;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Posts.API.Queries;
+using Posts.Domain.Repositories;
 using Posts.Infrastructure.Persistence;
 using Posts.Infrastructure.Repositories;
 using Serilog;

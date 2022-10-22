@@ -2,6 +2,7 @@
 using Account.API.Infrastructure.Repositories;
 using Account.API.Services;
 using Account.API.ViewModels;
+using Account.Domain.Repositories;
 using Account.Models.Users;
 using Autofac.Extras.Moq;
 using Microsoft.AspNetCore.Mvc;

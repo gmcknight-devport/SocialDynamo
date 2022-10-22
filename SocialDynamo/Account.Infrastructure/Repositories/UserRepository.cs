@@ -1,4 +1,5 @@
-﻿using Account.Infrastructure.Persistence;
+﻿using Account.Domain.Repositories;
+using Account.Infrastructure.Persistence;
 using Account.Models.Users;
 using Common;
 using Microsoft.EntityFrameworkCore;

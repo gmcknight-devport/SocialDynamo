@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Posts.Domain.Models;
+using Posts.Domain.Repositories;
 using Posts.Infrastructure.Persistence;
 
 namespace Posts.Infrastructure.Repositories

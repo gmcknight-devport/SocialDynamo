@@ -1,5 +1,6 @@
 ﻿using Account.API.Infrastructure.Repositories;
 using Account.API.Profile.Commands;
+using Account.Domain.Repositories;
 using Account.Models.Users;
 using Autofac.Extras.Moq;
 using Moq;

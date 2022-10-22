@@ -1,6 +1,7 @@
 using Account.API.Infrastructure.Repositories;
 using Account.API.Profile.Queries;
 using Account.API.Services;
+using Account.Domain.Repositories;
 using Account.Infrastructure.Persistence;
 using Account.Models.Users;
 using Common;

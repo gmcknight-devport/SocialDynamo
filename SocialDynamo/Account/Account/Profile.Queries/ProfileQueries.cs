@@ -1,7 +1,7 @@
 ﻿using Account.API.ViewModels;
 using Account.Models.Users;
 using Microsoft.AspNetCore.Mvc;
-using Account.API.Infrastructure.Repositories;
+using Account.Domain.Repositories;
 using Account.API.Common.ViewModels;
 using Common;
 
