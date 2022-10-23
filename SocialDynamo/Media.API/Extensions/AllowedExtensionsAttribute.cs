@@ -2,6 +2,8 @@
 
 namespace Media.API.Extensions
 {
+    //Extension to validation attriute to limit the number of file types
+    //allowed to be uploaded to a container to popular image and video formats.
     public class AllowedExtensionsAttribute : ValidationAttribute
     {
         private readonly string[] _extensions;
@@ -24,6 +26,5 @@ namespace Media.API.Extensions
 
             return true;
         }
-
     }
 }

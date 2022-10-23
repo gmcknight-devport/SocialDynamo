@@ -3,6 +3,7 @@ using Posts.Domain.Repositories;
 
 namespace Posts.API.Commands
 {
+    //Command handler - like a post. 
     public class LikePostCommandHandler : IRequestHandler<LikePostCommand, bool>
     {
         private readonly IPostRepository _postRepository;
@@ -14,9 +15,18 @@ namespace Posts.API.Commands
             _logger = logger;
         }
 
-        public async Task<bool> Handle(LikePostCommand request, CancellationToken cancellationToken)
+        /// <summary>
+        /// Handle method of mediatr interface - likes the specified post.  
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        public async Task<bool> Handle(LikePostCommand command, CancellationToken cancellationToken)
         {
-            await _postRepository.LikePostAsync(request.PostId, request.LikeUserId);
+            await _postRepository.LikePostAsync(command.PostId, command.LikeUserId);
+            _logger.LogInformation("----- Post liked by user. Post: {@PostId}, " +
+               "User: {@UserId}", command.PostId, command.LikeUserId);
+
             return true;
         }
     }

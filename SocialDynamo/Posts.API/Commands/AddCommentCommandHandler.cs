@@ -4,6 +4,7 @@ using Posts.Domain.Repositories;
 
 namespace Posts.API.Commands
 {
+    //Command handler to add a comment. 
     public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, bool>
     {
         private readonly IPostRepository _postRepository;
@@ -19,6 +20,13 @@ namespace Posts.API.Commands
             _logger = logger;
         }
 
+        /// <summary>
+        /// Handle method of mediatr interface - creates a new comment for the 
+        /// specified post and calls the relevant repository method.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<bool> Handle(AddCommentCommand command, CancellationToken cancellationToken)
         {
             Post post = await _postRepository.GetPostAsync(command.PostId);
@@ -30,6 +38,9 @@ namespace Posts.API.Commands
                 PostedAt = DateTime.UtcNow,
                 Likes = new List<CommentLike>()
             };
+
+            _logger.LogInformation("----- Comment added to post. Comment: {@Comment}, Post ID: {@PostId}"
+                , command.Comment, command.PostId);
 
             await _commentRepository.AddCommentAsync(post.PostId, comment);
             return true;

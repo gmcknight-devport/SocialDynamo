@@ -4,6 +4,7 @@ using MediatR;
 
 namespace Account.API.Profile.Commands
 {
+    //Command handler to add a follower when called. 
     public class AddFollowerCommandHandler : IRequestHandler<AddFollowerCommand, bool>
     {
         private readonly IFollowerRepository _followerRepository;
@@ -16,6 +17,12 @@ namespace Account.API.Profile.Commands
             _logger = logger;
         }
 
+        /// <summary>
+        /// Handle method of mediatr interface - creates a new follower and calls relevant repository method add to user.
+        /// </summary>
+        /// <param name="addFollowerCommand"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<bool> Handle(AddFollowerCommand addFollowerCommand, CancellationToken cancellationToken)
         {
             Follower follower = new()
@@ -23,6 +30,9 @@ namespace Account.API.Profile.Commands
                 FollowerId = addFollowerCommand.FollowerId,
                 UserId = addFollowerCommand.UserId
             };
+
+            _logger.LogInformation("----- Add user follower - User: {@UserId}, " +
+                "Follower: {@FollowerId}", follower.UserId, follower.FollowerId);
 
             await _followerRepository.AddFollower(addFollowerCommand.UserId, follower);
             return true;

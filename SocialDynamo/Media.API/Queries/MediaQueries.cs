@@ -13,6 +13,14 @@ namespace Media.API.Queries
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Returns a blob for the specified UserId using the MediaItemId
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="mediaItemId"></param>
+        /// <returns></returns>
+        /// <exception cref="NoUserContainerException"></exception>
+        /// <exception cref="NullReferenceException"></exception>
         public async Task<BlobDownloadResult> GetBlob(string userId, string mediaItemId)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage:ConnectionString"]);

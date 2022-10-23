@@ -23,11 +23,19 @@ namespace Account.API.Profile.Queries
             _logger = logger;
         }
 
+        /// <summary>
+        /// Gets profile information for the specified user - forename, surname, 
+        /// profile description, and number of followers
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IActionResult> GetProfileInformation(string userId)
         {
             User user = await _userRepository.GetUserAsync(userId);
             var followers = await _followerRepository.GetFollowersAsync(userId);
             int numberOfFollowers = followers.Count();
+
+            _logger.LogInformation("Returning profile information for user, User: {@user}", user);
 
             return new ObjectResult(new ProfileInformationVM
             {
@@ -38,6 +46,12 @@ namespace Account.API.Profile.Queries
             });
         }
 
+        /// <summary>
+        /// Uses fuzzy search to find the closest matches for a userId.
+        /// Allows searching without having an exact value
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<UserDataVM>> SearchUser(string userId)
         {
             List<User>? users = await _fuzzySearch.FuzzySearch(userId) as List<User>;
@@ -53,21 +67,47 @@ namespace Account.API.Profile.Queries
                 });
             }
 
+            _logger.LogInformation("Attempting to return users found through fuzzy search, " +
+                "Number found: {@users}", users.Count);
+
             return userSearchResult;
         }
 
+        /// <summary>
+        /// Gets all followers for specified user.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<UserDataVM>> GetUserFollowers(string userId)
         {
             var followerIds = await _followerRepository.GetFollowersAsync(userId);
+            _logger.LogInformation("Getting followers for user, " +
+               "User: {@userId}", userId);
+
             return await CreateFollowVM(followerIds);
         }
 
+        /// <summary>
+        /// Returns all profiles the specified user is following
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         public async Task<IEnumerable<UserDataVM>> GetUserFollowing(string userId)
         {
             var followingIds = await _followerRepository.GetUserFollowingAsync(userId);
+            _logger.LogInformation("Getting user following, " +
+               "User: {@userId}", userId);
+
             return await CreateFollowVM(followingIds);
         }
 
+        /// <summary>
+        /// Internal method to format the follower data for the view 
+        /// model in order to return.
+        /// </summary>
+        /// <param name="followIds"></param>
+        /// <returns></returns>
+        /// <exception cref="KeyNotFoundException"></exception>
         private async Task<IEnumerable<UserDataVM>> CreateFollowVM(IEnumerable<Follower> followIds)
         {
             List<UserDataVM> following = new();

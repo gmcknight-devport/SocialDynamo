@@ -14,6 +14,7 @@ using System.Text;
 
 namespace Account.API.Services
 {
+    //All services implemented for authentication in the project.
     public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<User> _userManager;
@@ -34,10 +35,20 @@ namespace Account.API.Services
             _logger = logger;
         }
 
+        /// <summary>
+        /// Handles the register user command.
+        /// Registeres a new user based on the information provided 
+        /// calling the appropriate repository.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidUserStateException"></exception>
         public async Task HandleCommandAsync(RegisterUserCommand command)
         {
             if (!_userRepository.IsUserIdUnique(command.UserId).Result)
                 throw new InvalidUserStateException("UserId is not unique");
+
+            _logger.LogInformation("----- Registering new user");
 
             var newUser = new User
             {
@@ -52,11 +63,24 @@ namespace Account.API.Services
             await _userRepository.AddUserAsync(newUser);
         }
 
+        /// <summary>
+        /// Handles the LogoutUserCommand. Logs out user by removing the JWT token.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task HandleCommandAsync(LogoutUserCommand command)
         {
+            _logger.LogInformation("----- Removing token");
             await _authenticationRepo.RemoveToken(command.UserId);
         }
 
+        /// <summary>
+        /// Handles the LoginUserCommand logging the user in if the email address 
+        /// and password entered are valid. Generates a token to allow user to 
+        /// remain signed in and access the rest of the application.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command)
         {
             User user = await _userRepository.GetUserAsync(command.EmailAddress);
@@ -77,6 +101,9 @@ namespace Account.API.Services
                     //Assign to user and save
                     await _authenticationRepo.UpdateToken(user.UserId, refreshToken, refreshExpiresAt);
 
+                    _logger.LogInformation("----- User authenticated, generated JWT token. " +
+                        "User: {@EmailAdress}", command.EmailAddress);
+
                     //Create result to return
                     return new OkObjectResult(new AuthResultVM
                     {
@@ -96,7 +123,12 @@ namespace Account.API.Services
             }
         }
 
-
+        /// <summary>
+        /// Handles the RefreshJWTTokenCommand. Generates a JWT access token after 
+        /// validating the currently held refresh token.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
         public async Task<IActionResult> HandleCommandAsync(RefreshJwtTokenCommand command)
         {
             //Check claim principal from expired access token
@@ -126,6 +158,9 @@ namespace Account.API.Services
                 return new BadRequestObjectResult("Invalid refresh token");
             }
 
+            _logger.LogInformation("----- User refresh token validated, generating new access token. " +
+                        "User: {@UserId}", command.UserId);
+
             // Generate new tokens
             var accessToken = GenerateToken(command.UserId);
             var refreshToken = GenerateRefreshToken();
@@ -144,6 +179,11 @@ namespace Account.API.Services
             });
         }
 
+        /// <summary>
+        /// Private method to ash the password for secure storage. 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
         private static string HashPassword(string password)
         {
             using var sha = SHA256.Create();
@@ -153,6 +193,10 @@ namespace Account.API.Services
             return Convert.ToBase64String(hashed);
         }
 
+        /// <summary>
+        /// Returns validation parameters to ensure the token conforms.
+        /// </summary>
+        /// <returns></returns>
         private TokenValidationParameters GetTokenValidationParameters()
         {
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
@@ -168,6 +212,12 @@ namespace Account.API.Services
 
             return tokenValidationParameters;
         }
+
+        /// <summary>
+        /// Generates a new token for the passed in user. 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         private JwtSecurityToken GenerateToken(string userId)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
@@ -189,6 +239,10 @@ namespace Account.API.Services
             return token;
         }
 
+        /// <summary>
+        /// Generates a new refresh token. 
+        /// </summary>
+        /// <returns></returns>
         private string GenerateRefreshToken()
         {
             var randomNumber = new byte[64];
@@ -197,6 +251,12 @@ namespace Account.API.Services
             return Convert.ToBase64String(randomNumber);
         }
 
+        /// <summary>
+        /// Gets the security principal from the expired token passed in. 
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        /// <exception cref="SecurityTokenException"></exception>
         private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
         {
             var tokenHandler = new JwtSecurityTokenHandler();

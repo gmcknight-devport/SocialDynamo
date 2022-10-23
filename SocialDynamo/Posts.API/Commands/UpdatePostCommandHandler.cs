@@ -5,6 +5,7 @@ using Posts.Domain.Repositories;
 
 namespace Posts.API.Commands
 {
+    //Command handler to update a specified post.
     public class UpdatePostCommandHandler : IRequestHandler<UpdatePostCommand, bool>
     {
         private readonly IPostRepository _postRepository;
@@ -16,6 +17,15 @@ namespace Posts.API.Commands
             _logger = logger;
         }
 
+        /// <summary>
+        /// Handle method of mediatr interface - updates the specified 
+        /// post only if any of the information in the command differs from
+        /// that stored in the DB. 
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public async Task<bool> Handle(UpdatePostCommand command, CancellationToken cancellationToken)
         {
             Post post = await _postRepository.GetPostAsync(command.PostId);
@@ -37,6 +47,10 @@ namespace Posts.API.Commands
             post.Caption = command.Caption != null
                             ? command.Caption
                             : post.Caption;
+
+            _logger.LogInformation("----- Post updated with new information from command. Post: {@PostId}, " +
+                "MediaItemIDs: {@MediaItemIds}, Hashtag: {@Hashtag}, Caption: {@Caption}", command.PostId,
+                command.MediaItemIds, command.Hashtag, command.Caption);
 
             await _postRepository.UpdatePostAsync(post);
             return true;

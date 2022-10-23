@@ -4,15 +4,26 @@ using MediatR;
 
 namespace Media.API.Commands
 {
+    //Command handler to upload a blob.
     public class UploadBlobCommandHandler : IRequestHandler<UploadBlobCommand, bool>
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<UploadBlobCommandHandler> _logger;
 
-        public UploadBlobCommandHandler(IConfiguration configuration)
+        public UploadBlobCommandHandler(IConfiguration configuration, ILogger<UploadBlobCommandHandler> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
+        /// <summary>
+        /// Handle method of mediatr interface - uploads a blob for the specified 
+        /// user once container has been validated.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        /// <exception cref="NoUserContainerException"></exception>
         public async Task<bool> Handle(UploadBlobCommand command, CancellationToken cancellationToken)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorage"]);
@@ -28,6 +39,9 @@ namespace Media.API.Commands
                 //Upload
                 await blob.UploadAsync(stream);
             }
+
+            _logger.LogInformation("----- Blob uploaded for specified user. User: {@UserId}", command.UserId);
+
             return true;
         }
     }
