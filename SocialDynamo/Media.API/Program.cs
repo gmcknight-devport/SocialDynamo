@@ -1,3 +1,4 @@
+using Media.API.IntegrationEvents;
 using Media.API.Queries;
 using MediatR;
 using Serilog;
@@ -18,6 +19,10 @@ builder.Services.AddControllers();
 builder.Services.AddTransient<IMediaQueries, MediaQueries>();
 builder.Services.AddSingleton<Mediator>();
 builder.Services.AddMediatR(typeof(Program).Assembly);
+
+builder.Services.AddHostedService<DeleteUserIntegrationEventHandler>();
+builder.Services.AddHostedService<NewUserIntegrationEventHandler>();
+builder.Services.AddHostedService<PostDeletedIntegrationEventHandler>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
