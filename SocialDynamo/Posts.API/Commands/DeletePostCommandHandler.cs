@@ -1,5 +1,11 @@
-﻿using MediatR;
+﻿using Azure.Messaging.ServiceBus;
+using Common;
+using MediatR;
+using Newtonsoft.Json;
+using Posts.API.IntegrationEvents;
 using Posts.Domain.Repositories;
+using System.Net.Mime;
+using System.Text;
 
 namespace Posts.API.Commands
 {
@@ -8,11 +14,15 @@ namespace Posts.API.Commands
     {
         private readonly IPostRepository _postRepository;
         private readonly ILogger<DeletePostCommandHandler> _logger;
+        private readonly IConfiguration _configuration;
 
-        public DeletePostCommandHandler(IPostRepository postRepository, ILogger<DeletePostCommandHandler> logger)
+        public DeletePostCommandHandler(IPostRepository postRepository, 
+                                        ILogger<DeletePostCommandHandler> logger, 
+                                        IConfiguration configuration)
         {
             _postRepository = postRepository;
             _logger = logger;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -23,10 +33,41 @@ namespace Posts.API.Commands
         /// <returns></returns>
         public async Task<bool> Handle(DeletePostCommand command, CancellationToken cancellationToken)
         {
+            var mediaItemIds = _postRepository.GetPostAsync(command.PostId).Result.MediaItemIds;
             await _postRepository.DeletePostAsync(command.PostId);
-            _logger.LogInformation("----- Specified post deleted. Post: {@PostId", command.PostId);
 
+            if (mediaItemIds.Any())
+            {
+                PostDeletedIntegrationEvent integrationEvent = new()
+                {
+                    MediaItemIds = (ICollection<string>)mediaItemIds
+                };
+                PublishEvent(integrationEvent);
+            }
+
+            _logger.LogInformation("----- Specified post deleted. Post: {@PostId}", command.PostId);
+            
             return true;
+        }
+
+        private async void PublishEvent(IIntegrationEvent integrationEvent)
+        {
+            var jsonMessage = JsonConvert.SerializeObject(integrationEvent);
+            var body = Encoding.UTF8.GetBytes(jsonMessage);
+            var client = new ServiceBusClient(_configuration["ConnectionStrings:ServiceBus"]);
+            var sender = client.CreateSender(integrationEvent.GetType().Name);
+
+            var message = new ServiceBusMessage()
+            {
+                Body = new BinaryData(body),
+                MessageId = Guid.NewGuid().ToString(),
+                ContentType = MediaTypeNames.Application.Json,
+                Subject = integrationEvent.GetType().Name
+            };
+
+            await sender.SendMessageAsync(message);
+            _logger.LogInformation("----- New PostDeletedIntegrationEvent created and send. " +
+                "MessageId: {@MessageId}, Body: {@Body}", message.MessageId, message.Body);
         }
     }
 }

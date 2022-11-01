@@ -164,3 +164,9 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Deb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Serilog.Sinks.Console.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Serilog.Sinks.Debug.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Serilog.Sinks.File.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Azure.Core.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Azure.Core.Amqp.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Azure.Messaging.ServiceBus.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\System.Memory.Data.dll

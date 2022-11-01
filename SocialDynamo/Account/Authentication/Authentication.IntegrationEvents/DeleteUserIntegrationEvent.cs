@@ -1,7 +1,7 @@
 ﻿using Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace Account.API.Account.Profile.IntegrationEvents
+namespace Account.API.Account.Authentication.IntegrationEvents
 {
     public record DeleteUserIntegrationEvent : IIntegrationEvent
     {

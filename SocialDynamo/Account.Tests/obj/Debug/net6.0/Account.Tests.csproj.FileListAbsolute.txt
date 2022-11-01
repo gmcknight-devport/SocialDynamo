@@ -168,3 +168,9 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\D
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.Extensions.Logging.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Serilog.Extensions.Hosting.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Azure.Messaging.ServiceBus.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\System.Memory.Data.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Azure.Core.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\Azure.Core.Amqp.dll

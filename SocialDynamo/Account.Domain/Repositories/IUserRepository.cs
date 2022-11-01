@@ -8,6 +8,7 @@ namespace Account.Domain.Repositories
         Task AddUserAsync(User user);
         Task DeleteUserAsync(string userId);
         Task<User> GetUserAsync(string userId);
+        Task<User> GetUserByEmailAsync(string emailAddress);
         Task UpdateUserAsync(User user);
     }
 }

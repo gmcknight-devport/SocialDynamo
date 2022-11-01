@@ -56,7 +56,18 @@ namespace Account.API.Infrastructure.Repositories
             }
             return user;
         }
-        
+
+        public async Task<User> GetUserByEmailAsync(string emailAddress)
+        {
+            var user = await _accountDbContext.Users.FirstOrDefaultAsync(u => u.EmailAddress == emailAddress);
+
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+            return user;
+        }
+
         public async Task UpdateUserAsync(User user)
         {
             if (user == null)
@@ -70,7 +81,9 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<IEnumerable<object>> FuzzySearch(string fuzzyUserId)
         {
-            var results = _accountDbContext.Users.Where(d => EF.Functions.FreeText(d.UserId, fuzzyUserId)).Take(5);
+            var results = await _accountDbContext.Users.Where(d => 
+                                    EF.Functions.FreeText(d.UserId, fuzzyUserId))
+                                    .Take(5).ToListAsync();
             return results;
         }
     }

@@ -11,6 +11,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Account.API.Account.Authentication.IntegrationEvents;
+using Common;
+using Newtonsoft.Json;
+using Azure.Messaging.ServiceBus;
+using System.Net.Mime;
 
 namespace Account.API.Services
 {
@@ -61,6 +66,13 @@ namespace Account.API.Services
             };
 
             await _userRepository.AddUserAsync(newUser);
+
+            NewUserIntegrationEvent integrationEvent = new()
+            {
+                UserId = command.UserId
+            };
+
+            PublishEvent(integrationEvent);
         }
 
         /// <summary>
@@ -83,7 +95,7 @@ namespace Account.API.Services
         /// <returns></returns>
         public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command)
         {
-            User user = await _userRepository.GetUserAsync(command.EmailAddress);
+            User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
             //User user = await _userManager.FindByEmailAsync(command.EmailAddress);
 
             if (user != null)
@@ -270,6 +282,26 @@ namespace Account.API.Services
                 throw new SecurityTokenException("Invalid token");
 
             return principal;
+        }
+
+        private async void PublishEvent(IIntegrationEvent integrationEvent)
+        {
+            var jsonMessage = JsonConvert.SerializeObject(integrationEvent);
+            var body = Encoding.UTF8.GetBytes(jsonMessage);
+            var client = new ServiceBusClient(_configuration["ConnectionStrings:ServiceBus"]);
+            var sender = client.CreateSender(integrationEvent.GetType().Name);
+
+            var message = new ServiceBusMessage()
+            {
+                Body = new BinaryData(body),
+                MessageId = Guid.NewGuid().ToString(),
+                ContentType = MediaTypeNames.Application.Json,
+                Subject = integrationEvent.GetType().Name
+            };
+
+            await sender.SendMessageAsync(message);
+            _logger.LogInformation("----- New PostDeletedIntegrationEvent created and send. " +
+                "MessageId: {@MessageId}, Body: {@Body}", message.MessageId, message.Body);
         }
     }
 }

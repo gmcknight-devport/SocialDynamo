@@ -1,5 +1,4 @@
 ﻿using Account.API.Commands;
-using Account.API.Infrastructure.Repositories;
 using Account.API.Services;
 using Account.API.ViewModels;
 using Account.Domain.Repositories;
@@ -7,6 +6,7 @@ using Account.Models.Users;
 using Autofac.Extras.Moq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Moq;
@@ -58,7 +58,7 @@ namespace Account.Tests.Authentication.Services
                 mock.Mock<IUserRepository>()
                     .Setup(x => x.IsUserIdUnique(command.UserId))
                     .Returns(Task.FromResult(true));
-
+                
                 //Create instance of class and call method
                 var testClass = mock.Create<AuthenticationService>();
                 await testClass.HandleCommandAsync(command);
@@ -66,7 +66,7 @@ namespace Account.Tests.Authentication.Services
                 //Verify method on mock was called once
                 mock.Mock<IUserRepository>()                    
                     .Verify(x => x.AddUserAsync(It.Is<User>(u => u.UserId == user.UserId &&
-                                                               u.Password == user.Password &&
+                                                               u.Password == HashPassword(user.Password) &&
                                                                u.Forename == user.Forename &&
                                                                u.Surname == user.Surname)),
                                                                Times.Exactly(1));
@@ -101,6 +101,7 @@ namespace Account.Tests.Authentication.Services
         {
             User user = GetSampleUser();
             LoginUserCommand command = GetLoginCommand();
+            var logger = new Mock<ILogger<AuthenticationService>>();
 
             Random rnd = new Random();
             byte[] b = new byte[16];
@@ -120,14 +121,14 @@ namespace Account.Tests.Authentication.Services
                 .Build();
 
             var mock = new Mock<IUserRepository>();
-            mock.Setup(x => x.GetUserAsync(command.EmailAddress))
+            mock.Setup(x => x.GetUserByEmailAsync(command.EmailAddress))
                 .Returns(Task.FromResult(user));
             
             var authMock = new Mock<IAuthenticationRepository>();
-            authMock.Setup(x => x.AuthenticateUser(user.UserId, user.Password))
+            authMock.Setup(x => x.AuthenticateUser(user.UserId, HashPassword(user.Password)))
                     .Returns(Task.FromResult(true));
-
-            var testClass = new AuthenticationService(null, configuration, authMock.Object, mock.Object, null);
+                       
+            var testClass = new AuthenticationService(null, configuration, authMock.Object, mock.Object, logger.Object);
 
             var expected = new OkObjectResult(new AuthResultVM());
 
@@ -146,7 +147,7 @@ namespace Account.Tests.Authentication.Services
             {
                 //Mock
                 mock.Mock<IUserRepository>()
-                    .Setup(x => x.GetUserAsync(command.EmailAddress))
+                    .Setup(x => x.GetUserByEmailAsync(command.EmailAddress))
                     .Returns(Task.FromResult(user));
 
                 mock.Mock<IAuthenticationRepository>()
@@ -171,7 +172,7 @@ namespace Account.Tests.Authentication.Services
             LoginUserCommand command = new()
             {
                 EmailAddress = "email@email.com",
-                Password = "password"
+                Password = HashPassword("password")
             };
 
             using (var mock = AutoMock.GetLoose())
@@ -192,6 +193,7 @@ namespace Account.Tests.Authentication.Services
         public async Task HandleCommand_RefreshToken()
         {
             IConfiguration configuration = SampleConfiguration();
+            var logger = new Mock<ILogger<AuthenticationService>>();
             var tokenHandler = new JwtSecurityTokenHandler();
             User user = GetSampleUser();
             var token = GenerateToken(user.UserId, configuration, true);
@@ -230,7 +232,7 @@ namespace Account.Tests.Authentication.Services
                             (new Tuple<string, DateTime>
                             (user.RefreshToken, user.RefreshExpires)) as IActionResult));
 
-            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, null);
+            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, logger.Object);
 
             OkObjectResult result = (OkObjectResult)await testClass.HandleCommandAsync(command);
             AuthResultVM? actual = result.Value as AuthResultVM;
@@ -329,7 +331,7 @@ namespace Account.Tests.Authentication.Services
             LoginUserCommand command = new()
             {
                 EmailAddress = "email@email.com",
-                Password = "password"
+                Password = HashPassword("password")
             };
 
             return command;
@@ -341,7 +343,7 @@ namespace Account.Tests.Authentication.Services
             {
                 EmailAddress = "gg@gg.com",
                 UserId = "UserIdHere",
-                Password = "password",
+                Password = HashPassword("password"),
                 Forename = "Joe",
                 Surname = "Else"
             };
@@ -430,6 +432,15 @@ namespace Account.Tests.Authentication.Services
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
+        }
+
+        private static string HashPassword(string password)
+        {
+            using var sha = SHA256.Create();
+            var asBytes = Encoding.Default.GetBytes(password);
+            var hashed = sha.ComputeHash(asBytes);
+
+            return Convert.ToBase64String(hashed);
         }
     }
 }

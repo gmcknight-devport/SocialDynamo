@@ -191,3 +191,9 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\n
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.CodeAnalysis.Razor.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Newtonsoft.Json.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Azure.Core.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Azure.Core.Amqp.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Azure.Messaging.ServiceBus.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account\bin\Debug\net6.0\System.Memory.Data.dll
