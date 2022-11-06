@@ -1,6 +1,8 @@
 ﻿using Account.Domain.Repositories;
+using Account.Domain.ViewModels;
 using Account.Infrastructure.Persistence;
-using Microsoft.AspNetCore.Mvc;
+using Account.Models.Users;
+using Microsoft.EntityFrameworkCore;
 
 namespace Account.API.Infrastructure.Repositories
 {
@@ -16,7 +18,7 @@ namespace Account.API.Infrastructure.Repositories
         public async Task<bool> AuthenticateUser(string userId, string password)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
-            if (user != null &&  user.UserId == userId && user.Password == password)
+            if (user != null && user.UserId == userId && user.Password == password)
             {
                 return true;
             }
@@ -24,40 +26,49 @@ namespace Account.API.Infrastructure.Repositories
         }
         public async Task RemoveToken(string userId)
         {
-            var user = await _accountDbContext.Users.FindAsync(userId);
+            var user = await GetUserAsync(userId);
+                        
+            user.RefreshToken = string.Empty;
+            user.RefreshExpires = DateTime.UtcNow.AddDays(-1);
 
-            if (user != null)
-            {
-                user.RefreshToken = null;
-                await _accountDbContext.SaveChangesAsync();
-            }
+            await _accountDbContext.SaveChangesAsync();            
         }
                 
         public async Task UpdateToken(string userId, string refreshToken, DateTime expiresAt)
         {
-            var user = await _accountDbContext.Users.FindAsync(userId);
-
-            if (user != null)
-            {
-                user.RefreshToken = refreshToken;
-                user.RefreshExpires = expiresAt;
-                await _accountDbContext.SaveChangesAsync();
-            }
+            var user = await GetUserAsync(userId);
+                        
+            user.RefreshToken = refreshToken;
+            user.RefreshExpires = expiresAt;
+           
+            await _accountDbContext.SaveChangesAsync();            
         }
 
-        public async Task<IActionResult?> GetRefreshToken(string userId)
+        public async Task<RefreshTokenVM> GetRefreshToken(string userId)
         {
             var user = await _accountDbContext.Users.FindAsync(userId);
 
-            if (user != null)
+            if (user == null)
             {
-                return new OkObjectResult(new Tuple<string, DateTime>
-                (
-                    user.RefreshToken,
-                    user.RefreshExpires
-                ));
+                throw new NullReferenceException(nameof(user));                
             }
-            return null;
+
+            return new RefreshTokenVM
+            {
+                RefreshToken = user.RefreshToken,
+                RefreshExpires = user.RefreshExpires
+            };
+        }
+
+        private async Task<User> GetUserAsync(string userId)
+        {
+            var user = await _accountDbContext.Users.Include(x => x.Followers).FirstOrDefaultAsync(x => x.UserId == userId);
+            if(user == null)
+            {
+                throw new NullReferenceException(nameof(user));
+            }
+
+            return user;
         }
     }
 }

@@ -1,0 +1,116 @@
+services:
+  account.api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: Account/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Account.API
+      target: base
+    container_name: Account.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2
+    image: accountapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages --additionalProbingPath
+        /root/.nuget/fallbackpackages2  ""'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account:/app:rw
+    - C:\Users\Glenn McKnight\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages2:ro
+    - C:\Users\Glenn McKnight\.nuget\packages:/root/.nuget/packages:ro
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo:/src:rw
+  media.api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: Media.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Media.API
+      target: base
+    container_name: Media.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2
+    image: mediaapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages --additionalProbingPath
+        /root/.nuget/fallbackpackages2  ""'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API:/app:rw
+    - C:\Users\Glenn McKnight\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages2:ro
+    - C:\Users\Glenn McKnight\.nuget\packages:/root/.nuget/packages:ro
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo:/src:rw
+  posts.api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: Posts.API/Dockerfile
+      labels:
+        com.microsoft.created-by: visual-studio
+        com.microsoft.visual-studio.project-name: Posts.API
+      target: base
+    container_name: Posts.API
+    entrypoint: tail -f /dev/null
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS: "true"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      DOTNET_USE_POLLING_FILE_WATCHER: '1'
+      NUGET_FALLBACK_PACKAGES: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2
+    image: postsapi:dev
+    labels:
+      com.microsoft.visualstudio.debuggee.arguments: ' --additionalProbingPath /root/.nuget/packages
+        --additionalProbingPath /root/.nuget/fallbackpackages --additionalProbingPath
+        /root/.nuget/fallbackpackages2  ""'
+      com.microsoft.visualstudio.debuggee.killprogram: /bin/sh -c "if PID=$$(pidof
+        dotnet); then kill $$PID; fi"
+      com.microsoft.visualstudio.debuggee.program: dotnet
+      com.microsoft.visualstudio.debuggee.workingdirectory: /app
+    ports:
+    - target: 80
+    - target: 443
+    tty: true
+    volumes:
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API:/app:rw
+    - C:\Users\Glenn McKnight\vsdbg\vs2017u5:/remote_debugger:rw
+    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages:/root/.nuget/fallbackpackages:ro
+    - C:\Program Files\dotnet\sdk\NuGetFallbackFolder:/root/.nuget/fallbackpackages2:ro
+    - C:\Users\Glenn McKnight\.nuget\packages:/root/.nuget/packages:ro
+    - D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo:/src:rw
+version: '3.4'

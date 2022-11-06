@@ -3,6 +3,7 @@ using Posts.API.Queries;
 using Posts.Domain.Models;
 using Posts.Domain.Repositories;
 using Posts.Domain.ValueObjects;
+using Posts.Domain.ViewModels;
 using Posts.Infrastructure.Repositories;
 using Xunit;
 
@@ -80,20 +81,33 @@ namespace Posts.Tests.Queries
         {
             Post post = GetSampleData().ElementAt(1);
 
-            List<Comment> expected = post.Comments.ToList();
+            List<Comment> comments = post.Comments.ToList();
+            List<CommentVM> expected = new();
+
+            foreach (var v in comments)
+            {
+                expected.Add(new CommentVM
+                {
+                    AuthorId = v.AuthorId,
+                    CommentId = v.CommentId,
+                    CommentText = v.CommentText,
+                    LikeCount = v.Likes.Count,
+                    PostedAt = v.PostedAt
+                });
+            }
 
             using (var mock = AutoMock.GetLoose())
             {
                 mock.Mock<ICommentRepository>()
                     .Setup(x => x.GetPostCommentsAsync(post.PostId, 1))
                     .Returns(Task.FromResult(expected.AsEnumerable()));
-                                
+
                 var testClass = mock.Create<PostsQueries>();
 
                 var actual = await testClass.GetPostCommentsAsync(post.PostId, 1);
 
-                Assert.Equivalent(expected, actual);
-            }        
+                Assert.Equivalent(comments, actual);
+            }
         }
 
         [Fact]
@@ -101,7 +115,18 @@ namespace Posts.Tests.Queries
         {
             Post post = GetSampleData().ElementAt(1);
             Comment comment = post.Comments.ElementAt(0);
-            List<CommentLike> expected = comment.Likes.ToList();
+            List<CommentLike> comments = comment.Likes.ToList();
+
+            List<LikeVM> expected = new();
+
+            foreach (var v in comments)
+            {
+                expected.Add(new LikeVM
+                {
+                    Id = v.Id,
+                    LikeUserId = v.LikeUserId
+                });
+            }
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -113,7 +138,7 @@ namespace Posts.Tests.Queries
 
                 var actual = await testClass.GetCommentLikesAsync(comment.CommentId);
 
-                Assert.Equivalent(expected, actual);
+                Assert.Equivalent(comments, actual);
             }
         }
 
@@ -121,7 +146,18 @@ namespace Posts.Tests.Queries
         public async Task GetPostLikes_AllLikesFromSpecificPost()
         {
             Post post = GetSampleData().ElementAt(1);
-            List<PostLike> expected = post.Likes.ToList();
+            List<PostLike> comments = post.Likes.ToList();
+
+            List<LikeVM> expected = new();
+
+            foreach (var v in comments)
+            {
+                expected.Add(new LikeVM
+                {
+                    Id = v.Id,
+                    LikeUserId = v.LikeUserId
+                });
+            }
 
             using (var mock = AutoMock.GetLoose())
             {

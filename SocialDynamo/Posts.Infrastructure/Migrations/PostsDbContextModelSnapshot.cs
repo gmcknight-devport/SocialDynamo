@@ -48,7 +48,7 @@ namespace Posts.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Posts.Domain.Models.CommentLike", b =>
@@ -68,7 +68,7 @@ namespace Posts.Infrastructure.Migrations
 
                     b.HasIndex("CommentId");
 
-                    b.ToTable("CommentLikes");
+                    b.ToTable("CommentLikes", (string)null);
                 });
 
             modelBuilder.Entity("Posts.Domain.Models.Post", b =>
@@ -97,7 +97,7 @@ namespace Posts.Infrastructure.Migrations
 
                     b.HasKey("PostId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Posts.Domain.Models.PostLike", b =>
@@ -117,7 +117,7 @@ namespace Posts.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("PostLikes");
+                    b.ToTable("PostLikes", (string)null);
                 });
 
             modelBuilder.Entity("Posts.Domain.ValueObjects.MediaItemId", b =>
@@ -132,7 +132,7 @@ namespace Posts.Infrastructure.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("MediaItemId");
+                    b.ToTable("MediaItemId", (string)null);
                 });
 
             modelBuilder.Entity("Posts.Domain.Models.Comment", b =>

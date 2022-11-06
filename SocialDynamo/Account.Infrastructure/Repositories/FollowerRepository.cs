@@ -18,7 +18,8 @@ namespace Account.API.Infrastructure.Repositories
         public async Task<IEnumerable<Follower>> GetFollowersAsync(string userId)
         {
             var followers = await _accountDbContext.Followers
-                .Where(u => u.UserId == userId).ToListAsync();
+                .Include(f => f.User)
+                .Where(f => f.UserId == userId).ToListAsync();
 
             return followers;
         }
@@ -26,6 +27,7 @@ namespace Account.API.Infrastructure.Repositories
         public async Task<IEnumerable<Follower>> GetUserFollowingAsync(string userId)
         {
             var following = await _accountDbContext.Followers
+                .Include(f => f.User)
                 .Where(f => f.FollowerId == userId).ToListAsync();
 
             return following;
@@ -42,27 +44,18 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task AddFollower(string userId, Follower follower)
         {
-            var user = await _accountDbContext.Users.FindAsync(userId);
+            var user = await _accountDbContext.Users.Include(x => x.Followers).FirstOrDefaultAsync(x => x.UserId == userId);
 
-            if (user != null)
+            if (user == null)
                 throw new ArgumentNullException(nameof(user));
             else if (follower == null)
                 throw new ArgumentNullException(nameof(follower));
             else if (user.Followers == null)
                 user.Followers = new List<Follower>();
-
+             
             user.Followers.Add(follower);
+            await _accountDbContext.Followers.AddAsync(follower);
 
-            await _accountDbContext.SaveChangesAsync();
-
-
-
-            if (follower == null)
-            {
-                throw new ArgumentNullException(nameof(follower));
-            }
-
-            _accountDbContext.Followers.Add(follower);
             await _accountDbContext.SaveChangesAsync();
         }
 

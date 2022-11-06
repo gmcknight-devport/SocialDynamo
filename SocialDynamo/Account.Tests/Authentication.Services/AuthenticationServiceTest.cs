@@ -2,6 +2,7 @@
 using Account.API.Services;
 using Account.API.ViewModels;
 using Account.Domain.Repositories;
+using Account.Domain.ViewModels;
 using Account.Models.Users;
 using Autofac.Extras.Moq;
 using Microsoft.AspNetCore.Mvc;
@@ -128,7 +129,7 @@ namespace Account.Tests.Authentication.Services
             authMock.Setup(x => x.AuthenticateUser(user.UserId, HashPassword(user.Password)))
                     .Returns(Task.FromResult(true));
                        
-            var testClass = new AuthenticationService(null, configuration, authMock.Object, mock.Object, logger.Object);
+            var testClass = new AuthenticationService(configuration, authMock.Object, mock.Object, logger.Object);
 
             var expected = new OkObjectResult(new AuthResultVM());
 
@@ -227,12 +228,17 @@ namespace Account.Tests.Authentication.Services
                 RefreshToken = user.RefreshToken,
                 ExpiresAt = DateTime.Today.AddDays(1)
             };
-            authMock.Setup(x => x.GetRefreshToken(user.UserId))
-                    .Returns(Task.FromResult(new OkObjectResult
-                            (new Tuple<string, DateTime>
-                            (user.RefreshToken, user.RefreshExpires)) as IActionResult));
 
-            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, logger.Object);
+            var repoRefreshResult = new RefreshTokenVM
+            {
+                RefreshExpires = refreshExpires,
+                RefreshToken = user.RefreshToken,
+            };
+
+            authMock.Setup(x => x.GetRefreshToken(user.UserId))
+                    .Returns(Task.FromResult(repoRefreshResult));
+
+            var testClass = new AuthenticationService(configuration, authMock.Object, null, logger.Object);
 
             OkObjectResult result = (OkObjectResult)await testClass.HandleCommandAsync(command);
             AuthResultVM? actual = result.Value as AuthResultVM;
@@ -245,6 +251,7 @@ namespace Account.Tests.Authentication.Services
         {            
             RefreshJwtTokenCommand command = GetSampleToken();
             command.Token = null;
+            command.UserId = null;
 
             using (var mock = AutoMock.GetLoose())
             {
@@ -263,6 +270,7 @@ namespace Account.Tests.Authentication.Services
         public async Task HandleCommand_RefreshToken_BadRequest_InvalidToken()
         {
             IConfiguration configuration = SampleConfiguration();
+            var logger = new Mock<ILogger<AuthenticationService>>();
             var tokenHandler = new JwtSecurityTokenHandler();
             User user = GetSampleUser();
             RefreshJwtTokenCommand command = new RefreshJwtTokenCommand
@@ -285,13 +293,18 @@ namespace Account.Tests.Authentication.Services
                 IssuerSigningKey = securityKey
             };
 
+            var repoRefreshResult = new RefreshTokenVM
+            {
+                RefreshExpires = user.RefreshExpires,
+                RefreshToken = user.RefreshToken,
+            };
+
             var authMock = new Mock<IAuthenticationRepository>();
             authMock.Setup(x => x.GetRefreshToken(user.UserId))
                     .Returns(Task.FromResult(
-                            new OkObjectResult(new Tuple<string, DateTime>(user.RefreshToken, user.RefreshExpires)) 
-                            as IActionResult));
+                            repoRefreshResult));
             
-            var testClass = new AuthenticationService(null, configuration, authMock.Object, null, null);
+            var testClass = new AuthenticationService(configuration, authMock.Object, null, logger.Object);
 
             var expected = new BadRequestObjectResult("Invalid refresh token");
 
@@ -316,12 +329,12 @@ namespace Account.Tests.Authentication.Services
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidIssuer = configuration["JWT:Issuer"],
+                ValidIssuer = "rando string",
                 ValidAudience = configuration["JWT:Audience"],
                 IssuerSigningKey = securityKey
             };
 
-            var testClass = new AuthenticationService(null, configuration, null, null, null);
+            var testClass = new AuthenticationService(configuration, null, null, null);
 
             await Assert.ThrowsAsync<SecurityTokenException>(() => testClass.HandleCommandAsync(command));
         }

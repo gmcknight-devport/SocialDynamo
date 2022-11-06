@@ -1,6 +1,7 @@
 ﻿using Common;
 using Posts.Domain.Models;
 using Posts.Domain.Repositories;
+using Posts.Domain.ViewModels;
 
 namespace Posts.API.Queries
 {
@@ -40,7 +41,7 @@ namespace Posts.API.Queries
         /// </summary>
         /// <param name="commentId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<CommentLike>> GetCommentLikesAsync(Guid commentId)
+        public async Task<IEnumerable<LikeVM>> GetCommentLikesAsync(Guid commentId)
         {
             var commentLikes = await _commentRepository.GetCommentLikesAsync(commentId);
             _logger.LogInformation("Returning comment likes. Comment: {@commentId}", commentId);
@@ -54,7 +55,7 @@ namespace Posts.API.Queries
         /// <param name="postId"></param>
         /// <param name="page"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<Comment>> GetPostCommentsAsync(Guid postId, int page)
+        public async Task<IEnumerable<CommentVM>> GetPostCommentsAsync(Guid postId, int page)
         {
             var postComments = await _commentRepository.GetPostCommentsAsync(postId, page);
             _logger.LogInformation("Returning post comments. Post: {@postId}, " +
@@ -68,7 +69,7 @@ namespace Posts.API.Queries
         /// </summary>
         /// <param name="postId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<PostLike>> GetPostLikesAsync(Guid postId)
+        public async Task<IEnumerable<LikeVM>> GetPostLikesAsync(Guid postId)
         {
             var postLikes = await _postRepository.GetPostLikesAsync(postId);
             _logger.LogInformation("Returning post likes. Post: {@postId}", postId);

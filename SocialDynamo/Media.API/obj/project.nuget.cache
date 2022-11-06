@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ElXNO3M0El4aNAlw6+VZbIIaaFFZ2gbxXN9higufjN8yu8vsK+OGKM3lup69fKLAzMmfSqiUhxfzK/eGn2cqhQ==",
+  "dgSpecHash": "hpnaJw44m+4V8AoNN2zcb8Xi7++Q4/rxBUbjaBwMTvyTVAQpMVtNyW+pV9XJg0U2wFya/7V+as59/GWBYZTMHg==",
   "success": true,
   "projectFilePath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Media.API\\Media.API.csproj",
   "expectedPackageFiles": [
@@ -31,6 +31,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.15.1\\microsoft.visualstudio.azure.containers.tools.targets.1.15.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\moq\\4.18.2\\moq.4.18.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",

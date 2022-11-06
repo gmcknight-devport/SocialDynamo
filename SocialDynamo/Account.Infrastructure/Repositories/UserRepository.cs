@@ -17,7 +17,7 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<bool> IsUserIdUnique(string userId)
         {
-            var existsInDatabase = await _accountDbContext.Users.FirstOrDefaultAsync(u => u.UserId == userId);
+            var existsInDatabase = await _accountDbContext.Users.FindAsync(userId);
             if (existsInDatabase == null)
                 return true;
 
@@ -36,19 +36,14 @@ namespace Account.API.Infrastructure.Repositories
         }
         public async Task DeleteUserAsync(string userId)
         {
-            var user = await _accountDbContext.Users.FirstOrDefaultAsync(x => x.UserId == userId);
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-
+            var user = await GetUserAsync(userId);            
             _accountDbContext.Users.Remove(user);
             await _accountDbContext.SaveChangesAsync();
         }
 
         public async Task<User> GetUserAsync(string userId)
         {
-            var user = await _accountDbContext.Users.FindAsync(userId);
+            var user = await _accountDbContext.Users.Include(x => x.Followers).FirstOrDefaultAsync(x => x.UserId == userId);
 
             if (user == null)
             {
@@ -59,7 +54,7 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<User> GetUserByEmailAsync(string emailAddress)
         {
-            var user = await _accountDbContext.Users.FirstOrDefaultAsync(u => u.EmailAddress == emailAddress);
+            var user = await _accountDbContext.Users.Include(x => x.Followers).FirstOrDefaultAsync(u => u.EmailAddress == emailAddress);
 
             if (user == null)
             {
@@ -74,7 +69,7 @@ namespace Account.API.Infrastructure.Repositories
             {
                 throw new ArgumentNullException(nameof(user));
             }
-
+            
             _accountDbContext.Users.Update(user);
             await _accountDbContext.SaveChangesAsync();
         }        

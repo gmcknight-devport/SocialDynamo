@@ -78,12 +78,14 @@ namespace Account.API.Profile.Queries
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<UserDataVM>> GetUserFollowers(string userId)
+        public async Task<IEnumerable<ObjectResult>> GetUserFollowers(string userId)
         {
+            
+
             var followerIds = await _followerRepository.GetFollowersAsync(userId);
             _logger.LogInformation("Getting followers for user, " +
                "User: {@userId}", userId);
-
+                        
             return await CreateFollowVM(followerIds);
         }
 
@@ -92,7 +94,7 @@ namespace Account.API.Profile.Queries
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<UserDataVM>> GetUserFollowing(string userId)
+        public async Task<IEnumerable<ObjectResult>> GetUserFollowing(string userId)
         {
             var followingIds = await _followerRepository.GetUserFollowingAsync(userId);
             _logger.LogInformation("Getting user following, " +
@@ -108,20 +110,20 @@ namespace Account.API.Profile.Queries
         /// <param name="followIds"></param>
         /// <returns></returns>
         /// <exception cref="KeyNotFoundException"></exception>
-        private async Task<IEnumerable<UserDataVM>> CreateFollowVM(IEnumerable<Follower> followIds)
+        private async Task<IEnumerable<OkObjectResult>> CreateFollowVM(IEnumerable<Follower> followIds)
         {
-            List<UserDataVM> following = new();
+            List<OkObjectResult> following = new();
 
             foreach (var f in followIds)
             {
-                User user = await _userRepository.GetUserAsync(f.FollowerId);
+                var user = await _userRepository.GetUserAsync(f.FollowerId);
 
-                following.Add(new UserDataVM
+                following.Add(new OkObjectResult( new UserDataVM
                 {
                     UserId = user.UserId,
                     Forename = user.Forename,
                     Surname = user.Surname
-                });
+                }));
             }
             if (following == null)
                 throw new KeyNotFoundException();

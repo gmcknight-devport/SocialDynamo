@@ -19,7 +19,8 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(x => 
+    x.SerializerSettings.ReferenceLoopHandling =Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 //Posts services
 builder.Services.AddTransient<IPostsQueries, PostsQueries>();
@@ -35,8 +36,9 @@ if (builder.Environment.IsDevelopment())
         options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDb"));
     });
 }
+
 //Add Mediator
-builder.Services.AddSingleton<Mediator>();
+builder.Services.AddScoped<Mediator>();
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -53,6 +55,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

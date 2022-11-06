@@ -1,7 +1,12 @@
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.reporters.netcoreapp10.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.utility.netcoreapp10.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Posts.Infrastructure.deps.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Posts.Infrastructure.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Posts.Infrastructure.pdb
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Common.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Posts.Domain.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Common.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Posts.Domain.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\obj\Debug\net6.0\Posts.Infrastructure.csproj.AssemblyReference.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\obj\Debug\net6.0\Posts.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
@@ -13,8 +18,3 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructur
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\obj\Debug\net6.0\refint\Posts.Infrastructure.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\obj\Debug\net6.0\Posts.Infrastructure.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\obj\Debug\net6.0\ref\Posts.Infrastructure.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.reporters.netcoreapp10.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\xunit.runner.utility.netcoreapp10.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Common.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Infrastructure\bin\Debug\net6.0\Common.pdb

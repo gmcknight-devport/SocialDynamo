@@ -38,11 +38,17 @@ namespace Posts.API.Commands
 
             if (mediaItemIds.Any())
             {
+                List<string> mediaList = new();
+                foreach(var v in mediaItemIds)
+                {
+                    mediaList.Add(Convert.ToString(v));
+                }
+
                 PostDeletedIntegrationEvent integrationEvent = new()
                 {
-                    MediaItemIds = (ICollection<string>)mediaItemIds
+                    MediaItemIds = mediaList
                 };
-                PublishEvent(integrationEvent);
+                PublishIntegrationEvent(integrationEvent);
             }
 
             _logger.LogInformation("----- Specified post deleted. Post: {@PostId}", command.PostId);
@@ -50,7 +56,7 @@ namespace Posts.API.Commands
             return true;
         }
 
-        private async void PublishEvent(IIntegrationEvent integrationEvent)
+        private async void PublishIntegrationEvent(IIntegrationEvent integrationEvent)
         {
             var jsonMessage = JsonConvert.SerializeObject(integrationEvent);
             var body = Encoding.UTF8.GetBytes(jsonMessage);

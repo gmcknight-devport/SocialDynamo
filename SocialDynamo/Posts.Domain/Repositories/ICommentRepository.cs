@@ -1,4 +1,5 @@
 ﻿using Posts.Domain.Models;
+using Posts.Domain.ViewModels;
 
 namespace Posts.Domain.Repositories
 {
@@ -7,7 +8,7 @@ namespace Posts.Domain.Repositories
         public Task AddCommentAsync(Guid postId, Comment comment);
         public Task DeleteCommentAsync(Guid commentId);
         public Task LikeCommentAsync(Guid commentId, string userId);
-        public Task<IEnumerable<Comment>> GetPostCommentsAsync(Guid postId, int page);
-        public Task<IEnumerable<CommentLike>> GetCommentLikesAsync(Guid commentId);
+        public Task<IEnumerable<CommentVM>> GetPostCommentsAsync(Guid postId, int page);
+        public Task<IEnumerable<LikeVM>> GetCommentLikesAsync(Guid commentId);
     }   
 }

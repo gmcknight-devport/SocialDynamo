@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "txHhIPfF9U26tz+A8RFhHvEowaj6XLuqL6oXnlL8okgyKqP+J0HiDJH1/dtJPT+JFI5+2FWsly0Q88Gt35lnrw==",
+  "dgSpecHash": "/VR0GLa5VkirPkOlD57U097/7mOA/7xRz8wofD92aWovZyv+8P3GGEQIHvhMZY0laRvPHWZIPnBqXspGAMyEig==",
   "success": true,
   "projectFilePath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Account.Infrastructure\\Account.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -66,6 +66,7 @@
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.10\\microsoft.entityframeworkcore.design.6.0.10.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.10\\microsoft.entityframeworkcore.relational.6.0.10.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\6.0.10\\microsoft.entityframeworkcore.sqlserver.6.0.10.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\6.0.10\\microsoft.entityframeworkcore.tools.6.0.10.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\6.0.0\\microsoft.extensions.configuration.abstractions.6.0.0.nupkg.sha512",

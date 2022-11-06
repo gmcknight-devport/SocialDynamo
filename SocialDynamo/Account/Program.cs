@@ -3,10 +3,8 @@ using Account.API.Profile.Queries;
 using Account.API.Services;
 using Account.Domain.Repositories;
 using Account.Infrastructure.Persistence;
-using Account.Models.Users;
 using Common;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -22,7 +20,8 @@ Log.Logger = new LoggerConfiguration()
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(x =>
+    x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 //Account services
 builder.Services.AddTransient<IProfileQueries, ProfileQueries>();
@@ -34,11 +33,6 @@ builder.Services.AddTransient<IFuzzySearch, UserRepository>();
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IAuthenticationRepository, AuthenticationRepository>();
 
-//Identity
-builder.Services.AddIdentity<User, IdentityRole>()
-    .AddEntityFrameworkStores<AccountDbContext>()
-    .AddDefaultTokenProviders();
-
 //Infrastructure services
 if (builder.Environment.IsDevelopment())
 {
@@ -49,7 +43,7 @@ if (builder.Environment.IsDevelopment())
 }
 
 //Add Mediator
-builder.Services.AddSingleton<Mediator>();
+builder.Services.AddScoped<Mediator>();
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -65,7 +59,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI().UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

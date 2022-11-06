@@ -5,13 +5,14 @@ namespace Account.Models.Users
 {
     public class Follower
     {
-        [ForeignKey("UserForeignKey")]
+        [ForeignKey("User")]
         [MaxLength(100)]
         [Required]
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
         public string UserId;
 
         [MaxLength(100)]
+        [Key]
         [Required]
         [RegularExpression(@"^\S*$", ErrorMessage = "No white space allowed")]
         public string FollowerId { get; set; }

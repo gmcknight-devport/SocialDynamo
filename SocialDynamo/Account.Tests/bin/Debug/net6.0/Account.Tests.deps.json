@@ -1965,6 +1965,22 @@
           "Common.dll": {}
         }
       },
+      "Microsoft.AspNetCore.Mvc.NewtonsoftJson/6.0.10.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll": {
+            "assemblyVersion": "6.0.10.0",
+            "fileVersion": "6.0.1022.47617"
+          }
+        }
+      },
+      "Azure.Messaging.ServiceBus/7.11.0.0": {
+        "runtime": {
+          "Azure.Messaging.ServiceBus.dll": {
+            "assemblyVersion": "7.11.0.0",
+            "fileVersion": "7.1100.22.51103"
+          }
+        }
+      },
       "Serilog/2.0.0.0": {
         "runtime": {
           "Serilog.dll": {
@@ -2010,6 +2026,62 @@
           "Serilog.AspNetCore.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "6.0.1.0"
+          }
+        }
+      },
+      "System.Memory.Data/1.0.2.0": {
+        "runtime": {
+          "System.Memory.Data.dll": {
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.221.20802"
+          }
+        }
+      },
+      "Microsoft.AspNetCore.JsonPatch/6.0.10.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.JsonPatch.dll": {
+            "assemblyVersion": "6.0.10.0",
+            "fileVersion": "6.0.1022.47617"
+          }
+        }
+      },
+      "Newtonsoft.Json.Bson/1.0.0.0": {
+        "runtime": {
+          "Newtonsoft.Json.Bson.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.2.22727"
+          }
+        }
+      },
+      "Azure.Core/1.25.0.0": {
+        "runtime": {
+          "Azure.Core.dll": {
+            "assemblyVersion": "1.25.0.0",
+            "fileVersion": "1.2500.22.33004"
+          }
+        }
+      },
+      "Microsoft.Bcl.AsyncInterfaces/1.0.0.0": {
+        "runtime": {
+          "Microsoft.Bcl.AsyncInterfaces.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "4.700.20.21406"
+          }
+        }
+      },
+      "Microsoft.Azure.Amqp/2.4.0.0": {
+        "runtime": {
+          "Microsoft.Azure.Amqp.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.2.0.0"
+          }
+        }
+      },
+      "Azure.Core.Amqp/1.2.0.0": {
+        "runtime": {
+          "Azure.Core.Amqp.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.200.21.35604"
           }
         }
       }
@@ -3361,6 +3433,16 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.AspNetCore.Mvc.NewtonsoftJson/6.0.10.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Azure.Messaging.ServiceBus/7.11.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Serilog/2.0.0.0": {
       "type": "reference",
       "serviceable": false,
@@ -3387,6 +3469,41 @@
       "sha512": ""
     },
     "Serilog.AspNetCore/2.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "System.Memory.Data/1.0.2.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.AspNetCore.JsonPatch/6.0.10.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Newtonsoft.Json.Bson/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Azure.Core/1.25.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Bcl.AsyncInterfaces/1.0.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Azure.Amqp/2.4.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Azure.Core.Amqp/1.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

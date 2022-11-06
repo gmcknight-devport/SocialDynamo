@@ -9,11 +9,9 @@ namespace Posts.API.Commands
         [Required]
         public Guid PostId { get; set; }
 
-        public string Hashtag { get; set; }
+        public string? Hashtag { get; set; }
 
         [MaxLength(2200)]
-        public string Caption { get; set; }
-
-        public List<MediaItemId> MediaItemIds { get; set; }
+        public string? Caption { get; set; }
     }
 }

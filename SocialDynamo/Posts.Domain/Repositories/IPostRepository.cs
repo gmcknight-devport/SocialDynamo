@@ -1,4 +1,5 @@
 ﻿using Posts.Domain.Models;
+using Posts.Domain.ViewModels;
 
 namespace Posts.Domain.Repositories
 {
@@ -10,7 +11,7 @@ namespace Posts.Domain.Repositories
         public Task<Post> GetPostAsync(Guid postId);
         public Task<IEnumerable<Post>> GetUserPostsAsync(string userId, int page);
         public Task<IEnumerable<Post>> GetUsersPostsAsync(List<string> userIds, int page);
-        public Task<IEnumerable<PostLike>> GetPostLikesAsync(Guid postId);
+        public Task<IEnumerable<LikeVM>> GetPostLikesAsync(Guid postId);
         public Task UpdatePostAsync(Post post);
     }
 }

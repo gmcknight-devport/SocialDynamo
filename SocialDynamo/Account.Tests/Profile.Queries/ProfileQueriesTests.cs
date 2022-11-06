@@ -82,20 +82,20 @@ namespace Account.Tests.Profile.Queries
                 //Create instance of class and call method
                 var testClass = mock.Create<ProfileQueries>();
                                 
-                List<UserDataVM> expected = new()
+                List<OkObjectResult> expected = new()
                 {
-                    new UserDataVM
+                    new OkObjectResult(new UserDataVM
                     {
                         UserId = userFollowers.ElementAt(0).UserId,
                         Forename = userFollowers.ElementAt(0).Forename,
                         Surname = userFollowers.ElementAt(0).Surname
-                    },
-                    new UserDataVM
+                    }),
+                    new OkObjectResult(new UserDataVM
                     {
                         UserId = userFollowers.ElementAt(1).UserId,
                         Forename = userFollowers.ElementAt(1).Forename,
                         Surname = userFollowers.ElementAt(1).Surname
-                    }
+                    })
                 };
                 var actual = await testClass.GetUserFollowers(userId);
                 
@@ -155,26 +155,26 @@ namespace Account.Tests.Profile.Queries
                 //Create instance of class and call method
                 var testClass = mock.Create<ProfileQueries>();
 
-                List<UserDataVM> expected = new()
+                List<OkObjectResult> expected = new()
                 {
-                    new UserDataVM
+                    new OkObjectResult(new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(0).UserId,
                         Forename = userFollowing.ElementAt(0).Forename,
                         Surname = userFollowing.ElementAt(0).Surname
-                    },
-                    new UserDataVM
+                    }),
+                    new OkObjectResult(new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(1).UserId,
                         Forename = userFollowing.ElementAt(1).Forename,
                         Surname = userFollowing.ElementAt(1).Surname
-                    },
-                    new UserDataVM
+                    }),
+                    new OkObjectResult(new UserDataVM
                     {
                         UserId = userFollowing.ElementAt(2).UserId,
                         Forename = userFollowing.ElementAt(2).Forename,
                         Surname = userFollowing.ElementAt(2).Surname
-                    }
+                    })
                 };
                 var actual = await testClass.GetUserFollowing(userId);
 

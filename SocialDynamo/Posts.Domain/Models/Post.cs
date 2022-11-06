@@ -34,7 +34,7 @@ namespace Posts.Domain.Models
         [Required]
         public ICollection<MediaItemId> MediaItemIds{ get; set; }
 
-        public ICollection<PostLike>? Likes { get; set; }
-        public ICollection<Comment>? Comments { get; set; }
+        public ICollection<PostLike> Likes { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

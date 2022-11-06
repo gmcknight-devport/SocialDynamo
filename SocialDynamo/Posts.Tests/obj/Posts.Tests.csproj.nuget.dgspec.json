@@ -114,6 +114,12 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
+              "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {
+                "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj"
+              },
+              "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Posts.Domain\\Posts.Domain.csproj": {
+                "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Posts.Domain\\Posts.Domain.csproj"
+              },
               "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Posts.Infrastructure\\Posts.Infrastructure.csproj": {
                 "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Posts.Infrastructure\\Posts.Infrastructure.csproj"
               }
@@ -142,15 +148,19 @@
               "target": "Package",
               "version": "[11.0.0, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.10, )"
             },
-            "Newtonsoft.Json": {
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
-              "version": "[13.0.1, )"
+              "version": "[1.15.1, )"
             },
             "Serilog": {
               "target": "Package",

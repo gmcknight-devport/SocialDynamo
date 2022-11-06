@@ -31,14 +31,10 @@ namespace Posts.API.Commands
             Post post = await _postRepository.GetPostAsync(command.PostId);
             List<MediaItemId> mediaItems = post.MediaItemIds.ToList();
 
-            if(command.MediaItemIds == null && command.Caption == null && command.Hashtag == null)
+            if(command.Caption == null && command.Hashtag == null)
             {
                 throw new ArgumentNullException("No new values provided");
             }
-
-            post.MediaItemIds = command.MediaItemIds == null || command.MediaItemIds.All(mediaItems.Contains)
-                            ? post.MediaItemIds
-                            : command.MediaItemIds;
 
             post.Hashtag = command.Hashtag != null
                             ? command.Hashtag
@@ -49,8 +45,8 @@ namespace Posts.API.Commands
                             : post.Caption;
 
             _logger.LogInformation("----- Post updated with new information from command. Post: {@PostId}, " +
-                "MediaItemIDs: {@MediaItemIds}, Hashtag: {@Hashtag}, Caption: {@Caption}", command.PostId,
-                command.MediaItemIds, command.Hashtag, command.Caption);
+                "Hashtag: {@Hashtag}, Caption: {@Caption}", command.PostId,
+                command.Hashtag, command.Caption);
 
             await _postRepository.UpdatePostAsync(post);
             return true;

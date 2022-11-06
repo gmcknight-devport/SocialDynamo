@@ -39,11 +39,11 @@ namespace Posts.API.Controllers
         [Route("users/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUsersPosts(List<string> userId, int page)
+        public async Task<IActionResult> GetUsersPosts([FromQuery]List<string> userIds, int page)
         {
             try
             {
-                var userPosts = await _postService.GetUsersPostsAsync(userId, page);
+                var userPosts = await _postService.GetUsersPostsAsync(userIds, page);
                 return new OkObjectResult(userPosts);
             }
             catch (Exception ex)

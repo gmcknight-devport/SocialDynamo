@@ -12,15 +12,10 @@ namespace Account.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .Property(p => p.UserId)
-                .ValueGeneratedOnAdd();
-
             modelBuilder.Entity<Follower>()
                 .HasOne(u => u.User)
                 .WithMany(f => f.Followers)
-                .HasForeignKey(u => u.UserId)
-                .HasForeignKey(u => u.FollowerId);
+                .HasForeignKey(f => f.UserId);
         }
     }
 }

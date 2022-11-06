@@ -1,6 +1,8 @@
-﻿using Account.Domain.Repositories;
+﻿using Account.API.Services;
+using Account.Domain.Repositories;
 using Account.Models.Users;
 using MediatR;
+using System.Security;
 
 namespace Account.API.Profile.Commands
 {
@@ -9,11 +11,15 @@ namespace Account.API.Profile.Commands
     {
         private readonly IUserRepository _userRepository;
         private readonly ILogger<ChangePasswordCommandHandler> _logger;
+        private readonly IAuthenticationService _authService;
 
-        public ChangePasswordCommandHandler(IUserRepository userRepository, ILogger<ChangePasswordCommandHandler> logger)
+        public ChangePasswordCommandHandler(IUserRepository userRepository, 
+                                            ILogger<ChangePasswordCommandHandler> logger, 
+                                            IAuthenticationService authService)
         {
             _userRepository = userRepository;
             _logger = logger;
+            _authService = authService;
         }
 
         /// <summary>
@@ -26,7 +32,14 @@ namespace Account.API.Profile.Commands
         public async Task<bool> Handle(ChangePasswordCommand changePasswordCommand, CancellationToken cancellationToken)
         {
             User user = await _userRepository.GetUserAsync(changePasswordCommand.UserId);
-            user.Password = changePasswordCommand.Password;
+            var hashedPassword = _authService.HashPassword(changePasswordCommand.OldPassword);
+
+            if (user.Password != hashedPassword)
+            {
+                throw new SecurityException("Old password does not match stored password");
+            }
+
+            user.Password = _authService.HashPassword(changePasswordCommand.NewPassword);
 
             _logger.LogInformation("----- Changing user password - User: {@user}, " +
                 "password information ommited for security", user);

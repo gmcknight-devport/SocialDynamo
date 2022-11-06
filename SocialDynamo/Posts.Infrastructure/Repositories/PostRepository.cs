@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Posts.Domain.Models;
 using Posts.Domain.Repositories;
+using Posts.Domain.ViewModels;
 using Posts.Infrastructure.Persistence;
 
 namespace Posts.Infrastructure.Repositories
@@ -27,7 +28,8 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task DeletePostAsync(Guid postId)
         {
-            var post = await _postsDbContext.Posts.FirstOrDefaultAsync(x => x.PostId == postId);
+            var post = await GetPostAsync(postId);
+
             if (post == null)
             {
                 throw new ArgumentNullException(nameof(post));
@@ -39,7 +41,11 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task<Post> GetPostAsync(Guid postId)
         {
-            var post = await _postsDbContext.Posts.FindAsync(postId);
+            var post = await _postsDbContext.Posts
+                    .Include(p => p.MediaItemIds)
+                    .Include(p => p.Likes)
+                    .Include(p => p.Comments)
+                    .FirstOrDefaultAsync(p => p.PostId == postId);
 
             if (post == null)
             {
@@ -48,14 +54,18 @@ namespace Posts.Infrastructure.Repositories
             return post;
         }
 
-        public async Task<IEnumerable<PostLike>> GetPostLikesAsync(Guid postId)
+        public async Task<IEnumerable<LikeVM>> GetPostLikesAsync(Guid postId)
         {
-            var post = await _postsDbContext.Posts.FindAsync(postId);
+            var post = await GetPostAsync(postId);
 
             if (post == null)
                 throw new ArgumentNullException(nameof(post));
 
-            List<PostLike> postLikes = post.Likes.ToList();
+            var postLikes = post.Likes.Select(x => new LikeVM
+            {
+                Id = x.Id,
+                LikeUserId = x.LikeUserId
+            }).ToList();
 
             return postLikes;
         }
@@ -63,9 +73,12 @@ namespace Posts.Infrastructure.Repositories
         public async Task<IEnumerable<Post>> GetUserPostsAsync(string userId, int page)
         {
             int resultsPerPage = 12;
-            List<Post> posts = await _postsDbContext.Posts
-                                    .Where(p => p.AuthorId == userId)
-                                    .OrderByDescending(p => p.PostedAt)
+            List<Post> posts = await _postsDbContext.Posts                                    
+                                    .Include(p => p.Comments)
+                                    .Include(p => p.MediaItemIds)
+                                    .Include(p => p.Likes)
+                                    .Where(p => p.AuthorId == userId)  
+                                    .OrderByDescending(p => p.PostedAt)                                    
                                     .Skip((page - 1) * resultsPerPage)
                                     .Take(resultsPerPage)
                                     .ToListAsync();
@@ -82,6 +95,9 @@ namespace Posts.Infrastructure.Repositories
         {
             int resultsPerPage = 10;
             List<Post> posts = await _postsDbContext.Posts
+                                                    .Include(p => p.Comments)
+                                                    .Include(p => p.MediaItemIds)
+                                                    .Include(p => p.Likes)
                                                     .Where(p => userIds.Contains(p.AuthorId))
                                                     .OrderByDescending(p => p.PostedAt)
                                                     .Skip((page - 1) * resultsPerPage)
@@ -98,7 +114,7 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task LikePostAsync(Guid postId, string userId)
         {
-            var post = await _postsDbContext.Posts.FindAsync(postId);
+            var post = await GetPostAsync(postId);
            
             if(post == null)
             {
@@ -111,12 +127,13 @@ namespace Posts.Infrastructure.Repositories
                 LikeUserId = userId
             };
 
+            await _postsDbContext.PostLikes.AddAsync(like);
             await _postsDbContext.SaveChangesAsync();
         }
 
         public async Task UpdatePostAsync(Post post)
         {
-            var currentPost = await _postsDbContext.Posts.FindAsync(post.PostId);
+            var currentPost = await GetPostAsync(post.PostId);
             if(currentPost == null)
             {
                 throw new ArgumentNullException(nameof(currentPost));
@@ -128,7 +145,12 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task<IEnumerable<object>> FuzzySearch(string fuzzyHashtag)
         {
-            var results = _postsDbContext.Posts.Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag)).Take(5);
+            var results = _postsDbContext.Posts
+                                               .Include(p => p.Comments)
+                                               .Include(p => p.MediaItemIds)
+                                               .Include(p => p.Likes)
+                                               .Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag))
+                                               .Take(5);
             return results;
         }
     }

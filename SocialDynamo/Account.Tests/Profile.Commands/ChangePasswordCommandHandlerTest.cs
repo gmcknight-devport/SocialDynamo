@@ -1,10 +1,13 @@
 ﻿using Account.API.Infrastructure.Repositories;
 using Account.API.Profile.Commands;
+using Account.API.Services;
 using Account.Domain.Repositories;
 using Account.Models.Users;
 using Autofac.Extras.Moq;
 using Microsoft.Extensions.Configuration;
 using Moq;
+using System.Security.Cryptography;
+using System.Text;
 using Xunit;
 
 namespace Account.Tests.Profile.Commands
@@ -16,10 +19,12 @@ namespace Account.Tests.Profile.Commands
         {
             User user = GetSampleUser();
             string newPassword = "Elbow1";
+
             ChangePasswordCommand command = new()
             {
                 UserId = user.UserId,
-                Password = newPassword
+                OldPassword = "Password",
+                NewPassword = newPassword
             };
             CancellationToken token = new();
 
@@ -33,16 +38,20 @@ namespace Account.Tests.Profile.Commands
                 mock.Mock<IUserRepository>()
                     .Setup(x => x.GetUserAsync(user.UserId))
                     .Returns(Task.FromResult(user));
+
+                mock.Mock<IAuthenticationService>()
+                    .Setup(x => x.HashPassword("Password"))
+                    .Returns(user.Password);
                                 
                 //Create instance of class and call method
                 var testClass = mock.Create<ChangePasswordCommandHandler>();
                 _ = await testClass.Handle(command, token);
-                user.Password = newPassword;
+                user.Password = HashPassword(newPassword);
 
                 //Verify method on mock was called once
                 mock.Mock<IUserRepository>()
                     .Verify(x => x.UpdateUserAsync(It.Is<User>(u => u.UserId == user.UserId &&
-                                                               u.Password == newPassword &&
+                                                               u.Password == HashPassword(newPassword) &&
                                                                u.Forename == user.Forename &&
                                                                u.Surname == user.Surname)), 
                                                                Times.Exactly(1));
@@ -54,12 +63,21 @@ namespace Account.Tests.Profile.Commands
             User sampleUser = new()
             {
                 UserId = "AnId22",
-                Password = "password",
+                Password = HashPassword("password"),
                 Forename = "Phil",
                 Surname = "Philington"
             };
 
             return sampleUser;
+        }
+
+        private string HashPassword(string password)
+        {
+            using var sha = SHA256.Create();
+            var asBytes = Encoding.Default.GetBytes(password);
+            var hashed = sha.ComputeHash(asBytes);
+
+            return Convert.ToBase64String(hashed);
         }
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Account.API.Commands;
-using Account.API.Common.ViewModels;
+using Account.Domain.ViewModels;
 using Account.Domain.Repositories;
-using Account.API.ViewModels;
 using Account.Exceptions;
 using Account.Models.Users;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,24 +14,23 @@ using Common;
 using Newtonsoft.Json;
 using Azure.Messaging.ServiceBus;
 using System.Net.Mime;
+using Account.API.ViewModels;
 
 namespace Account.API.Services
 {
     //All services implemented for authentication in the project.
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IAuthenticationRepository _authenticationRepo;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<AuthenticationService> _logger;
 
-        public AuthenticationService(UserManager<User> userManager, IConfiguration configuration,
-                                    IAuthenticationRepository authenticationRepo,
-                                    IUserRepository userRepository,
-                                    ILogger<AuthenticationService> logger)
+        public AuthenticationService(IConfiguration configuration,
+                                     IAuthenticationRepository authenticationRepo,
+                                     IUserRepository userRepository,
+                                     ILogger<AuthenticationService> logger)
         {
-            _userManager = userManager;
             _configuration = configuration;
             _authenticationRepo = authenticationRepo;
             _userRepository = userRepository;
@@ -62,11 +59,14 @@ namespace Account.API.Services
                 Password = HashPassword(command.Password),
                 Forename = command.Forename,
                 Surname = command.Surname,
+                ProfileDescription = "",
+                RefreshToken = "",
+                RefreshExpires = DateTime.UtcNow.AddDays(-1),
                 Followers = new List<Follower>()
             };
-
+                        
             await _userRepository.AddUserAsync(newUser);
-
+            
             NewUserIntegrationEvent integrationEvent = new()
             {
                 UserId = command.UserId
@@ -96,33 +96,15 @@ namespace Account.API.Services
         public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command)
         {
             User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
-            //User user = await _userManager.FindByEmailAsync(command.EmailAddress);
 
             if (user != null)
             {
                 if (await _authenticationRepo.AuthenticateUser(user.UserId, HashPassword(command.Password)))
-                //if(await _userManager.CheckPasswordAsync(user, command.Password))
-                {                    
-                    //Generate tokens
-                    var token = GenerateToken(user.UserId);
-
-                    var refreshToken = GenerateRefreshToken();
-                    DateTime refreshExpiresAt = DateTime.Today.AddDays(1);
-                    var jwtToken = new JwtSecurityTokenHandler().WriteToken(token);
-
-                    //Assign to user and save
-                    await _authenticationRepo.UpdateToken(user.UserId, refreshToken, refreshExpiresAt);
-
+                {
                     _logger.LogInformation("----- User authenticated, generated JWT token. " +
                         "User: {@EmailAdress}", command.EmailAddress);
 
-                    //Create result to return
-                    return new OkObjectResult(new AuthResultVM
-                    {
-                        Token = jwtToken,
-                        RefreshToken = refreshToken,
-                        ExpiresAt = token.ValidTo
-                    });
+                    return await GenerateTokens(user.UserId, null);
                 }
                 else
                 {
@@ -134,97 +116,73 @@ namespace Account.API.Services
                 return new BadRequestObjectResult("No account for this email address");
             }
         }
-
+        
         /// <summary>
-        /// Handles the RefreshJWTTokenCommand. Generates a JWT access token after 
-        /// validating the currently held refresh token.
+        /// Handles the RefreshJwtTokenCommand. Checks validity of the token, checks
+        /// refresh token expiry and calls methods to create and return new tokens. 
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
         public async Task<IActionResult> HandleCommandAsync(RefreshJwtTokenCommand command)
         {
+            var userRefreshToken = await _authenticationRepo.GetRefreshToken(command.UserId);
+
             //Check claim principal from expired access token
             try
             {
                 var principal = GetPrincipalFromExpiredToken(command.Token);
-            }catch (ArgumentNullException)
-            {
+
+                return await GenerateTokens(command.UserId, userRefreshToken);
+                
+            }catch(SecurityTokenExpiredException){
+                if (userRefreshToken.RefreshExpires >= DateTime.UtcNow)
+                {
+                    return await GenerateTokens(command.UserId, userRefreshToken);
+                }
+                else if (userRefreshToken != null ||
+                        userRefreshToken.RefreshToken.ToString() == command.RefreshToken ||
+                        userRefreshToken.RefreshExpires >= DateTime.UtcNow)
+                {                    
+                    return await GenerateTokens(command.UserId, null);                    
+                }
                 return new BadRequestObjectResult("Invalid request");
             }
+        }
 
-            //Check validity of tokens against stored refresh token - the proper security measure
-            var refToken = await _authenticationRepo.GetRefreshToken(command.UserId);            
-            OkObjectResult? refreshResult = refToken as OkObjectResult;
-            Tuple<string, DateTime>? refreshTuple = refreshResult.Value as Tuple<string, DateTime>;
-            
-            RefreshTokenVM userRefreshToken = new RefreshTokenVM
+        /// <summary>
+        /// Generates new tokens based on parameter values. 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="token"></param>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        private async Task<IActionResult> GenerateTokens(string userId, RefreshTokenVM refreshToken)
+        {
+            var accessToken = GenerateToken(userId);
+            var jwtToken = new JwtSecurityTokenHandler().WriteToken(accessToken);
+
+            if (refreshToken == null)
             {
-                RefreshToken = refreshTuple.Item1,
-                TokenExpires = refreshTuple.Item2
-            };
-
-            if (userRefreshToken == null ||
-                userRefreshToken.RefreshToken.ToString() != command.RefreshToken ||
-                userRefreshToken.TokenExpires <= DateTime.Now)
-            {               
-                return new BadRequestObjectResult("Invalid refresh token");
+                refreshToken = new()
+                {
+                    RefreshToken = GenerateRefreshToken(),
+                    RefreshExpires = DateTime.UtcNow.AddDays(1)
+                };                
+                                
+                await _authenticationRepo.UpdateToken(userId, refreshToken.RefreshToken, refreshToken.RefreshExpires);
             }
 
             _logger.LogInformation("----- User refresh token validated, generating new access token. " +
-                        "User: {@UserId}", command.UserId);
+                "User: {@UserId}", userId);
 
-            // Generate new tokens
-            var accessToken = GenerateToken(command.UserId);
-            var refreshToken = GenerateRefreshToken();
-            DateTime refreshExpiresAt = DateTime.Today.AddDays(1);
-            var jwtToken = new JwtSecurityTokenHandler().WriteToken(accessToken);
-
-            //Update user token
-            await _authenticationRepo.UpdateToken(command.UserId, refreshToken, refreshExpiresAt);
-
-            //Return tokens
             return new OkObjectResult(new AuthResultVM
             {
                 Token = jwtToken,
-                RefreshToken = refreshToken,
-                ExpiresAt = refreshExpiresAt
+                RefreshToken = refreshToken.RefreshToken,
+                ExpiresAt = refreshToken.RefreshExpires
             });
         }
-
-        /// <summary>
-        /// Private method to ash the password for secure storage. 
-        /// </summary>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private static string HashPassword(string password)
-        {
-            using var sha = SHA256.Create();
-            var asBytes = Encoding.Default.GetBytes(password);
-            var hashed = sha.ComputeHash(asBytes);
-
-            return Convert.ToBase64String(hashed);
-        }
-
-        /// <summary>
-        /// Returns validation parameters to ensure the token conforms.
-        /// </summary>
-        /// <returns></returns>
-        private TokenValidationParameters GetTokenValidationParameters()
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
-            TokenValidationParameters tokenValidationParameters = new()
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer = _configuration["JWT:Issuer"],
-                ValidAudience = _configuration["JWT:Audience"],
-                IssuerSigningKey = securityKey
-            };
-
-            return tokenValidationParameters;
-        }
-
+              
         /// <summary>
         /// Generates a new token for the passed in user. 
         /// </summary>
@@ -257,10 +215,10 @@ namespace Account.API.Services
         /// <returns></returns>
         private string GenerateRefreshToken()
         {
-            var randomNumber = new byte[64];
+            var randomNumber = new byte[32];
             using var rng = RandomNumberGenerator.Create();
             rng.GetBytes(randomNumber);
-            return Convert.ToBase64String(randomNumber);
+            return BitConverter.ToString(randomNumber);
         }
 
         /// <summary>
@@ -284,6 +242,44 @@ namespace Account.API.Services
             return principal;
         }
 
+        /// <summary>
+        /// Returns validation parameters to ensure the token conforms.
+        /// </summary>
+        /// <returns></returns>
+        private TokenValidationParameters GetTokenValidationParameters()
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+            TokenValidationParameters tokenValidationParameters = new()
+            {
+                ValidateIssuerSigningKey = true,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidIssuer = _configuration["JWT:Issuer"],
+                ValidAudience = _configuration["JWT:Audience"],
+                IssuerSigningKey = securityKey
+            };
+
+            return tokenValidationParameters;
+        }
+
+        /// <summary>
+        /// Private method to ash the password for secure storage. 
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public string HashPassword(string password)
+        {
+            using var sha = SHA256.Create();
+            var asBytes = Encoding.Default.GetBytes(password);
+            var hashed = sha.ComputeHash(asBytes);
+
+            return Convert.ToBase64String(hashed);
+        }
+
+        /// <summary>
+        /// Publishes integration event passed into it. 
+        /// </summary>
+        /// <param name="integrationEvent"></param>
         private async void PublishEvent(IIntegrationEvent integrationEvent)
         {
             var jsonMessage = JsonConvert.SerializeObject(integrationEvent);

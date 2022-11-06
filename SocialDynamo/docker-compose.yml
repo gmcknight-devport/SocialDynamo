@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  account.api:
+    image: ${DOCKER_REGISTRY-}accountapi
+    build:
+      context: .
+      dockerfile: Account/Dockerfile
+
+  media.api:
+    image: ${DOCKER_REGISTRY-}mediaapi
+    build:
+      context: .
+      dockerfile: Media.API/Dockerfile
+
+
+  posts.api:
+    image: ${DOCKER_REGISTRY-}postsapi
+    build:
+      context: .
+      dockerfile: Posts.API/Dockerfile
+
