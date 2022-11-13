@@ -2,7 +2,7 @@
 
 namespace Account.API.ViewModels
 {
-    public class TokenRequestVM
+    public record TokenRequestVM
     {
         [Required]
         public string Token { get; set; }

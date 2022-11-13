@@ -1,5 +1,6 @@
 ﻿using Account.API.Profile.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -7,6 +8,7 @@ namespace Account.API.Controllers
 {
     [ApiController]
     [Route("account")]
+    [Authorize]
     public class ProfileController : ControllerBase
     {
         private readonly Mediator _mediator;
@@ -73,6 +75,23 @@ namespace Account.API.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(UpdateUserDetailsCommand command)
+        {
+            try
+            {
+                bool executed = await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("uploadprofilepicture")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> Put(UploadProfilePictureCommand command)
         {
             try
             {

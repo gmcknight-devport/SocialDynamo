@@ -1,5 +1,6 @@
 ﻿using Media.API.Commands;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -7,6 +8,7 @@ namespace Media.API.Controllers
 {
     [ApiController]
     [Route("media")]
+    [Authorize]
     public class MediaController : ControllerBase
     {
         private readonly IMediator _mediator;

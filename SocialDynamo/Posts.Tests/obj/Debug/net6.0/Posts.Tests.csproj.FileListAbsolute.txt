@@ -173,3 +173,4 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\obj\Deb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\obj\Debug\net6.0\Posts.Tests.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\obj\Debug\net6.0\Posts.Tests.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\obj\Debug\net6.0\ref\Posts.Tests.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Tests\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

@@ -1,0 +1,234 @@
+{
+  "Routes": [
+    //Account microservice
+    {
+      "DownstreamPathTemplate": "/account/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/account/{everything}",
+      "UpstreamHttpMethod": [ "Put", "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/authentication/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/authentication/{everything}",
+      "UpstreamHttpMethod": [ "Put" ]
+    },
+    //Aggregate microservice
+    {
+      "DownstreamPathTemplate": "/baseaggregate/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/api",
+      "UpstreamHttpMethod": [ "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    //Posts microservice - controller
+    {
+      "DownstreamPathTemplate": "/posts/comment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/comment",
+      "UpstreamHttpMethod": [ "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/deletecomment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/deletecomment",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/deletepost",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/deletepost",
+      "UpstreamHttpMethod": [ "Delete" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/likecomment",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/likecomment",
+      "UpstreamHttpMethod": [ "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/likepost",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/likepost",
+      "UpstreamHttpMethod": [ "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/update",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/update",
+      "UpstreamHttpMethod": [ "Put" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    //Posts microservice - query controller
+    {
+      "DownstreamPathTemplate": "/posts/comments/{postId}/{page}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/comments/{postId}/{page}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/postlikes/{page}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/postlikes/{page}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/postlikes/{postId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/postlikes/{postid}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/commentLikes/{commentId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/commentLikes/{commentId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/{searchTerm}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 443
+        }
+      ],
+      "UpstreamPathTemplate": "/posts/{searchterm}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "AuthenticationKey",
+        "AllowedScopes": []
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "ServiceDiscoveryProvider": {
+      "Port": 443,
+      "Type": "Kube"
+    }
+  }
+}

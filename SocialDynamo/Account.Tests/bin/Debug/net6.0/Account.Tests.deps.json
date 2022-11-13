@@ -1958,6 +1958,7 @@
       },
       "Common/1.0.0": {
         "dependencies": {
+          "Microsoft.AspNetCore.Http.Features": "2.2.0",
           "Moq": "4.18.2",
           "xunit": "2.4.2"
         },
@@ -1973,11 +1974,27 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.11.0": {
+        "runtime": {
+          "Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "6.0.11.0",
+            "fileVersion": "6.0.1122.52304"
+          }
+        }
+      },
       "Azure.Messaging.ServiceBus/7.11.0.0": {
         "runtime": {
           "Azure.Messaging.ServiceBus.dll": {
             "assemblyVersion": "7.11.0.0",
             "fileVersion": "7.1100.22.51103"
+          }
+        }
+      },
+      "Magick.NET-Q16-AnyCPU/12.2.0.0": {
+        "runtime": {
+          "Magick.NET-Q16-AnyCPU.dll": {
+            "assemblyVersion": "12.2.0.0",
+            "fileVersion": "12.2.1.0"
           }
         }
       },
@@ -2082,6 +2099,14 @@
           "Azure.Core.Amqp.dll": {
             "assemblyVersion": "1.2.0.0",
             "fileVersion": "1.200.21.35604"
+          }
+        }
+      },
+      "Magick.NET.Core/12.2.0.0": {
+        "runtime": {
+          "Magick.NET.Core.dll": {
+            "assemblyVersion": "12.2.0.0",
+            "fileVersion": "12.2.1.0"
           }
         }
       }
@@ -3438,7 +3463,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/6.0.11.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
     "Azure.Messaging.ServiceBus/7.11.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Magick.NET-Q16-AnyCPU/12.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
@@ -3504,6 +3539,11 @@
       "sha512": ""
     },
     "Azure.Core.Amqp/1.2.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Magick.NET.Core/12.2.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

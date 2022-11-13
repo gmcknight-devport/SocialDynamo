@@ -70,3 +70,14 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.Inf
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.CopyComplete
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.deps.json
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.runtimeconfig.json
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.exe
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET-Q16-AnyCPU.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.Net.Http.Formatting.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET.Core.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.pdb

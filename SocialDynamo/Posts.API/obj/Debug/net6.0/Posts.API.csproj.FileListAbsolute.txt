@@ -97,3 +97,4 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\Posts.API.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\Posts.API.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\ref\Posts.API.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

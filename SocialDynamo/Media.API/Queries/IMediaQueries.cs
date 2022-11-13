@@ -4,6 +4,6 @@ namespace Media.API.Queries
 {
     public interface IMediaQueries
     {
-        Task<BlobDownloadResult> GetBlob(string userId, string mediaItemId);
+        Task<BinaryData> GetBlob(string userId, string mediaItemId);
     }
 }

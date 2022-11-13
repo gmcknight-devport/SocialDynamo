@@ -1,8 +1,8 @@
 {
   "Version": 1,
-  "Hash": "7F2PO4OAZamJfk96cnKNTB00Y/WPjYwZOinIVZZXd2A=",
-  "Source": "SocialDynamoAPI",
-  "BasePath": "_content/SocialDynamoAPI",
+  "Hash": "cObs6JR1iY0OorZJv9F9MicK8ieQVmOTYZxst3zN+pQ=",
+  "Source": "SocialDynamoAPI.BaseAggregator",
+  "BasePath": "_content/SocialDynamoAPI.BaseAggregator",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],

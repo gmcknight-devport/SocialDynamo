@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Account.Models.Users
 {
@@ -18,6 +17,9 @@ namespace Account.Models.Users
         [Required]
         [MaxLength(64)]
         public string Password { get; set; }
+
+        [MaxLength(15 * 1024 * 1024)]
+        public byte[] ProfilePicture { get; set; }
 
         [Required]
         [MaxLength(50)]

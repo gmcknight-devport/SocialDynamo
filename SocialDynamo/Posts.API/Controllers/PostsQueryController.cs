@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Posts.API.Queries;
 using System.Net;
 
 namespace Posts.API.Controllers
 {
     [ApiController]
-    [Route("posts")]
+    [Route("postsquery")]
+    [Authorize]
     public class PostsQueryController : ControllerBase
     {
         private readonly IPostsQueries _postService;
@@ -36,10 +38,10 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
-        [Route("users/{page}")]
+        [Route("users/{userIds}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetUsersPosts([FromQuery]List<string> userIds, int page)
+        public async Task<IActionResult> GetUsersPosts(List<string> userIds, int page)
         {
             try
             {
@@ -99,6 +101,24 @@ namespace Posts.API.Controllers
             {
                 var userPosts = await _postService.GetCommentLikesAsync(commentId);
                 return new OkObjectResult(userPosts);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("fuzzy/{searchTerm}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> FuzzySearch(string hashtag)
+        {
+            try
+            {
+                var searchedposts = await _postService.FuzzySearchHashtag(hashtag);
+                return new OkObjectResult(searchedposts);
             }
             catch (Exception ex)
             {

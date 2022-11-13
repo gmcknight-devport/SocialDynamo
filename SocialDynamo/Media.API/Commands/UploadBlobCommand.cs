@@ -1,4 +1,4 @@
-﻿using Media.API.Extensions;
+﻿using Common.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

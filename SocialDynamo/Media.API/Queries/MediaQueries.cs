@@ -21,7 +21,7 @@ namespace Media.API.Queries
         /// <returns></returns>
         /// <exception cref="NoUserContainerException"></exception>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task<BlobDownloadResult> GetBlob(string userId, string mediaItemId)
+        public async Task<BinaryData> GetBlob(string userId, string mediaItemId)
         {
             BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage:ConnectionString"]);
             var container = blobServiceClient.GetBlobContainerClient(userId);
@@ -29,12 +29,13 @@ namespace Media.API.Queries
             if (!container.Exists())
                 throw new NoUserContainerException("No user container found");
 
-            var blob = await container.GetBlobClient(mediaItemId).DownloadContentAsync();
+            BlobDownloadResult blob = await container.GetBlobClient(mediaItemId).DownloadContentAsync();
+            var result = blob.Content;
             
-            if(blob == null)
+            if(result == null)
                 throw new NullReferenceException(nameof(blob));
 
-            return blob;
+            return result;
         }
     }
 }

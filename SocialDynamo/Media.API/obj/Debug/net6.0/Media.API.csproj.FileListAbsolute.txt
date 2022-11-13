@@ -59,3 +59,10 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\obj\Debug
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\obj\Debug\net6.0\Media.API.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\obj\Debug\net6.0\Media.API.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\obj\Debug\net6.0\ref\Media.API.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Media.API\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

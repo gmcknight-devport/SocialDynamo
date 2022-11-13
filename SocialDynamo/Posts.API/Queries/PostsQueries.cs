@@ -29,7 +29,13 @@ namespace Posts.API.Queries
         /// <returns></returns>
         public async Task<IEnumerable<Post>> FuzzySearchHashtag(string hashtag)
         {
-            List<Post>? hashtagPosts = await _fuzzySearch.FuzzySearch(hashtag) as List<Post>;
+            string completeHashtag = hashtag;
+            if (!hashtag.StartsWith("#"))
+            {
+                completeHashtag = hashtag.Insert(0, "#");
+            }
+
+            List<Post>? hashtagPosts = await _fuzzySearch.FuzzySearch(completeHashtag) as List<Post>;
             _logger.LogInformation("Attempting to return posts found with hashtag through fuzzy search, " +
                 "Number found: {@hashtagPosts}", hashtagPosts);
 

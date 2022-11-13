@@ -1,4 +1,5 @@
 ﻿using Media.API.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -6,6 +7,7 @@ namespace Media.API.Controllers
 {
     [ApiController]
     [Route("media")]
+    [Authorize]
     public class MediaQueryController : ControllerBase
     {
         private readonly IMediaQueries _mediaQueries;

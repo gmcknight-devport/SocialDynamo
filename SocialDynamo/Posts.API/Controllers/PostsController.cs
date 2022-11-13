@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Posts.API.Commands;
 using System.Net;
@@ -7,6 +8,7 @@ namespace Posts.API.Controllers
 {
     [ApiController]
     [Route("posts")]
+    [Authorize]
     public class PostsController : ControllerBase
     {
         private readonly Mediator _mediator;
@@ -52,7 +54,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut("deletecomment")]
+        [HttpDelete("deletecomment")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(DeleteCommentCommand command)
@@ -69,7 +71,7 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpPut("deletepost")]
+        [HttpDelete("deletepost")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> Put(DeletePostCommand command)
