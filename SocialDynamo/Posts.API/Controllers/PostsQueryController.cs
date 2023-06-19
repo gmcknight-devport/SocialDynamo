@@ -6,7 +6,7 @@ using System.Net;
 namespace Posts.API.Controllers
 {
     [ApiController]
-    [Route("postsquery")]
+    [Route("posts")]
     [Authorize]
     public class PostsQueryController : ControllerBase
     {
@@ -37,8 +37,8 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("users/{userIds}/{page}")]
+        [HttpPost]
+        [Route("users/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUsersPosts(List<string> userIds, int page)

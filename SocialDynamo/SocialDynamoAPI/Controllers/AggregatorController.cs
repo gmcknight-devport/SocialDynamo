@@ -26,7 +26,7 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
         [Route("post")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> CreatePost(CreatePostVM createPostVM)
+        public async Task<IActionResult> CreatePost([FromForm]CreatePostVM createPostVM)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
             try
             {
                 var feed = await _postService.GetFeedAsync(userId, page);
-                return new OkObjectResult(feed);
+                return new JsonResult(feed);
             }
             catch (Exception ex)
             {

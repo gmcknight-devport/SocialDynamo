@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ActiveDebugProfile>Media.API</ActiveDebugProfile>
+  </PropertyGroup>
+  <ItemGroup>
+    <DevSpacesDebugProfileUserSetting Include="Bridge to Kubernetes">
+      <ClusterSource>KUBECONFIG</ClusterSource>
+      <ClusterName>socialdynamocluster</ClusterName>
+      <Context>socialdynamocluster</Context>
+      <Namespace>default</Namespace>
+      <ServiceName>media-clusterip-srv</ServiceName>
+      <RoutingHeader>
+      </RoutingHeader>
+      <LaunchUrl>
+      </LaunchUrl>
+      <LocalLaunchProfile>Media.API</LocalLaunchProfile>
+    </DevSpacesDebugProfileUserSetting>
+  </ItemGroup>
+</Project>

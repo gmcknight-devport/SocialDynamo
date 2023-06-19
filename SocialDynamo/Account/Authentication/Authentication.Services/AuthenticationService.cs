@@ -9,32 +9,54 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Account.API.Account.Authentication.IntegrationEvents;
 using Common;
 using Newtonsoft.Json;
 using Azure.Messaging.ServiceBus;
 using System.Net.Mime;
 using Account.API.ViewModels;
+using Account.API.IntegrationEvents;
+using Common.OptionsConfig;
+using Microsoft.Extensions.Options;
 
 namespace Account.API.Services
 {
     //All services implemented for authentication in the project.
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly IConfiguration _configuration;
         private readonly IAuthenticationRepository _authenticationRepo;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<AuthenticationService> _logger;
 
-        public AuthenticationService(IConfiguration configuration,
+        private readonly string _jwtIssuer;
+        private readonly string _jwtAudience;
+        private readonly string _jwtSecret;
+        private readonly string _serviceBus;
+
+        public AuthenticationService(IConfiguration baseConfiguration,
+                                     IOptions<JwtOptions> jwtOptions,
+                                     IOptions<ConnectionOptions> connectionOptions,
                                      IAuthenticationRepository authenticationRepo,
                                      IUserRepository userRepository,
                                      ILogger<AuthenticationService> logger)
         {
-            _configuration = configuration;
             _authenticationRepo = authenticationRepo;
             _userRepository = userRepository;
             _logger = logger;
+
+            if (baseConfiguration["JwtIssuer"] != null)
+            {
+                _jwtIssuer = baseConfiguration["JwtIssuer"];
+                _jwtAudience = baseConfiguration["JwtAudience"];
+                _jwtSecret = baseConfiguration["JwtSecret"];
+                _serviceBus = baseConfiguration["ServiceBus"];
+            }
+            else
+            {
+                _jwtIssuer = jwtOptions.Value.JwtIssuer;
+                _jwtAudience = jwtOptions.Value.JwtAudience;
+                _jwtSecret = jwtOptions.Value.JwtSecret;
+                _serviceBus = connectionOptions.Value.ServiceBus;
+            }
         }
 
         /// <summary>
@@ -61,12 +83,12 @@ namespace Account.API.Services
                 Surname = command.Surname,
                 ProfileDescription = "",
                 RefreshToken = "",
-                RefreshExpires = DateTime.UtcNow.AddDays(-1),
+                RefreshExpires = DateTime.UtcNow.AddDays(1),
                 Followers = new List<Follower>()
             };
                         
             await _userRepository.AddUserAsync(newUser);
-            
+
             NewUserIntegrationEvent integrationEvent = new()
             {
                 UserId = command.UserId
@@ -190,7 +212,7 @@ namespace Account.API.Services
         /// <returns></returns>
         private JwtSecurityToken GenerateToken(string userId)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+            var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSecret));
             var expiresAt = DateTime.UtcNow.AddMinutes(20);
             var authClaims = new List<Claim>
             {
@@ -200,8 +222,8 @@ namespace Account.API.Services
 
             //Create Security Token
             var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:Issuer"],
-                audience: _configuration["JWT:Audience"],
+                issuer: _jwtIssuer,
+                audience: _jwtAudience,
                 expires: expiresAt,
                 claims: authClaims,
                 signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));
@@ -248,14 +270,14 @@ namespace Account.API.Services
         /// <returns></returns>
         private TokenValidationParameters GetTokenValidationParameters()
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["JWT:Secret"]));
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSecret));
             TokenValidationParameters tokenValidationParameters = new()
             {
                 ValidateIssuerSigningKey = true,
                 ValidateIssuer = true,
                 ValidateAudience = true,
-                ValidIssuer = _configuration["JWT:Issuer"],
-                ValidAudience = _configuration["JWT:Audience"],
+                ValidIssuer = _jwtIssuer,
+                ValidAudience = _jwtAudience,
                 IssuerSigningKey = securityKey
             };
 
@@ -284,7 +306,7 @@ namespace Account.API.Services
         {
             var jsonMessage = JsonConvert.SerializeObject(integrationEvent);
             var body = Encoding.UTF8.GetBytes(jsonMessage);
-            var client = new ServiceBusClient(_configuration["ConnectionStrings:ServiceBus"]);
+            var client = new ServiceBusClient(_serviceBus);
             var sender = client.CreateSender(integrationEvent.GetType().Name);
 
             var message = new ServiceBusMessage()
@@ -296,7 +318,7 @@ namespace Account.API.Services
             };
 
             await sender.SendMessageAsync(message);
-            _logger.LogInformation("----- New PostDeletedIntegrationEvent created and send. " +
+            _logger.LogInformation("----- New NewUserIntegrationEvent created and send. " +
                 "MessageId: {@MessageId}, Body: {@Body}", message.MessageId, message.Body);
         }
     }

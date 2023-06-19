@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Account.Models.Users
 {
@@ -19,7 +20,7 @@ namespace Account.Models.Users
         public string Password { get; set; }
 
         [MaxLength(15 * 1024 * 1024)]
-        public byte[] ProfilePicture { get; set; }
+        public byte[] ProfilePicture { get; set; } = new byte[1];
 
         [Required]
         [MaxLength(50)]
@@ -35,6 +36,7 @@ namespace Account.Models.Users
         public string RefreshToken { get; set; }
         public DateTime RefreshExpires { get; set; }
 
-        public List<Follower> Followers { get; set; }
+        [ForeignKey("UserId")]
+        public ICollection<Follower> Followers { get; set; }
     }
 }

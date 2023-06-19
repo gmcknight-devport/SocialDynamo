@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-api
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+    spec:
+      serviceAccountName: "ocelot-service-account"
+      containers:
+        - name: gateway-api
+          image: socialdynamorepo.azurecr.io/gmck/socialdynamo_apigateway:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: secrets-base-inline
+              mountPath: "/mnt/secrets-base"
+              readOnly: true
+            - name: config-volume
+              mountPath: /app/Account/appsettings.json
+              subPath: appsettings.json
+      volumes:
+        - name: secrets-base-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "sd-base-secrets"
+            nodePublishSecretRef:                       
+              name: secret-base-creds
+        - name: config-volume
+          configMap:
+            name: appsettings-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+spec:
+  type: ClusterIP
+  selector:
+    app: gateway-api
+  ports:
+    - port: 80

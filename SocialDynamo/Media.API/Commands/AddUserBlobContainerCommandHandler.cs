@@ -1,4 +1,4 @@
-﻿using Account.Tests.Exceptions;
+﻿using Media.API.Exceptions;
 using Azure.Storage.Blobs;
 using MediatR;
 
@@ -26,7 +26,7 @@ namespace Media.API.Commands
         /// <exception cref="DuplicateUserContainerException"></exception>
         public async Task<bool> Handle(AddUserBlobContainerCommand command, CancellationToken cancellationToken)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["ConnectionStrings:AzureStorage"]);
+            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage"]);
             var container = blobServiceClient.GetBlobContainerClient(command.UserId);
 
             if (container.Exists()) 

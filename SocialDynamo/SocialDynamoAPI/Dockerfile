@@ -16,6 +16,9 @@ RUN dotnet build "SocialDynamoAPI.BaseAggregator.csproj" -c Release -o /app/buil
 FROM build AS publish
 RUN dotnet publish "SocialDynamoAPI.BaseAggregator.csproj" -c Release -o /app/publish
 
+# Copy the appsettings.json file
+COPY ["Account/appsettings.json", "appsettings.json"]
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

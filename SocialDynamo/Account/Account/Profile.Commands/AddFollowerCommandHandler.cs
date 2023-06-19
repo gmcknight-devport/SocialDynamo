@@ -28,11 +28,11 @@ namespace Account.API.Profile.Commands
             Follower follower = new()
             {
                 FollowerId = addFollowerCommand.FollowerId,
-                UserId = addFollowerCommand.UserId
+                //UserId = addFollowerCommand.UserId
             };
 
             _logger.LogInformation("----- Add user follower - User: {@UserId}, " +
-                "Follower: {@FollowerId}", follower.UserId, follower.FollowerId);
+                "Follower: {@FollowerId}", follower.FollowerId);//follower.UserId, follower.FollowerId);
 
             await _followerRepository.AddFollower(addFollowerCommand.UserId, follower);
             return true;

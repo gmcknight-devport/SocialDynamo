@@ -2,6 +2,9 @@
 using SocialDynamoAPI.BaseAggregator.Models;
 using SocialDynamoAPI.BaseAggregator.ValueObjects;
 using SocialDynamoAPI.BaseAggregator.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace SocialDynamoAPI.BaseAggregator.Services
 {
@@ -9,15 +12,23 @@ namespace SocialDynamoAPI.BaseAggregator.Services
     public class PostService : IPostService
     {
         private readonly HttpClient _client;
+        private readonly IConfiguration _configuration;
         private readonly ILogger<PostService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly Task<string?>? _authorisationToken;
 
-        public PostService(ILogger<PostService> logger)
+        public PostService(IConfiguration configuration, ILogger<PostService> logger, IHttpContextAccessor httpContextAccessor)
         {
             _client = new HttpClient();
+            _configuration = configuration;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
+
+            //Get stored bearer token and add to authorisation header of client
+            _authorisationToken = _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
+            _client.DefaultRequestHeaders.Authorization = 
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authorisationToken.Result);
         }
-
-
 
         /// <summary>
         /// Create a new post in the Post microservice returning the mediaItemIds to
@@ -38,31 +49,39 @@ namespace SocialDynamoAPI.BaseAggregator.Services
 
             //Validate
             if (mediaItemIds == null)
-            {
                 throw new ArgumentNullException(nameof(mediaItemIds));
-
-            }
             else if (mediaItemIds.Distinct().Count() != mediaItemIds.Count())
-            {
                 throw new ArgumentException("Media Item Ids are not unique");
-            }
 
-            //Create MediaItemVMs and call to upload
+            //Loop through number of files
             for (int i = 0; i < createPostVM.Files.Count; i++)
             {
-                MediaItemVM temp = new()
+                //Try to upload to media API
+                try
                 {
-                    UserId = createPostVM.AuthorId,
-                    MediaItemId = mediaItemIds.ElementAt(i).ToString(),
-                    File = createPostVM.Files.ElementAt(i)
-                };
+                    HttpResponseMessage mediaResponse = new();
 
-                //Call upload api method here
-                var mediaResponse = ApiPostCall("https://media.api/media", temp);
-                mediaResponse.Result.EnsureSuccessStatusCode();
+                    using (var content = new MultipartFormDataContent())
+                    {
+                        content.Add(new StringContent(createPostVM.AuthorId), "UserId");
+                        content.Add(new StringContent(mediaItemIds.ElementAt(i).Id), "MediaItemId");
+                        content.Add(new StringContent(mediaItemIds.ElementAt(i).Id), "MediaItemId");
+
+                        var fileName = createPostVM.Files.ElementAt(i).FileName;
+                        content.Add(new StreamContent(createPostVM.Files.ElementAt(i).OpenReadStream()), "File", fileName);
+
+                        mediaResponse = await _client.PutAsync(_configuration["Service:Media"] + "/media/upload", content);
+                        mediaResponse.EnsureSuccessStatusCode();
+
+                        _logger.LogInformation("----- MediaVm created and uploaded via media microservice");
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.LogInformation("----- MediaVm failed to upload");
+                    return false;
+                }
             }
-
-            _logger.LogInformation("----- MediaVms created and uploaded via media microservice");
 
             //Create PostDetailsVM and upload
             PostDetailsVM postDetailsVM = new()
@@ -72,12 +91,15 @@ namespace SocialDynamoAPI.BaseAggregator.Services
                 Hashtag = createPostVM.Hashtag,
                 MediaItemIds = mediaItemIds
             };
+            
+            var postsResponse = await _client.PutAsync(_configuration["Service:Posts"] + "/posts/post", 
+                                            new StringContent(JsonConvert.SerializeObject(postDetailsVM), 
+                                            Encoding.UTF8, "application/json"));
+            postsResponse.EnsureSuccessStatusCode();
 
-            //Call createposthere api method
-            var postsResponse = ApiPostCall("https://posts.api/posts", postDetailsVM);
 
             _logger.LogInformation("----- Post details created and uploaded via posts microservice");
-
+            
             return true;
         }
 
@@ -97,7 +119,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
 
             foreach (Post post in postsDetails)
             {
-                List<BinaryData> postMediaData = GetPostMedia(post).Result;
+                List<byte[]> postMediaData = GetPostMedia(post).Result;
                 completePostVMs.Add(new CompletePostVM(post, postMediaData));
             }
 
@@ -114,13 +136,15 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
         public async Task<IActionResult> GetUserPosts(string userId, int page)
-        {
+        {           
             List<CompletePostVM> completePostVMs = new();
             List<Post> postsDetails = new();
-            string postsPath = "https://posts.api/posts/user/" + userId + "/" + page.ToString();
+            //string postsPath = _configuration["Service:Posts"] + "/posts/user/" + userId + "/" + page.ToString();
+            string postsPath = "http://host.docker.internal:8082" + "/posts/user/" + userId + "/" + page.ToString();
 
             //Get post details from microservice
             var postsResponse = await _client.GetAsync(postsPath);
+
             if (postsResponse.IsSuccessStatusCode)
             {
                 postsDetails = await postsResponse.Content.ReadAsAsync<List<Post>>();
@@ -132,11 +156,12 @@ namespace SocialDynamoAPI.BaseAggregator.Services
 
             foreach (Post post in postsDetails)
             {
-                List<BinaryData> postMediaData = GetPostMedia(post).Result;
+                List<byte[]> postMediaData = GetPostMedia(post).Result;
                 completePostVMs.Add(new CompletePostVM(post, postMediaData));
             }
 
             return new OkObjectResult(completePostVMs);
+            
         }
 
         /// <summary>
@@ -145,10 +170,10 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        private async Task<List<string>> GetFollowing(string userId)
+        private async Task<List<UserDataVM>> GetFollowing(string userId)
         {
-            List<string> following;
-            string accountPath = "https://account.api/account/Followers/" + userId;
+            List<UserDataVM> following = new();
+            string accountPath = _configuration["Service:Account"] + "/account/following/" + userId;
 
             //Get followers from service
             var accountResponse = await _client.GetAsync(accountPath);
@@ -157,8 +182,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
                 throw new HttpRequestException("Follower request failed");
             }
 
-            following = await accountResponse.Content.ReadAsAsync<List<string>>();
-
+            following = await accountResponse.Content.ReadAsAsync<List<UserDataVM>>();
             _logger.LogInformation("----- User following data received from account microservice");
 
             return following;
@@ -171,21 +195,18 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// <param name="page"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        private async Task<List<Post>> GetPosts(List<string> userIds, int page)
+        private async Task<List<Post>> GetPosts(List<UserDataVM> userIds, int page)
         {
             List<Post> postsDetails = new();
-            string postsPath = "https://posts.api/posts/users/" + page.ToString() + "?";
-
-            //Prepare url for post request
-            foreach (var s in userIds)
-            {
-                postsPath += "userIds=" + s;
-            }
+            string[] users = userIds.Select(u => u.UserId).ToArray();
+            string postsPath = _configuration["Service:Posts"] + "/posts/users/" + page.ToString();
 
             //Get post details from microservice.
             //If microservice fails, logs failure but allows original call to continue as other services 
             //could run successfully and return some data to the client. 
-            var postsResponse = await _client.GetAsync(postsPath);
+            var postsResponse = await _client.PostAsync(postsPath, new StringContent(JsonConvert.SerializeObject(users),
+                                            Encoding.UTF8, "application/json"));
+
             if (postsResponse.IsSuccessStatusCode)
             {
                 postsDetails = await postsResponse.Content.ReadAsAsync<List<Post>>();
@@ -202,43 +223,30 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// <param name="post"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        private async Task<List<BinaryData>> GetPostMedia(Post post)
+        private async Task<List<byte[]>> GetPostMedia(Post post)
         {
-            List<BinaryData> blobData = new();
-            List<CompletePostVM> completePosts = new();
-            string mediaPath = "https://media.api/user/";
+            List<byte[]> blobData = new();
+            //string mediaPath = _configuration["Service:Media"] + "/media/user/";
+            string mediaPath = "http://host.docker.internal:8081" + "/media/user/";
 
             foreach (MediaItemId id in post.MediaItemIds)
             {
-                var callPath = mediaPath + post.AuthorId + "/" + id.ToString();
-                var mediaResponse = await _client.GetAsync(mediaPath);
+                var newId = id.Id.ToString().Replace("/", "%2F");
+                newId = newId.Replace(":", "%3a");
+                var callPath = mediaPath + post.AuthorId + "/" + newId;
+
+                var mediaResponse = await _client.GetAsync(callPath);
 
                 //If microservice fails, logs failure but allows original call to continue as other services 
                 //could run successfully and return some data to the client. 
                 if (mediaResponse.IsSuccessStatusCode)
                 {
-                    blobData.Add(await mediaResponse.Content.ReadAsAsync<BinaryData>());
+                    blobData.Add(await mediaResponse.Content.ReadAsAsync<byte[]>());
                 }
                 else _logger.LogInformation("----- Failed to get media data for post from microservice. " +
                     "Post: {PostId}", post.PostId);
             }
-
             return blobData;
-        }
-
-        /// <summary>
-        /// Private helper method to call the http client and return a message
-        /// based on the parameter values. 
-        /// </summary>
-        /// <param name="apiPath"></param>
-        /// <param name="jsonObject"></param>
-        /// <returns></returns>
-        private async Task<HttpResponseMessage> ApiPostCall(string apiPath, object jsonObject)
-        {
-            HttpResponseMessage response = await _client.PostAsJsonAsync(apiPath, jsonObject);
-            response.EnsureSuccessStatusCode();
-
-            return response;
         }
     }
 }

@@ -1,16 +1,21 @@
 ﻿using Azure.Storage.Blobs;
-using Azure.Storage.Blobs.Models;
+using Common.OptionsConfig;
 using Media.API.Exceptions;
+using Microsoft.Extensions.Options;
 
 namespace Media.API.Queries
 {
     public class MediaQueries : IMediaQueries
     {
-        private readonly IConfiguration _configuration;
+        private readonly string _azureStorage;
 
-        public MediaQueries(IConfiguration configuration)
+        public MediaQueries(IConfiguration configuration, IOptions<ConnectionOptions> options)
         {
-            _configuration = configuration;
+
+            if (configuration["AzureStorage"] != null)
+                _azureStorage = configuration["AzureStorage"];
+            else
+                _azureStorage = options.Value.AzureStorage;
         }
 
         /// <summary>
@@ -21,21 +26,29 @@ namespace Media.API.Queries
         /// <returns></returns>
         /// <exception cref="NoUserContainerException"></exception>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task<BinaryData> GetBlob(string userId, string mediaItemId)
+        public async Task<byte[]> GetBlob(string userId, string mediaItemId)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage:ConnectionString"]);
-            var container = blobServiceClient.GetBlobContainerClient(userId);
+            try
+            {
+                BlobContainerClient container = new BlobContainerClient(_azureStorage, userId);                
+                string newId = mediaItemId.Replace("%2F", "/");
+                newId = newId.Replace("%3a", ":");
+                
+                if (!container.Exists())
+                    throw new NoUserContainerException("No user container found");
 
-            if (!container.Exists())
-                throw new NoUserContainerException("No user container found");
+                using(MemoryStream memoryStream = new())
+                {
+                    await container.GetBlobClient(newId).DownloadToAsync(memoryStream);
+                    memoryStream.Position = 0;
 
-            BlobDownloadResult blob = await container.GetBlobClient(mediaItemId).DownloadContentAsync();
-            var result = blob.Content;
-            
-            if(result == null)
-                throw new NullReferenceException(nameof(blob));
-
-            return result;
+                    return memoryStream.ToArray();
+                }
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.StackTrace);
+            }        
         }
     }
 }

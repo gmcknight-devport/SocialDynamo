@@ -1,0 +1,67 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /authentication/login
+            pathType: Prefix
+            backend:
+              service:
+                name: account-api
+                port:
+                  number: 80
+          - path: /authentication
+            pathType: Prefix
+            backend:
+              service:
+                name: account-api
+                port:
+                  number: 80
+          - path: /account
+            pathType: Prefix
+            backend:
+              service:
+                name: account-api
+                port:
+                  number: 80
+          - path: /posts
+            pathType: Prefix
+            backend:
+              service:
+                name: posts-api
+                port:
+                  number: 80
+          - path: /baseaggregate/search/{searchTerm}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: aggregator-api
+                port:
+                  number: 80
+          - path: /baseaggregate/feed/{userId}/{page}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: aggregator-api
+                port:
+                  number: 80
+          - path: /baseaggregate/userposts/{userId}/{page}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: aggregator-api
+                port:
+                  number: 80
+          - path: /baseaggregate/post
+            pathType: Exact
+            backend:
+              service:
+                name: aggregator-api
+                port:
+                  number: 80

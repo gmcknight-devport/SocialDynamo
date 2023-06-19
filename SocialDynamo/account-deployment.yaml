@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account-api
+  template:
+    metadata:
+      labels:
+        app: account-api
+    spec:
+      containers:
+        - name: account-api
+          image: socialdynamorepo.azurecr.io/gmck/socialdynamo_account:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: secrets-account-inline
+              mountPath: "/mnt/secrets-account"
+              readOnly: true
+            - name: secrets-base-inline
+              mountPath: "/mnt/secrets-base"
+              readOnly: true
+            - name: config-volume
+              mountPath: /app/Account/appsettings.json
+              subPath: appsettings.json
+      volumes:
+        - name: secrets-account-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "sd-account-secrets"
+            nodePublishSecretRef:
+              name: secret-account-creds
+        - name: secrets-base-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "sd-base-secrets"
+            nodePublishSecretRef:
+              name: secret-base-creds
+        - name: config-volume
+          configMap:
+            name: appsettings-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-api
+  labels:
+    app: account-api
+spec:
+  type: ClusterIP
+  selector:
+    app: account-api
+  ports:
+    - port: 80

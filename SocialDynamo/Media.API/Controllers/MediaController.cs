@@ -13,7 +13,7 @@ namespace Media.API.Controllers
     {
         private readonly IMediator _mediator;
         private readonly ILogger<MediaController> _logger;
-
+        
         public MediaController(Mediator mediator, ILogger<MediaController> logger)
         {
             _mediator = mediator;

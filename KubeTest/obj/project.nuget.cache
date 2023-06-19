@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "51V3lxJXlV9NYnfsuIPEk54T4IO1RDWDMG7KHCQcoCSh/CXH4qTVRl0E/fdYNryN7p97qPwGFpmctVT8BApaXQ==",
+  "success": true,
+  "projectFilePath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\KubeTest\\KubeTest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,7 +1,7 @@
 ﻿using Common;
 using System.ComponentModel.DataAnnotations;
 
-namespace Account.API.Account.Authentication.IntegrationEvents
+namespace Account.API.IntegrationEvents
 {
     public record NewUserIntegrationEvent : IIntegrationEvent
     {

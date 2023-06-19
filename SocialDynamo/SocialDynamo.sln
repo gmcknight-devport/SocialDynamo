@@ -37,7 +37,24 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialDynamoAPI.BaseAggrega
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{BB931BAD-EC6C-4135-A6C5-3DA1A33773B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialDynamoAPI.Gateway", "..\SocialDynamoAPI.Gateway\SocialDynamoAPI.Gateway.csproj", "{43ADE86A-75E4-41E6-B3A4-9989109D8C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SocialDynamoAPI.Gateway", "SocialDynamoAPI.Gateway\SocialDynamoAPI.Gateway.csproj", "{A59801E5-903F-4BDB-9744-0B122CD1C690}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", "{FDA952E0-8CB0-4D0A-9DB1-AFCF1E1EB8B9}"
+	ProjectSection(SolutionItems) = preProject
+		account-deployment.yaml = account-deployment.yaml
+		aggregator-deployment.yaml = aggregator-deployment.yaml
+		gateway-deployment.yaml = gateway-deployment.yaml
+		ingress-srv.yaml = ingress-srv.yaml
+		media-deployment.yaml = media-deployment.yaml
+		np-srv.yaml = np-srv.yaml
+		ocelot-role-binding.yaml = ocelot-role-binding.yaml
+		ocelot-role.yaml = ocelot-role.yaml
+		posts-deployment.yaml = posts-deployment.yaml
+		secret-account.yaml = secret-account.yaml
+		secret-base.yaml = secret-base.yaml
+		secret-media.yaml = secret-media.yaml
+		secret-posts.yaml = secret-posts.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +110,10 @@ Global
 		{BB931BAD-EC6C-4135-A6C5-3DA1A33773B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB931BAD-EC6C-4135-A6C5-3DA1A33773B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB931BAD-EC6C-4135-A6C5-3DA1A33773B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{43ADE86A-75E4-41E6-B3A4-9989109D8C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43ADE86A-75E4-41E6-B3A4-9989109D8C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43ADE86A-75E4-41E6-B3A4-9989109D8C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43ADE86A-75E4-41E6-B3A4-9989109D8C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -117,7 +134,7 @@ Global
 		{2DEFAF42-C102-4765-8B7B-1D3F1B917D78} = {53D6CF23-3FA1-4C40-8749-2FF889424D49}
 		{614BFE91-0990-4E58-AA92-B75B5E5D8DB8} = {D23A5830-3CD8-4406-8937-835B552B7F64}
 		{BC6BD9AF-D6F2-4D92-8E0E-2EF613E19246} = {614BFE91-0990-4E58-AA92-B75B5E5D8DB8}
-		{43ADE86A-75E4-41E6-B3A4-9989109D8C92} = {614BFE91-0990-4E58-AA92-B75B5E5D8DB8}
+		{A59801E5-903F-4BDB-9744-0B122CD1C690} = {614BFE91-0990-4E58-AA92-B75B5E5D8DB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7343EC9-466F-4686-BF52-897149790E80}

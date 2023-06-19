@@ -1,4 +1,4 @@
-﻿using SocialDynamoAPI.BaseAggregator.Extensions;
+﻿using Common.Extensions;
 using System.ComponentModel.DataAnnotations;
 
 namespace SocialDynamoAPI.BaseAggregator.ViewModels

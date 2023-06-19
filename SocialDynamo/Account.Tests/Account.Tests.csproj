@@ -33,7 +33,6 @@
     <ProjectReference Include="..\Account.Domain\Account.Domain.csproj" />
     <ProjectReference Include="..\Account.Infrastructure\Account.Infrastructure.csproj" />
     <ProjectReference Include="..\Account\Account.API.csproj" />
-    <ProjectReference Include="..\Authentication\Account.API.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />
   </ItemGroup>
 

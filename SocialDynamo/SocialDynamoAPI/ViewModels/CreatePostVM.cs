@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Common.Extensions;
+using System.ComponentModel.DataAnnotations;
 
 namespace SocialDynamoAPI.BaseAggregator.ViewModels
 {
@@ -10,7 +11,7 @@ namespace SocialDynamoAPI.BaseAggregator.ViewModels
 
         [Required]
         public string Caption { get; set; }
-        [Required]
+        [Required]        
         public List<IFormFile> Files { get; set; }
     }
 }

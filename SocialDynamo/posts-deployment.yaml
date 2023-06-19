@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: posts-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: posts-api
+  template:    
+    metadata:
+      labels:
+        app: posts-api
+    spec:
+      containers:
+        - name: posts-api
+          image: socialdynamorepo.azurecr.io/gmck/socialdynamo_postsapi:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: secrets-posts-inline
+              mountPath: "/mnt/secrets-posts"
+              readOnly: true
+            - name: secrets-base-inline
+              mountPath: "/mnt/secrets-base"
+              readOnly: true
+            - name: config-volume
+              mountPath: /app/Account/appsettings.json
+              subPath: appsettings.json
+      volumes:
+      - name: secrets-posts-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "sd-posts-secrets"
+          nodePublishSecretRef:                       
+            name: secret-posts-creds
+      - name: secrets-base-inline
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: "sd-base-secrets"
+          nodePublishSecretRef:                       
+            name: secret-base-creds
+      - name: config-volume
+        configMap:
+          name: appsettings-configmap
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: posts-api
+  labels:
+    app: posts-api
+spec:
+  type: ClusterIP
+  selector:
+    app: posts-api
+  ports:
+    - port: 80

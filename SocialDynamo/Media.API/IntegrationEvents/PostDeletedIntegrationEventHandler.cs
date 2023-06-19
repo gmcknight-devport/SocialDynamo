@@ -1,6 +1,8 @@
 ﻿using Azure.Messaging.ServiceBus;
+using Common.OptionsConfig;
 using Media.API.Commands;
 using MediatR;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Media.API.IntegrationEvents
@@ -13,14 +15,20 @@ namespace Media.API.IntegrationEvents
         private readonly ServiceBusProcessor _processor;
         private readonly string _queueName = "PostDeletedIntegrationEvent";
 
-        public PostDeletedIntegrationEventHandler(IConfiguration configuration,
-                                              IServiceScopeFactory serviceScopeFactory,
-                                              ILogger<PostDeletedIntegrationEventHandler> logger)
+        public PostDeletedIntegrationEventHandler(IConfiguration baseConfiguration,
+                                                  IOptions<ConnectionOptions> optionsConfiguration,
+                                                  IServiceScopeFactory serviceScopeFactory,
+                                                  ILogger<PostDeletedIntegrationEventHandler> logger)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _logger = logger;
 
-            _client = new ServiceBusClient(configuration["ConnectionStrings:ServiceBus"]);
+            //Validation workaround to allow connectionstring to be found in dev or prod.
+            if (baseConfiguration["ServiceBus"] != null)
+                _client = new ServiceBusClient(baseConfiguration["ServiceBus"]);
+            else
+                _client = new ServiceBusClient(optionsConfiguration.Value.ServiceBus);
+
             _processor = _client.CreateProcessor(_queueName);
             _processor.ProcessMessageAsync += Processor_ProcessMessageAsync;
             _processor.ProcessErrorAsync += Processor_ProcessErrorAsync;
@@ -46,18 +54,20 @@ namespace Media.API.IntegrationEvents
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
             List<DeleteBlobCommand> commands = new();
-            foreach(var i in theEvent.MediaItemIds)
-            {
-                DeleteBlobCommand command = new()
-                {
-                    MediaItemId = i
-                };
-                commands.Add(command);
-            };
+            
 
             
             try
             {
+                foreach (var i in theEvent.MediaItemIds)
+                {
+                    DeleteBlobCommand command = new()
+                    {
+                        MediaItemId = i
+                    };
+                    commands.Add(command);
+                };
+
                 foreach (var i in commands)
                 {
                     bool executed = await mediator.Send(i);

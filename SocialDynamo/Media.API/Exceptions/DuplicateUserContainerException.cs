@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Tests.Exceptions
+namespace Media.API.Exceptions
 {
     public class DuplicateUserContainerException : Exception
     {

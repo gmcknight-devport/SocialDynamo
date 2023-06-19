@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "8k/Dsxu5/8Wi9MALLNH5jvtvPQhBXUi8rEwpOu35Efc44ECMolwcxkPbdGsJqXqFa+o+HA67kTEttQ398CUE/Q==",
+  "dgSpecHash": "ucqqsd+S5BLTWPKPjDwz5r8cgA/H54HO1wgb5rhaBZhK1y/eEz1DdoniSE55K9aidk3kD2hu0cN+fN+olu5b/w==",
   "success": true,
   "projectFilePath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Posts.API\\Posts.API.csproj",
   "expectedPackageFiles": [
@@ -81,7 +81,7 @@
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.extensions.logging\\3.1.0\\serilog.extensions.logging.3.1.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.formatting.compact\\1.1.0\\serilog.formatting.compact.1.1.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.settings.configuration\\3.4.0\\serilog.settings.configuration.3.4.0.nupkg.sha512",
-    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.sinks.console\\4.0.1\\serilog.sinks.console.4.0.1.nupkg.sha512",
+    "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.sinks.console\\4.1.0\\serilog.sinks.console.4.1.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.sinks.debug\\2.0.0\\serilog.sinks.debug.2.0.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\serilog.sinks.file\\5.0.0\\serilog.sinks.file.5.0.0.nupkg.sha512",
     "C:\\Users\\Glenn McKnight\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",

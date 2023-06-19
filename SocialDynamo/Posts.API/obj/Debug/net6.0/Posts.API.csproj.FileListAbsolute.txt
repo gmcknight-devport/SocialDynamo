@@ -1,8 +1,10 @@
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\xunit.runner.reporters.netcoreapp10.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\xunit.runner.utility.netcoreapp10.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\appsettings.development.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\appsettings.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Posts.API.exe
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Dockerfile
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Posts.API.deps.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Posts.API.runtimeconfig.json
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Posts.API.dll
@@ -15,6 +17,7 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\MediatR.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\MediatR.Contracts.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.Azure.Amqp.dll
@@ -97,4 +100,3 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\Posts.API.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\Posts.API.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\obj\Debug\net6.0\ref\Posts.API.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

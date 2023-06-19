@@ -1,58 +1,218 @@
+name: dockercompose11600376557808046923
 services:
-  account.api:
+  account-api:
     build:
       context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
       dockerfile: Account/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "5000"
       ASPNETCORE_URLS: https://+:443;http://+:80
-    image: accountapi
+      PUBLIC_PORT: "8080"
+    image: gmck/socialdynamo_account:latest
+    networks:
+      social-dynamo: null
     ports:
-    - target: 80
-    - target: 443
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8080"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5000"
+      protocol: tcp
     volumes:
-    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
-    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
-  media.api:
-    build:
-      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
-      dockerfile: Media.API/Dockerfile
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: https://+:443;http://+:80
-    image: mediaapi
-    ports:
-    - target: 80
-    - target: 443
-    volumes:
-    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
-    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
-  posts.api:
-    build:
-      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
-      dockerfile: Posts.API/Dockerfile
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_URLS: https://+:443;http://+:80
-    image: postsapi
-    ports:
-    - target: 80
-    - target: 443
-    volumes:
-    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
-    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
-  socialdynamoapi.baseaggregator:
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  aggregator-api:
     build:
       context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
       dockerfile: SocialDynamoAPI/Dockerfile
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "5003"
       ASPNETCORE_URLS: https://+:443;http://+:80
-    image: socialdynamoapibaseaggregator
+      PUBLIC_PORT: "8083"
+    image: gmck/socialdynamo_baseaggregator:latest
+    networks:
+      social-dynamo: null
     ports:
-    - target: 80
-    - target: 443
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8083"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5003"
+      protocol: tcp
     volumes:
-    - C:\Users\Glenn McKnight\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
-    - C:\Users\Glenn McKnight\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
-version: '3.4'
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  gateway-api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: SocialDynamoAPI.Gateway/Dockerfile
+    depends_on:
+      account-api:
+        condition: service_started
+      aggregator-api:
+        condition: service_started
+      media-api:
+        condition: service_started
+      posts-api:
+        condition: service_started
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "9903"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: gmck/socialdynamo_apigateway:latest
+    links:
+    - account-api
+    - media-api
+    - posts-api
+    - aggregator-api
+    networks:
+      social-dynamo: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "9902"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "9903"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  media-api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: Media.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "5001"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      PUBLIC_PORT: "8081"
+    image: gmck/socialdynamo_mediaapi:latest
+    networks:
+      social-dynamo: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8081"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5001"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+  posts-api:
+    build:
+      context: D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo
+      dockerfile: Posts.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTPS_PORT: "5002"
+      ASPNETCORE_URLS: https://+:443;http://+:80
+      PUBLIC_PORT: "8082"
+    image: gmck/socialdynamo_postsapi:latest
+    networks:
+      social-dynamo: null
+    ports:
+    - mode: ingress
+      target: 80
+      protocol: tcp
+    - mode: ingress
+      target: 80
+      published: "8082"
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      protocol: tcp
+    - mode: ingress
+      target: 443
+      published: "5002"
+      protocol: tcp
+    volumes:
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/Microsoft/UserSecrets
+      target: /root/.microsoft/usersecrets
+      read_only: true
+      bind:
+        create_host_path: true
+    - type: bind
+      source: C:\Users\Glenn McKnight\AppData\Roaming/ASP.NET/Https
+      target: /root/.aspnet/https
+      read_only: true
+      bind:
+        create_host_path: true
+networks:
+  social-dynamo:
+    name: dockercompose11600376557808046923_social-dynamo

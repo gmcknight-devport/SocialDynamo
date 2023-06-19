@@ -11,11 +11,8 @@ namespace Account.Infrastructure.Persistence
         public AccountDbContext(DbContextOptions<AccountDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Follower>()
-                .HasOne(u => u.User)
-                .WithMany(f => f.Followers)
-                .HasForeignKey(f => f.UserId);
+        {        
+
         }
     }
 }

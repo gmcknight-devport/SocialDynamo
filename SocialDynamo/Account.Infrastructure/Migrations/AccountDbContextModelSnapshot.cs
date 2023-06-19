@@ -28,14 +28,7 @@ namespace Account.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.HasKey("FollowerId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Followers");
                 });
@@ -65,6 +58,11 @@ namespace Account.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("ProfilePicture")
+                        .IsRequired()
+                        .HasMaxLength(15728640)
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<DateTime>("RefreshExpires")
                         .HasColumnType("datetime2");
 
@@ -83,20 +81,34 @@ namespace Account.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Account.Models.Users.Follower", b =>
+            modelBuilder.Entity("FollowerUser", b =>
                 {
-                    b.HasOne("Account.Models.Users.User", "User")
-                        .WithMany("Followers")
-                        .HasForeignKey("UserId")
+                    b.Property<string>("FollowerId")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("FollowerId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FollowerUser");
+                });
+
+            modelBuilder.Entity("FollowerUser", b =>
+                {
+                    b.HasOne("Account.Models.Users.Follower", null)
+                        .WithMany()
+                        .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Account.Models.Users.User", b =>
-                {
-                    b.Navigation("Followers");
+                    b.HasOne("Account.Models.Users.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

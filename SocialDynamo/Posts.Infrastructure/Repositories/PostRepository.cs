@@ -145,12 +145,12 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task<IEnumerable<object>> FuzzySearch(string fuzzyHashtag)
         {
-            var results = _postsDbContext.Posts
+            var results = await _postsDbContext.Posts
                                                .Include(p => p.Comments)
                                                .Include(p => p.MediaItemIds)
                                                .Include(p => p.Likes)
-                                               .Where(d => EF.Functions.FreeText(d.Hashtag, fuzzyHashtag))
-                                               .Take(5);
+                                               .Where(d => EF.Functions.Like(d.Hashtag, "%" + fuzzyHashtag + "%"))
+                                               .Take(5).ToListAsync();
             return results;
         }
     }

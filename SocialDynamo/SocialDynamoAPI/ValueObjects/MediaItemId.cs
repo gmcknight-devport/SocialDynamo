@@ -21,6 +21,7 @@ namespace SocialDynamoAPI.BaseAggregator.ValueObjects
         private static string GenerateId(string authorId)
         {
             string mediaId = authorId + DateTime.UtcNow.ToString();
+            mediaId = string.Join(string.Empty, mediaId.Where(c => !char.IsWhiteSpace(c)));
             return mediaId;
         }
     }

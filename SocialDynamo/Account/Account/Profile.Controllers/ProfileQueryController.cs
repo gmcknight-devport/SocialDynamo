@@ -39,7 +39,7 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("Followers/{userId}")]
+        [Route("followers/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> GetUserFollowers(string userId)
@@ -57,27 +57,20 @@ namespace Account.API.Account.Profile.Controllers
         }
 
         [HttpGet]
-        [Route("Following/{userId}")]
-        [ProducesResponseType(typeof(IEnumerable<OkObjectResult>), (int)HttpStatusCode.OK)]
+        [Route("following/{userId}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IEnumerable<IActionResult>> GetUserFollowing(string userId)
+        public async Task<IActionResult> GetUserFollowing(string userId)
         {
             try
             {
-                IEnumerable<OkObjectResult> followerCollection = 
-                    (IEnumerable<OkObjectResult>)await _queryService.GetUserFollowing(userId);
-
-                return followerCollection;
+                var followerCollection = await _queryService.GetUserFollowing(userId);
+                return new OkObjectResult(followerCollection);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                IEnumerable<BadRequestObjectResult> badRequest = new List<BadRequestObjectResult>()
-                {
-                    new BadRequestObjectResult(ex.Message)
-                };
-                
-                return badRequest;
+                return BadRequest(ex.Message);
             }
         }
 
