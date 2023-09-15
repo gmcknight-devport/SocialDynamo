@@ -60,4 +60,5 @@ spec:
   selector:
     app: account-api
   ports:
-    - port: 80
+    - port: 443
+      targetPort: 80

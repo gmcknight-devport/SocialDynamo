@@ -38,6 +38,8 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gat
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Ocelot.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Ocelot.Provider.Kubernetes.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Serilog.dll
+D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Serilog.Sinks.Console.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -76,5 +78,3 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gat
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\obj\Debug\net6.0\SocialDynamoAPI.Gateway.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\obj\Debug\net6.0\SocialDynamoAPI.Gateway.genruntimeconfig.cache
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\obj\Debug\net6.0\ref\SocialDynamoAPI.Gateway.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Serilog.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\SocialDynamoAPI.Gateway\bin\Debug\net6.0\Serilog.Sinks.Console.dll

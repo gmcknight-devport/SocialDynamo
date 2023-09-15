@@ -4,6 +4,9 @@ metadata:
   name: ingress-srv
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Content-Type, Authorization"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, POST, GET, DELETE"
 spec:
   ingressClassName: nginx
   rules:

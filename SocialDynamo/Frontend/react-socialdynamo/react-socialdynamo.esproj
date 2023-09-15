@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.26-alpha">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>ac0de4ed-485f-4a24-b1d8-048e86cbf4f2</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupCommand>set BROWSER=none&amp;&amp;npm start</StartupCommand>
+    <JavaScriptTestRoot>src\</JavaScriptTestRoot>
+    <JavaScriptTestFramework>Jest</JavaScriptTestFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\feed\posts\" />
+    <Folder Include="src\navigation\" />
+    <Folder Include="src\auth\" />
+    <Folder Include="src\profile\" />
+    <Folder Include="src\search\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptConfiguration Remove="src\newsfeed\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\newsfeed\**" />
+  </ItemGroup>
+</Project>

@@ -6,7 +6,8 @@ namespace Account.API.Profile.Queries
 {
     public interface IProfileQueries
     {
-        Task<IActionResult> GetProfileInformation(string userId);
+        Task<ProfileInformationVM> GetProfileInformation(string userId);
+        Task<IEnumerable<ProfileInformationVM>> GetProfileInformation(IEnumerable<string> userIds);
         Task<IEnumerable<UserDataVM>> GetUserFollowers(string userId);
         Task<IEnumerable<UserDataVM>> GetUserFollowing(string userId);
         Task<IEnumerable<UserDataVM>> SearchUser(string userId);

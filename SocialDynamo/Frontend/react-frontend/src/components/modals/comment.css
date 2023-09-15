@@ -1,0 +1,33 @@
+.profile-header{
+    border-bottom: 1px solid lightgrey;
+    padding-top: 10px;
+}
+
+.comment-body{
+    display: inline-block;
+    padding-left: 50px;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 45vh;    
+    white-space: normal;
+    overflow: auto; 
+}
+
+.comment-footer{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-top: 10px;
+    
+}
+
+.footer-left{
+    display: inline-block;
+    font-weight: bold;
+    color: darkgrey;
+}
+
+.footer-right{
+    display: inline-block;
+    align-self: center;
+}

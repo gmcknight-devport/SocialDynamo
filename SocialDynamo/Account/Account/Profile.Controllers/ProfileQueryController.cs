@@ -38,6 +38,24 @@ namespace Account.API.Account.Profile.Controllers
             }
         }
 
+        [HttpPut]
+        [Route("Profiles")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetProfileInformation(List<string> userIds)
+        {
+            try
+            {
+                var profileInformation = await _queryService.GetProfileInformation(userIds);
+                return new OkObjectResult(profileInformation);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         [Route("followers/{userId}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]

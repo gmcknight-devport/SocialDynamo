@@ -15,13 +15,14 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
-        public async Task<bool> IsUserIdUnique(string userId)
+        public bool IsUserIdUnique(string userId)
         {
-            var existsInDatabase = await _accountDbContext.Users.FindAsync(userId);
-            if (existsInDatabase == null)
-                return true;
+            return !_accountDbContext.Users.Any(u => u.UserId == userId);
+        }
 
-            return false;
+        public bool IsEmailUnique(string emailAddress)
+        {
+            return !_accountDbContext.Users.Any(u => u.EmailAddress == emailAddress);
         }
 
         public async Task AddUserAsync(User user)
