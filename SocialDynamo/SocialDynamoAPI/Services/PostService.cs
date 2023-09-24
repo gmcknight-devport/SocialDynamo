@@ -70,7 +70,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
                         var fileName = createPostVM.Files.ElementAt(i).FileName;
                         content.Add(new StreamContent(createPostVM.Files.ElementAt(i).OpenReadStream()), "File", fileName);
 
-                        mediaResponse = await _client.PutAsync("http://host.docker.internal:8081" + "/media/upload", content);
+                        mediaResponse = await _client.PutAsync(_configuration["Service:Media"] + "/media/upload", content);
                         mediaResponse.EnsureSuccessStatusCode();
 
                         _logger.LogInformation("----- MediaVm created and uploaded via media microservice");
@@ -92,7 +92,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
                 MediaItemIds = mediaItemIds
             };
             
-            var postsResponse = await _client.PutAsync("http://host.docker.internal:8082" + "/posts/post", 
+            var postsResponse = await _client.PutAsync(_configuration["Service:Posts"] + "/posts/post", 
                                             new StringContent(JsonConvert.SerializeObject(postDetailsVM), 
                                             Encoding.UTF8, "application/json"));
             postsResponse.EnsureSuccessStatusCode();
@@ -115,13 +115,12 @@ namespace SocialDynamoAPI.BaseAggregator.Services
             List<CompletePostVM> completePostVMs = new();
 
             var following = await GetFollowing(userId);
-            var userData = await GetUserData(userId);
             var postsDetails = await GetPosts(following, page);
 
             foreach (Post post in postsDetails)
             {
                 List<byte[]> postMediaData = GetPostMedia(post).Result;
-                completePostVMs.Add(new CompletePostVM(post, userData, postMediaData));
+                completePostVMs.Add(new CompletePostVM(post, postMediaData));
             }
 
             return new OkObjectResult(completePostVMs);
@@ -142,7 +141,6 @@ namespace SocialDynamoAPI.BaseAggregator.Services
             List<Post> postsDetails = new();
             //string postsPath = _configuration["Service:Posts"] + "/posts/user/" + userId + "/" + page.ToString();
             string postsPath = "http://host.docker.internal:8082" + "/posts/user/" + userId + "/" + page.ToString();
-            var userData = await GetUserData(userId);
 
             //Get post details from microservice
             var postsResponse = await _client.GetAsync(postsPath);
@@ -159,7 +157,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
             foreach (Post post in postsDetails)
             {
                 List<byte[]> postMediaData = GetPostMedia(post).Result;
-                completePostVMs.Add(new CompletePostVM(post, userData, postMediaData));
+                completePostVMs.Add(new CompletePostVM(post, postMediaData));
             }
 
             return new OkObjectResult(completePostVMs);
@@ -172,36 +170,10 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// <param name="userId"></param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        private async Task<UserDataVM> GetUserData(string userId)
-        {
-            UserDataVM userData;
-            //string accountPath = _configuration["Service:Account"] + "/account/Profile/" + userId;
-            string accountPath = "http://host.docker.internal:8080" + "/account/Profile/" + userId;
-
-            //Get user data from service
-            var accountResponse = await _client.GetAsync(accountPath);
-            if (!accountResponse.IsSuccessStatusCode)
-            {
-                throw new HttpRequestException("Follower request failed");
-            }
-
-            userData = await accountResponse.Content.ReadAsAsync<UserDataVM>();
-            _logger.LogInformation("----- User data received from account microservice");
-
-            return userData;
-        }
-
-        /// <summary>
-        /// Private method return follower data from the account microservice. 
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        /// <exception cref="HttpRequestException"></exception>
         private async Task<List<UserDataVM>> GetFollowing(string userId)
         {
-            List<UserDataVM> following;
-            //string accountPath = _configuration["Service:Account"] + "/account/following/" + userId;
-            string accountPath = "http://host.docker.internal:8080" + "/account/following/" + userId;
+            List<UserDataVM> following = new();
+            string accountPath = _configuration["Service:Account"] + "/account/following/" + userId;
 
             //Get followers from service
             var accountResponse = await _client.GetAsync(accountPath);

@@ -4,12 +4,12 @@
       "DownstreamPathTemplate": "/account/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "account-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "account-api",
-          "Port": 80
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "account-api",
+      //    "Port": 80
+      //  }
+      //],
       "UpstreamPathTemplate": "/api/account/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,
@@ -29,13 +29,13 @@
       "DownstreamPathTemplate": "/authentication/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "account-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "account-api",
-          "Port": 80
-        }
-      ],
-      "UpstreamPathTemplate": "/authentication/{everything}",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "account-api",
+      //    "Port": 80
+      //  }
+      //],
+      "UpstreamPathTemplate": "/api/authentication/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,
       "RateLimitOptions": {
@@ -50,12 +50,12 @@
       "DownstreamPathTemplate": "/posts/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "posts-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "posts-api",
-          "Port": 80
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "posts-api",
+      //    "Port": 80
+      //  }
+      //],
       "UpstreamPathTemplate": "/api/posts/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,
@@ -75,12 +75,12 @@
       "DownstreamPathTemplate": "/baseaggregate/search/{searchTerm}",
       "DownstreamScheme": "http",
       "ServiceName": "aggregator-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "aggregator-api",
-          "Port": 80
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "aggregator-api",
+      //    "Port": 80
+      //  }
+      //],
       "UpstreamPathTemplate": "/api/search/{searchTerm}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,
@@ -100,12 +100,12 @@
       "DownstreamPathTemplate": "/baseaggregate/feed/{userId}/{page}",
       "DownstreamScheme": "http",
       "ServiceName": "aggregator-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "aggregator-api",
-          "Port": 80
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "aggregator-api",
+      //    "Port": 80
+      //  }
+      //],
       "UpstreamPathTemplate": "/api/feed/{userId}/{page}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,
@@ -125,12 +125,12 @@
       "DownstreamPathTemplate": "/baseaggregate/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "aggregator-api",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "aggregator-api",
-          "Port": 80
-        }
-      ],
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "aggregator-api",
+      //    "Port": 80
+      //  }
+      //],
       "UpstreamPathTemplate": "/api/aggregate/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,

@@ -22,7 +22,6 @@
           "Serilog": "2.12.0",
           "Serilog.AspNetCore": "6.0.1",
           "Serilog.Settings.Configuration": "3.4.0",
-          "Serilog.Sinks.Console": "4.1.0",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
@@ -651,7 +650,7 @@
           "Serilog.Extensions.Hosting": "5.0.1",
           "Serilog.Formatting.Compact": "1.1.0",
           "Serilog.Settings.Configuration": "3.4.0",
-          "Serilog.Sinks.Console": "4.1.0",
+          "Serilog.Sinks.Console": "4.0.1",
           "Serilog.Sinks.Debug": "2.0.0",
           "Serilog.Sinks.File": "5.0.0"
         },
@@ -713,14 +712,14 @@
           }
         }
       },
-      "Serilog.Sinks.Console/4.1.0": {
+      "Serilog.Sinks.Console/4.0.1": {
         "dependencies": {
           "Serilog": "2.12.0"
         },
         "runtime": {
           "lib/net5.0/Serilog.Sinks.Console.dll": {
-            "assemblyVersion": "4.1.0.0",
-            "fileVersion": "4.1.0.0"
+            "assemblyVersion": "4.0.1.0",
+            "fileVersion": "4.0.1.0"
           }
         }
       },
@@ -2060,12 +2059,12 @@
       "path": "serilog.settings.configuration/3.4.0",
       "hashPath": "serilog.settings.configuration.3.4.0.nupkg.sha512"
     },
-    "Serilog.Sinks.Console/4.1.0": {
+    "Serilog.Sinks.Console/4.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-K6N5q+5fetjnJPvCmkWOpJ/V8IEIoMIB1s86OzBrbxwTyHxdx3pmz4H+8+O/Dc/ftUX12DM1aynx/dDowkwzqg==",
-      "path": "serilog.sinks.console/4.1.0",
-      "hashPath": "serilog.sinks.console.4.1.0.nupkg.sha512"
+      "sha512": "sha512-apLOvSJQLlIbKlbx+Y2UDHSP05kJsV7mou+fvJoRGs/iR+jC22r8cuFVMjjfVxz/AD4B2UCltFhE1naRLXwKNw==",
+      "path": "serilog.sinks.console/4.0.1",
+      "hashPath": "serilog.sinks.console.4.0.1.nupkg.sha512"
     },
     "Serilog.Sinks.Debug/2.0.0": {
       "type": "package",
