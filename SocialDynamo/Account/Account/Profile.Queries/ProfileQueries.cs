@@ -29,7 +29,7 @@ namespace Account.API.Profile.Queries
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<ProfileInformationVM> GetProfileInformation(string userId)
+        public async Task<IActionResult> GetProfileInformation(string userId)
         {
             User user = await _userRepository.GetUserAsync(userId);
             var followers = await _followerRepository.GetFollowersAsync(userId);
@@ -37,41 +37,13 @@ namespace Account.API.Profile.Queries
 
             _logger.LogInformation("Returning profile information for user, User: {@user}", user);
 
-            return new ProfileInformationVM
+            return new ObjectResult(new ProfileInformationVM
             {
                 Forename = user.Forename,
                 Surname = user.Surname,
                 ProfileDescription = user.ProfileDescription,
-                NumberOfFollowers = numberOfFollowers,
-                ProfilePicture = user.ProfilePicture
-            };
-        }
-
-        /// <summary>
-        /// Gets profile information for the specified user - forename, surname, 
-        /// profile description, and number of followers
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        public async Task<IEnumerable<ProfileInformationVM>> GetProfileInformation(IEnumerable<string> userIds)
-        {
-            List<ProfileInformationVM> users = new();
-            foreach(string u in userIds)
-            {
-                User user = await _userRepository.GetUserAsync(u);
-
-                _logger.LogInformation("Returning profile information for user, User: {@user}", user);
-
-                new ProfileInformationVM
-                {
-                    Forename = user.Forename,
-                    Surname = user.Surname,
-                    ProfileDescription = user.ProfileDescription,
-                    ProfilePicture = user.ProfilePicture
-                };
-            }
-            
-            return users;
+                NumberOfFollowers = numberOfFollowers
+            });
         }
 
         /// <summary>

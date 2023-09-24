@@ -69,11 +69,8 @@ namespace Account.API.Services
         /// <exception cref="InvalidUserStateException"></exception>
         public async Task HandleCommandAsync(RegisterUserCommand command)
         {
-            if (!_userRepository.IsUserIdUnique(command.UserId))
+            if (!_userRepository.IsUserIdUnique(command.UserId).Result)
                 throw new InvalidUserStateException("UserId is not unique");
-
-            if (!_userRepository.IsEmailUnique(command.EmailAddress))
-                throw new InvalidUserStateException("Email is not unique");
 
             _logger.LogInformation("----- Registering new user");
 
@@ -120,11 +117,10 @@ namespace Account.API.Services
         /// <returns></returns>
         public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command)
         {
-            try 
+            User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
+
+            if (user != null)
             {
-
-                User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
-
                 if (await _authenticationRepo.AuthenticateUser(user.UserId, HashPassword(command.Password)))
                 {
                     _logger.LogInformation("----- User authenticated, generated JWT token. " +
@@ -136,13 +132,13 @@ namespace Account.API.Services
                 {
                     return new UnauthorizedObjectResult("Password is incorrect");
                 }
-            
-            }catch(ArgumentNullException ex)
+            }
+            else
             {
                 return new BadRequestObjectResult("No account for this email address");
             }
         }
-
+        
         /// <summary>
         /// Handles the RefreshJwtTokenCommand. Checks validity of the token, checks
         /// refresh token expiry and calls methods to create and return new tokens. 
@@ -205,8 +201,7 @@ namespace Account.API.Services
             {
                 Token = jwtToken,
                 RefreshToken = refreshToken.RefreshToken,
-                ExpiresAt = refreshToken.RefreshExpires,
-                UserId = userId
+                ExpiresAt = refreshToken.RefreshExpires
             });
         }
               
