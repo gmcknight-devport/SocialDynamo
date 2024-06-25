@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Core;
 using SocialDynamoAPI.BaseAggregator.Services;
 using System.Text;
 
@@ -24,12 +25,15 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<ISearchService, SearchService>();
 builder.Services.AddTransient<IPostService, PostService>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IPostSearch, PostService>();
 
 //Add authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddCookie(x =>
+    {
+        x.Cookie.Name = "token";
+    })
+    .AddJwtBearer("Bearer", options =>
 {
     options.SaveToken = true;
     if (builder.Environment.IsDevelopment())
@@ -58,7 +62,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtSecret"]))
         };
     }
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["token"];
+            return Task.CompletedTask;
+        }
+    };
 });
+
 builder.Services.AddEndpointsApiExplorer();
 
 //Add swagger with authoirzation
@@ -67,26 +81,6 @@ builder.Services.AddSwaggerGen(c => {
     {
         Title = "JWTToken_Auth_API",
         Version = "v1"
-    });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
     });
 });
 

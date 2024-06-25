@@ -1,4 +1,4 @@
-﻿namespace Account.API.Common.ViewModels
+﻿namespace Common.API.Common.ViewModels
 {
     public record UserDataVM
     {

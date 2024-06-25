@@ -1,7 +1,9 @@
 using Common;
+using Common.OptionsConfig;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Posts.API.Queries;
@@ -27,6 +29,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddNewtonsoftJson(x => 
     x.SerializerSettings.ReferenceLoopHandling =Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+//Connection IOptions
+ConnectionOptions connOptions = new() { ServiceBus = configuration["ServiceBus"], AzureAccountDb = configuration["AzureAccountDb"] };
+IOptions<ConnectionOptions> connIOptions = Options.Create(connOptions);
+builder.Services.AddSingleton(connIOptions);
+
 //Posts services
 builder.Services.AddTransient<IPostsQueries, PostsQueries>();
 builder.Services.AddTransient<IPostRepository, PostRepository>();
@@ -45,7 +52,7 @@ builder.Services.AddDbContext<PostsDbContext>(options =>
 
 //Add Mediator
 builder.Services.AddScoped<Mediator>();
-builder.Services.AddMediatR(typeof(Program).Assembly);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -55,7 +62,12 @@ builder.Services.AddSwaggerGen();
 builder.Host.UseSerilog();
 
 //Add authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer("Bearer", options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddCookie(x => 
+    { 
+        x.Cookie.Name = "token"; 
+    })
+    .AddJwtBearer("Bearer", options =>
 {
     if (builder.Environment.IsDevelopment())
     {
@@ -83,6 +95,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtSecret"]))
         };
     }
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["token"];
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -94,26 +115,6 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "JWTToken_Auth_API",
         Version = "v1"
-    });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
     });
 });
 

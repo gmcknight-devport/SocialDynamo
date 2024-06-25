@@ -18,9 +18,7 @@ namespace Posts.Infrastructure.Repositories
         public async Task CreatePostAsync(Post post)
         {
             if (post == null)
-            {
-                throw new ArgumentNullException(nameof(post));
-            }
+                throw new ArgumentNullException("Post is null, couldn't create post");
 
             _postsDbContext.Posts.Add(post);
             await _postsDbContext.SaveChangesAsync();
@@ -31,11 +29,9 @@ namespace Posts.Infrastructure.Repositories
             var post = await GetPostAsync(postId);
 
             if (post == null)
-            {
-                throw new ArgumentNullException(nameof(post));
-            }
-
-            _postsDbContext.Posts.Remove(post);
+                throw new ArgumentNullException("Unexpected error, couldn't find post to delete.");
+                        
+            _postsDbContext.Remove(post);
             await _postsDbContext.SaveChangesAsync();
         }
 
@@ -48,9 +44,8 @@ namespace Posts.Infrastructure.Repositories
                     .FirstOrDefaultAsync(p => p.PostId == postId);
 
             if (post == null)
-            {
                 throw new ArgumentNullException(nameof(post));
-            }
+
             return post;
         }
 
@@ -59,7 +54,7 @@ namespace Posts.Infrastructure.Repositories
             var post = await GetPostAsync(postId);
 
             if (post == null)
-                throw new ArgumentNullException(nameof(post));
+                throw new ArgumentNullException("Couldn't find post.");
 
             var postLikes = post.Likes.Select(x => new LikeVM
             {
@@ -72,7 +67,7 @@ namespace Posts.Infrastructure.Repositories
 
         public async Task<IEnumerable<Post>> GetUserPostsAsync(string userId, int page)
         {
-            int resultsPerPage = 12;
+            int resultsPerPage = 6;
             List<Post> posts = await _postsDbContext.Posts                                    
                                     .Include(p => p.Comments)
                                     .Include(p => p.MediaItemIds)
@@ -83,10 +78,8 @@ namespace Posts.Infrastructure.Repositories
                                     .Take(resultsPerPage)
                                     .ToListAsync();
 
-            if(posts == null)
-            {
-                throw new ArgumentNullException(nameof(posts));
-            }
+            if (posts == null || posts.Count == 0)
+                return Enumerable.Empty<Post>();
 
             return posts;
         }
@@ -104,10 +97,8 @@ namespace Posts.Infrastructure.Repositories
                                                     .Take(resultsPerPage)
                                                     .ToListAsync();
 
-            if (posts == null)
-            {
-                throw new ArgumentNullException(nameof(posts));
-            }
+            if (posts == null || posts.Count == 0)
+                return Enumerable.Empty<Post>();
 
             return posts;
         }
@@ -115,19 +106,27 @@ namespace Posts.Infrastructure.Repositories
         public async Task LikePostAsync(Guid postId, string userId)
         {
             var post = await GetPostAsync(postId);
-           
-            if(post == null)
+
+            if (post == null)
+                throw new ArgumentNullException("Couldn't find post");
+
+            // Check if the user already liked the post
+            var existingLike = post.Likes.FirstOrDefault(like => post.PostId == postId && like.LikeUserId == userId);
+
+            if (existingLike != null)
+                _postsDbContext.PostLikes.Remove(existingLike);
+            else
             {
-                throw new ArgumentNullException(nameof(post));
+                // If the user hasn't liked the post yet, add the like to the database
+                PostLike like = new PostLike()
+                {
+                    Post = post,
+                    LikeUserId = userId
+                };
+
+                await _postsDbContext.PostLikes.AddAsync(like);
             }
 
-            PostLike like = new()
-            {
-                Post = post, 
-                LikeUserId = userId
-            };
-
-            await _postsDbContext.PostLikes.AddAsync(like);
             await _postsDbContext.SaveChangesAsync();
         }
 
@@ -135,9 +134,7 @@ namespace Posts.Infrastructure.Repositories
         {
             var currentPost = await GetPostAsync(post.PostId);
             if(currentPost == null)
-            {
-                throw new ArgumentNullException(nameof(currentPost));
-            }
+                throw new ArgumentNullException("Couldn't find post");
 
             _postsDbContext.Update(post);
             await _postsDbContext.SaveChangesAsync();

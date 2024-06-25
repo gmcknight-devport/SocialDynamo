@@ -1,4 +1,6 @@
 ﻿using Azure.Messaging.ServiceBus;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs;
 using Common.OptionsConfig;
 using Media.API.Commands;
 using MediatR;
@@ -15,8 +17,6 @@ namespace Media.API.IntegrationEvents
         private readonly ServiceBusProcessor _processor;
         private readonly string _queueName = "NewUserIntegrationEvent";
         
-        //private readonly ITriggerMediator _triggerMediator;
-
         public NewUserIntegrationEventHandler(IConfiguration baseConfiguration,
                                               IOptions<ConnectionOptions> optionsConfiguration,
                                               IServiceScopeFactory serviceScopeFactory,
@@ -52,7 +52,7 @@ namespace Media.API.IntegrationEvents
             var theEvent = JsonConvert.DeserializeObject<NewUserIntegrationEvent>(body);
             await args.CompleteMessageAsync(args.Message);
 
-            using var scope = _serviceScopeFactory.CreateScope();
+            using IServiceScope scope = _serviceScopeFactory.CreateScope();
             var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
 
             try
@@ -62,7 +62,7 @@ namespace Media.API.IntegrationEvents
                     UserId = theEvent.UserId
                 };
 
-                _logger.LogInformation("----- User container added, User: {@UserId", command.UserId);
+                _logger.LogInformation("----- User container added, User: {@UserId}", command.UserId);
 
                 bool executed = await mediator.Send(command);
 

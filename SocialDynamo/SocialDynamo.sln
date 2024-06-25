@@ -43,18 +43,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Kubernetes", "Kubernetes", 
 	ProjectSection(SolutionItems) = preProject
 		account-deployment.yaml = account-deployment.yaml
 		aggregator-deployment.yaml = aggregator-deployment.yaml
+		cert-sync.yaml = cert-sync.yaml
+		frontend-deployment.yaml = frontend-deployment.yaml
 		gateway-deployment.yaml = gateway-deployment.yaml
 		ingress-srv.yaml = ingress-srv.yaml
 		media-deployment.yaml = media-deployment.yaml
-		np-srv.yaml = np-srv.yaml
-		ocelot-role-binding.yaml = ocelot-role-binding.yaml
-		ocelot-role.yaml = ocelot-role.yaml
 		posts-deployment.yaml = posts-deployment.yaml
 		secret-account.yaml = secret-account.yaml
 		secret-base.yaml = secret-base.yaml
 		secret-media.yaml = secret-media.yaml
 		secret-posts.yaml = secret-posts.yaml
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{61163534-10B8-40B2-971C-50BDCF1E82B0}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "react-socialdynamo", "Frontend\react-socialdynamo\react-socialdynamo.esproj", "{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,6 +117,12 @@ Global
 		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A59801E5-903F-4BDB-9744-0B122CD1C690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -135,6 +144,7 @@ Global
 		{614BFE91-0990-4E58-AA92-B75B5E5D8DB8} = {D23A5830-3CD8-4406-8937-835B552B7F64}
 		{BC6BD9AF-D6F2-4D92-8E0E-2EF613E19246} = {614BFE91-0990-4E58-AA92-B75B5E5D8DB8}
 		{A59801E5-903F-4BDB-9744-0B122CD1C690} = {614BFE91-0990-4E58-AA92-B75B5E5D8DB8}
+		{AC0DE4ED-485F-4A24-B1D8-048E86CBF4F2} = {61163534-10B8-40B2-971C-50BDCF1E82B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B7343EC9-466F-4686-BF52-897149790E80}

@@ -17,7 +17,7 @@ spec:
           image: socialdynamorepo.azurecr.io/gmck/socialdynamo_postsapi:latest
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           volumeMounts:
             - name: secrets-posts-inline
               mountPath: "/mnt/secrets-posts"
@@ -60,4 +60,5 @@ spec:
   selector:
     app: posts-api
   ports:
-    - port: 80
+    - port: 443
+      targetPort: 8080

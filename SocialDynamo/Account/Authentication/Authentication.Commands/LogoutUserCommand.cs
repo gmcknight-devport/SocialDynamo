@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Account.API.Commands
+namespace Common.API.Commands
 {
     public class LogoutUserCommand
     {

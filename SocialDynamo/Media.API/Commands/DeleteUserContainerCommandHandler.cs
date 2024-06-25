@@ -1,20 +1,28 @@
 ﻿using Azure.Storage.Blobs;
+using Common.OptionsConfig;
 using Media.API.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace Media.API.Commands
 {
     //Command handler to delete a user container. 
     public class DeleteUserContainerCommandHandler : IRequestHandler<DeleteUserContainerCommand, bool>
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<DeleteUserContainerCommandHandler> _logger;
+        private readonly BlobServiceClient _client;
 
-        public DeleteUserContainerCommandHandler(IConfiguration configuration, 
+        public DeleteUserContainerCommandHandler(IConfiguration baseConfiguration,
+                                                 IOptions<ConnectionOptions> optionsConfiguration,
                                                  ILogger<DeleteUserContainerCommandHandler> logger)
         {
-            _configuration = configuration;
             _logger = logger;
+
+            //Validation workaround to allow connectionstring to be found in dev or prod.
+            if (baseConfiguration["ServiceBus"] != null)
+                _client = new BlobServiceClient(baseConfiguration["AzureStorage"]);
+            else
+                _client = new BlobServiceClient(optionsConfiguration.Value.AzureStorage);
         }
 
         /// <summary>
@@ -27,8 +35,7 @@ namespace Media.API.Commands
         /// <exception cref="NoUserContainerException"></exception>
         public async Task<bool> Handle(DeleteUserContainerCommand command, CancellationToken cancellationToken)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage"]);
-            var container = blobServiceClient.GetBlobContainerClient(command.UserId);
+            var container = _client.GetBlobContainerClient(command.UserId.ToLower());
 
             if (!container.Exists())
                 throw new NoUserContainerException("No user container to delete");

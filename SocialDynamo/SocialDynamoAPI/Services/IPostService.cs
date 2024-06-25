@@ -5,8 +5,8 @@ namespace SocialDynamoAPI.BaseAggregator.Services
 {
     public interface IPostService
     {
-        Task<bool> CreatePostAsync(CreatePostVM createPostVM);
-        Task<IActionResult> GetFeedAsync(string userId, int page);
-        Task<IActionResult> GetUserPosts(string userId, int page);
+        Task<bool> CreatePostAsync(CreatePostVM createPostVM, string httpCookie);
+        Task<IActionResult> GetFeedAsync(string userId, int page, string httpCookie);
+        Task<object> GetUserPosts(string userId, int page, string httpCookie);
     }
 }

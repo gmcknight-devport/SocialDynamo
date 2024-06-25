@@ -17,6 +17,9 @@ RUN dotnet build "Media.API.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "Media.API.csproj" -c Release -o /app/publish
 
+# Copy the appsettings.json file
+COPY ["Account/appsettings.json", "appsettings.json"]
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .

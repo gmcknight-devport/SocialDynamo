@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Posts.Domain.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Posts.Domain.ViewModels
 {
@@ -20,5 +21,8 @@ namespace Posts.Domain.ViewModels
 
         [Required]
         public int LikeCount { get; set; }
+
+        [Required]
+        public ICollection<CommentLike>? Likes { get; set; }
     }
 }

@@ -1,0 +1,16 @@
+apiVersion: spv.no/v1
+kind: AzureKeyVaultSecret
+metadata:
+  name: cert-sync 
+  namespace: default
+spec:
+  vault:
+    name: socialdynamokeys
+    object:
+      name: socdyn-com
+      type: certificate
+  output: 
+    secret: 
+      name: tls-cert
+      type: kubernetes.io/tls
+      chainOrder: ensureserverfirst

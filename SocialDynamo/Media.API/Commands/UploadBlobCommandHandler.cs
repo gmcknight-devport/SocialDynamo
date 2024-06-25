@@ -1,19 +1,29 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Common.OptionsConfig;
 using Media.API.Exceptions;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace Media.API.Commands
 {
     //Command handler to upload a blob.
     public class UploadBlobCommandHandler : IRequestHandler<UploadBlobCommand, bool>
     {
-        private readonly IConfiguration _configuration;
         private readonly ILogger<UploadBlobCommandHandler> _logger;
+        private readonly BlobServiceClient _client;
 
-        public UploadBlobCommandHandler(IConfiguration configuration, ILogger<UploadBlobCommandHandler> logger)
+        public UploadBlobCommandHandler(IConfiguration baseConfiguration,
+                                        IOptions<ConnectionOptions> optionsConfiguration,
+                                        ILogger<UploadBlobCommandHandler> logger)
         {
-            _configuration = configuration;
             _logger = logger;
+
+            //Validation workaround to allow connectionstring to be found in dev or prod.
+            if (baseConfiguration["AzureStorage"] != null)
+                _client = new BlobServiceClient(baseConfiguration["AzureStorage"]);
+            else
+                _client = new BlobServiceClient(optionsConfiguration.Value.AzureStorage);
         }
 
         /// <summary>
@@ -26,18 +36,19 @@ namespace Media.API.Commands
         /// <exception cref="NoUserContainerException"></exception>
         public async Task<bool> Handle(UploadBlobCommand command, CancellationToken cancellationToken)
         {
-            BlobServiceClient blobServiceClient = new BlobServiceClient(_configuration["AzureStorage"]);
-            var container = blobServiceClient.GetBlobContainerClient(command.UserId);
+            var container = _client.GetBlobContainerClient(command.UserId.ToLower());
 
             if (!container.Exists())
                 throw new NoUserContainerException("No user container to upload blob");
 
             //Upload blob
-            BlobClient blob = container.GetBlobClient(command.MediaItemId);
+            var finalId = command.MediaItemId.Replace("/", "%2F").Replace(":", "%3A");
+            BlobClient blob = container.GetBlobClient(finalId);
+
             await using (Stream stream = command.File.OpenReadStream())
             {                
                 //Upload
-                await blob.UploadAsync(stream);
+                await blob.UploadAsync(stream, new BlobHttpHeaders { ContentType = "image/jpeg" });
             }
 
             _logger.LogInformation("----- Blob uploaded for specified user. User: {@UserId}", command.UserId);

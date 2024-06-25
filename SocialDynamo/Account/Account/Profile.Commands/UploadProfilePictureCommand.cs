@@ -2,7 +2,7 @@
 using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     public record UploadProfilePictureCommand : IRequest<bool>
     {

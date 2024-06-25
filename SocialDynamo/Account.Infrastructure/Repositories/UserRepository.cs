@@ -1,10 +1,10 @@
-﻿using Account.Domain.Repositories;
-using Account.Infrastructure.Persistence;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Infrastructure.Persistence;
+using Common.Models.Users;
 using Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace Account.API.Infrastructure.Repositories
+namespace Common.API.Infrastructure.Repositories
 {
     public class UserRepository : IUserRepository, IFuzzySearch
     {
@@ -15,20 +15,21 @@ namespace Account.API.Infrastructure.Repositories
             _accountDbContext = accountDbContext;
         }
 
-        public async Task<bool> IsUserIdUnique(string userId)
+        public bool IsUserIdUnique(string userId)
         {
-            var existsInDatabase = await _accountDbContext.Users.FindAsync(userId);
-            if (existsInDatabase == null)
-                return true;
+            return !_accountDbContext.Users.Any(u => u.UserId == userId);
+        }
 
-            return false;
+        public bool IsEmailUnique(string emailAddress)
+        {
+            return !_accountDbContext.Users.Any(u => u.EmailAddress == emailAddress);
         }
 
         public async Task AddUserAsync(User user)
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException("Error getting User.");
             }
 
             _accountDbContext.Users.Add(user);
@@ -47,7 +48,7 @@ namespace Account.API.Infrastructure.Repositories
 
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException("Error getting User.");
             }
             return user;
         }
@@ -58,7 +59,7 @@ namespace Account.API.Infrastructure.Repositories
 
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException("Error getting User.");
             }
             return user;
         }
@@ -67,7 +68,7 @@ namespace Account.API.Infrastructure.Repositories
         {
             if (user == null)
             {
-                throw new ArgumentNullException(nameof(user));
+                throw new ArgumentNullException("Error getting User.");
             }
             
             _accountDbContext.Users.Update(user);

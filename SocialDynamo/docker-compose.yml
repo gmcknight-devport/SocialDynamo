@@ -8,13 +8,11 @@ services:
       context: .
       dockerfile: Account/Dockerfile
     ports:
-      - "5000:443"
-      - "8080:80"
+      - "8080"
     environment:
-      ASPNETCORE_HTTPS_PORT: "5000"
-      "PUBLIC_PORT": "8080"
-    #volumes:
-    #  - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      ASPNETCORE_HTTP_PORT: 8080
+    volumes:
+     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
     networks:
       - social-dynamo
 
@@ -24,13 +22,11 @@ services:
       context: .
       dockerfile: Media.API/Dockerfile
     ports:
-    - "5001:443"
-    - "8081:80"
+      - "8080"
     environment:
-      ASPNETCORE_HTTPS_PORT: "5001"
-      "PUBLIC_PORT": "8081"
-    #volumes:
-    #  - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      ASPNETCORE_HTTP_PORT: 8080
+    volumes:
+     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
     networks:
       - social-dynamo
 
@@ -40,13 +36,11 @@ services:
       context: .
       dockerfile: Posts.API/Dockerfile
     ports:
-      - "5002:443"
-      - "8082:80"
+      - "8080"
     environment:
-      ASPNETCORE_HTTPS_PORT: "5002"
-      "PUBLIC_PORT": "8082"
-    #volumes:
-    #  - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      ASPNETCORE_HTTP_PORT: 8080
+    volumes:
+     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
     networks:
       - social-dynamo
 
@@ -56,13 +50,11 @@ services:
       context: .
       dockerfile: SocialDynamoAPI/Dockerfile
     ports:
-      - "5003:443"
-      - "8083:80"
+      - "8080"
     environment:
-      ASPNETCORE_HTTPS_PORT: "5003"
-      "PUBLIC_PORT": "8083"
-    #volumes:
-    #  - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      ASPNETCORE_HTTP_PORT: 8080
+    volumes:
+     - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
     networks:
       - social-dynamo
 
@@ -72,10 +64,9 @@ services:
       context: .
       dockerfile: SocialDynamoAPI.Gateway/Dockerfile
     ports:
-      - "9902:80"
-      - "9903:443"
+      - "8080"
     environment:
-      ASPNETCORE_HTTPS_PORT: "9903"
+      ASPNETCORE_HTTP_PORT: 8080
     links:
       - account-api
       - media-api

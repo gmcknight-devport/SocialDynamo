@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-front
+  template:
+    metadata:
+      labels:
+        app: react-front
+    spec:
+      containers:
+      - name: react-front
+        image: socialdynamorepo.azurecr.io/react-front:latest
+        ports:
+        - containerPort: 8080
+          name: react-front
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-front
+  labels:
+    app: react-front
+spec:
+  type: ClusterIP
+  selector:
+    app: react-front
+  ports:
+    - port: 443
+      targetPort: 8080

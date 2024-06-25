@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Account.Domain.ViewModels
+namespace Common.Domain.ViewModels
 {
     public class RefreshTokenVM
     {

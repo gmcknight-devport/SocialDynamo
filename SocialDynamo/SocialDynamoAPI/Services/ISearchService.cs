@@ -4,6 +4,6 @@ namespace SocialDynamoAPI.BaseAggregator.Services
 {
     public interface ISearchService
     {
-        Task<IEnumerable<IActionResult>> Search(string searchTerm);
+        Task<object> Search(string searchTerm, string httpCookie);
     }
 }

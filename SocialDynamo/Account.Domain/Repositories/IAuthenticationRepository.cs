@@ -1,7 +1,7 @@
-﻿using Account.Domain.ViewModels;
+﻿using Common.Domain.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Account.Domain.Repositories
+namespace Common.Domain.Repositories
 {
     public interface IAuthenticationRepository
     {

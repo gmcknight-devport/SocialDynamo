@@ -1,0 +1,8 @@
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.csproj.AssemblyReference.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.AssemblyInfoInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.AssemblyInfo.cs
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.csproj.CoreCompileInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\SocialDynamoAPI\obj\Debug\net8.0\SocialDynamoAPI.BaseAggregator.sourcelink.json

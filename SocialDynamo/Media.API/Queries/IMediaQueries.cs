@@ -2,6 +2,6 @@
 {
     public interface IMediaQueries
     {
-        Task<byte[]> GetBlob(string userId, string mediaItemId);
+        Task<Uri> GetBlob(string userId, string mediaItemId);
     }
 }

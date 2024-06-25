@@ -20,7 +20,7 @@ namespace Posts.Domain.ValueObjects
 
         private static string GenerateId(string authorId)
         {
-            string mediaId = authorId + DateTime.UtcNow.ToString();
+            string mediaId = authorId + DateTime.UtcNow.ToString().Replace("/", "%2F").Replace(":", "%3A");
             return mediaId;
         }
     }

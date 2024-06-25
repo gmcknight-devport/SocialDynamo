@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Kubernetes;
@@ -15,9 +16,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 
 //Add authentication
-builder.Services.AddAuthentication().AddJwtBearer("Bearer", options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddCookie(x =>
+    {
+        x.Cookie.Name = "token";
+    })
+    .AddJwtBearer("Bearer", options =>
 {    
-    options.SaveToken = true;
     if (builder.Environment.IsDevelopment())
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -44,6 +49,15 @@ builder.Services.AddAuthentication().AddJwtBearer("Bearer", options =>
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtSecret"]))
         };
     }
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["token"];
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddOcelot(configuration).AddKubernetes();

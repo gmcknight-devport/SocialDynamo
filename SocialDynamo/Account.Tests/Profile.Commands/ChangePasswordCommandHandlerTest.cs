@@ -1,8 +1,8 @@
-﻿using Account.API.Infrastructure.Repositories;
-using Account.API.Profile.Commands;
-using Account.API.Services;
-using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.API.Infrastructure.Repositories;
+using Common.API.Profile.Commands;
+using Common.API.Services;
+using Common.Domain.Repositories;
+using Common.Models.Users;
 using Autofac.Extras.Moq;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Xunit;
 
-namespace Account.Tests.Profile.Commands
+namespace Common.Tests.Profile.Commands
 {
     public class ChangePasswordCommandHandlerTest
     {

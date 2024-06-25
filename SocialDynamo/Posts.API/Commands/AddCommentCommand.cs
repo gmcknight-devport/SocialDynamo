@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Posts.API.Commands
 {
-    public class AddCommentCommand : IRequest<bool>
+    public class AddCommentCommand : IRequest<Guid>
     {
         [Required]
         public Guid PostId { get; set; }

@@ -1,0 +1,39 @@
+.sidenav {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: black;
+    padding-left: 1vw;
+    z-index: 2;
+    width: 15vw;
+}
+
+.sidenav-logo {
+    width: 12vw;
+    margin: 1.5vw;
+}
+
+.sidenav-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 600px) {
+    .sidenav {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        width: auto;
+    }
+
+    .sidenav-logo {
+        width: 100px;
+        margin: 10px auto;
+    }
+
+    .sidenav-buttons {
+        display: none;
+    }
+}

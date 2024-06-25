@@ -1,24 +1,23 @@
-﻿using Account.API.Commands;
-using Account.Domain.ViewModels;
-using Account.Domain.Repositories;
-using Account.Exceptions;
-using Account.Models.Users;
+﻿using Common.API.Commands;
+using Common.Domain.ViewModels;
+using Common.Domain.Repositories;
+using Common.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using Common;
+using Common.Exceptions;
 using Newtonsoft.Json;
 using Azure.Messaging.ServiceBus;
 using System.Net.Mime;
-using Account.API.ViewModels;
-using Account.API.IntegrationEvents;
+using Common.API.ViewModels;
+using Common.API.IntegrationEvents;
 using Common.OptionsConfig;
 using Microsoft.Extensions.Options;
 
-namespace Account.API.Services
+namespace Common.API.Services
 {
     //All services implemented for authentication in the project.
     public class AuthenticationService : IAuthenticationService
@@ -26,6 +25,7 @@ namespace Account.API.Services
         private readonly IAuthenticationRepository _authenticationRepo;
         private readonly IUserRepository _userRepository;
         private readonly ILogger<AuthenticationService> _logger;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         private readonly string _jwtIssuer;
         private readonly string _jwtAudience;
@@ -37,11 +37,13 @@ namespace Account.API.Services
                                      IOptions<ConnectionOptions> connectionOptions,
                                      IAuthenticationRepository authenticationRepo,
                                      IUserRepository userRepository,
-                                     ILogger<AuthenticationService> logger)
+                                     ILogger<AuthenticationService> logger, 
+                                     IHttpContextAccessor httpContextAccessor)
         {
             _authenticationRepo = authenticationRepo;
             _userRepository = userRepository;
             _logger = logger;
+            _httpContextAccessor = httpContextAccessor;
 
             if (baseConfiguration["JwtIssuer"] != null)
             {
@@ -69,8 +71,11 @@ namespace Account.API.Services
         /// <exception cref="InvalidUserStateException"></exception>
         public async Task HandleCommandAsync(RegisterUserCommand command)
         {
-            if (!_userRepository.IsUserIdUnique(command.UserId).Result)
+            if (!_userRepository.IsUserIdUnique(command.UserId))
                 throw new InvalidUserStateException("UserId is not unique");
+
+            if (!_userRepository.IsEmailUnique(command.EmailAddress))
+                throw new InvalidUserStateException("Email is not unique");
 
             _logger.LogInformation("----- Registering new user");
 
@@ -115,60 +120,45 @@ namespace Account.API.Services
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command)
+        public async Task<IActionResult> HandleCommandAsync(LoginUserCommand command, HttpContext httpContext)
         {
-            User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
-
-            if (user != null)
+            try 
             {
+                User user = await _userRepository.GetUserByEmailAsync(command.EmailAddress);
+
                 if (await _authenticationRepo.AuthenticateUser(user.UserId, HashPassword(command.Password)))
-                {
                     _logger.LogInformation("----- User authenticated, generated JWT token. " +
                         "User: {@EmailAdress}", command.EmailAddress);
+                else         
+                    throw new ArgumentException("Password is incorrect");
 
-                    return await GenerateTokens(user.UserId, null);
-                }
-                else
-                {
-                    return new UnauthorizedObjectResult("Password is incorrect");
-                }
+                return await GenerateTokens(user.UserId, null, httpContext);
+
             }
-            else
-            {
-                return new BadRequestObjectResult("No account for this email address");
+            catch(ArgumentNullException ex)
+            {                
+                throw new ArgumentNullException("No account for this email address");
             }
         }
-        
+
         /// <summary>
         /// Handles the RefreshJwtTokenCommand. Checks validity of the token, checks
         /// refresh token expiry and calls methods to create and return new tokens. 
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        public async Task<IActionResult> HandleCommandAsync(RefreshJwtTokenCommand command)
+        public async Task<IActionResult> HandleCommandAsync(RefreshJwtTokenCommand command, HttpContext context)
         {
             var userRefreshToken = await _authenticationRepo.GetRefreshToken(command.UserId);
 
-            //Check claim principal from expired access token
-            try
+            if (userRefreshToken.RefreshExpires >= DateTime.UtcNow)
             {
-                var principal = GetPrincipalFromExpiredToken(command.Token);
-
-                return await GenerateTokens(command.UserId, userRefreshToken);
-                
-            }catch(SecurityTokenExpiredException){
-                if (userRefreshToken.RefreshExpires >= DateTime.UtcNow)
-                {
-                    return await GenerateTokens(command.UserId, userRefreshToken);
-                }
-                else if (userRefreshToken != null ||
-                        userRefreshToken.RefreshToken.ToString() == command.RefreshToken ||
-                        userRefreshToken.RefreshExpires >= DateTime.UtcNow)
-                {                    
-                    return await GenerateTokens(command.UserId, null);                    
-                }
-                return new BadRequestObjectResult("Invalid request");
+                return await GenerateTokens(command.UserId, userRefreshToken, context);
             }
+       
+            //Remove token from user and return BadRequest
+            await _authenticationRepo.UpdateToken(command.UserId, null, DateTime.UtcNow.AddDays(-1));
+            throw new ArgumentException("Invalid request - token expired");
         }
 
         /// <summary>
@@ -178,30 +168,38 @@ namespace Account.API.Services
         /// <param name="token"></param>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        private async Task<IActionResult> GenerateTokens(string userId, RefreshTokenVM refreshToken)
+        private async Task<IActionResult> GenerateTokens(string userId, RefreshTokenVM refreshToken, HttpContext httpContext)
         {
-            var accessToken = GenerateToken(userId);
+            var expiresAt = DateTime.UtcNow.AddMinutes(0.5);
+            var cookieOptions = new CookieOptions
+            {
+                Expires = expiresAt,
+                HttpOnly = true,
+                Secure = true,
+                IsEssential = true,
+                SameSite = SameSiteMode.None
+            };
+
+            var accessToken = GenerateToken(userId, expiresAt);
             var jwtToken = new JwtSecurityTokenHandler().WriteToken(accessToken);
 
-            if (refreshToken == null)
+            //Set token as cookie
+            httpContext.Response.Cookies.Append("token", jwtToken, cookieOptions);
+            
+            //Generate new refresh token
+            refreshToken = new()
             {
-                refreshToken = new()
-                {
-                    RefreshToken = GenerateRefreshToken(),
-                    RefreshExpires = DateTime.UtcNow.AddDays(1)
-                };                
+                RefreshToken = GenerateRefreshToken(),
+                RefreshExpires = DateTime.UtcNow.AddDays(1)
+            };                
                                 
-                await _authenticationRepo.UpdateToken(userId, refreshToken.RefreshToken, refreshToken.RefreshExpires);
-            }
-
-            _logger.LogInformation("----- User refresh token validated, generating new access token. " +
-                "User: {@UserId}", userId);
-
+            await _authenticationRepo.UpdateToken(userId, refreshToken.RefreshToken, refreshToken.RefreshExpires);
+            
+            _logger.LogInformation("----- User refresh token validated, User: {@UserId}", userId);
+                        
             return new OkObjectResult(new AuthResultVM
             {
-                Token = jwtToken,
-                RefreshToken = refreshToken.RefreshToken,
-                ExpiresAt = refreshToken.RefreshExpires
+                UserId = userId
             });
         }
               
@@ -210,10 +208,9 @@ namespace Account.API.Services
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        private JwtSecurityToken GenerateToken(string userId)
+        private JwtSecurityToken GenerateToken(string userId, DateTime expiresAt)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSecret));
-            var expiresAt = DateTime.UtcNow.AddMinutes(20);
             var authClaims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, userId),
@@ -242,48 +239,7 @@ namespace Account.API.Services
             rng.GetBytes(randomNumber);
             return BitConverter.ToString(randomNumber);
         }
-
-        /// <summary>
-        /// Gets the security principal from the expired token passed in. 
-        /// </summary>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        /// <exception cref="SecurityTokenException"></exception>
-        private ClaimsPrincipal? GetPrincipalFromExpiredToken(string? token)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var _tokenValidationParameters = GetTokenValidationParameters();
-            ClaimsPrincipal principal;
-            
-            principal = tokenHandler.ValidateToken(token, _tokenValidationParameters, out SecurityToken securityToken);
-            if (securityToken is not JwtSecurityToken jwtSecurityToken ||
-                !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
-
-                throw new SecurityTokenException("Invalid token");
-
-            return principal;
-        }
-
-        /// <summary>
-        /// Returns validation parameters to ensure the token conforms.
-        /// </summary>
-        /// <returns></returns>
-        private TokenValidationParameters GetTokenValidationParameters()
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_jwtSecret));
-            TokenValidationParameters tokenValidationParameters = new()
-            {
-                ValidateIssuerSigningKey = true,
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidIssuer = _jwtIssuer,
-                ValidAudience = _jwtAudience,
-                IssuerSigningKey = securityKey
-            };
-
-            return tokenValidationParameters;
-        }
-
+                
         /// <summary>
         /// Private method to ash the password for secure storage. 
         /// </summary>

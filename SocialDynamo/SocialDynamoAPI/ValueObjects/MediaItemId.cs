@@ -11,16 +11,16 @@ namespace SocialDynamoAPI.BaseAggregator.ValueObjects
             Id = value;
         }
 
-        public static MediaItemId Create(string authorId)
+        public static MediaItemId Create(string authorId, int mediaItemNum)
         {
-            string id = GenerateId(authorId);
+            string id = GenerateId(authorId, mediaItemNum);
 
             return new MediaItemId(id);
         }
 
-        private static string GenerateId(string authorId)
+        private static string GenerateId(string authorId, int mediaItemNum)
         {
-            string mediaId = authorId + DateTime.UtcNow.ToString();
+            string mediaId = authorId + DateTime.UtcNow.ToString().Replace("/", "%2F").Replace(":", "%3A") + "-" + mediaItemNum;
             mediaId = string.Join(string.Empty, mediaId.Where(c => !char.IsWhiteSpace(c)));
             return mediaId;
         }

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     public class AddFollowerCommand : IRequest<bool>
     {

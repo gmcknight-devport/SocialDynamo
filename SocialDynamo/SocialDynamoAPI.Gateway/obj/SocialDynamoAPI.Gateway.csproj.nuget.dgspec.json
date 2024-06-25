@@ -1,37 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj": {}
+    "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj": {}
   },
   "projects": {
-    "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj": {
+    "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj",
+        "projectUniqueName": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj",
         "projectName": "SocialDynamoAPI.Gateway",
-        "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj",
-        "packagesPath": "C:\\Users\\Glenn McKnight\\.nuget\\packages\\",
-        "outputPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\obj\\",
+        "projectPath": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\SocialDynamoAPI.Gateway.csproj",
+        "packagesPath": "C:\\Users\\glenn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\SocialDynamoAPI.Gateway\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Glenn McKnight\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\glenn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -42,36 +37,20 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "MMLib.SwaggerForOcelot": {
-              "target": "Package",
-              "version": "[6.2.0, )"
-            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[6.0.11, )"
-            },
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
-            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
-              "target": "Package",
-              "version": "[1.15.1, )"
+              "version": "[8.0.3, )"
             },
             "Ocelot": {
               "target": "Package",
-              "version": "[18.0.0, )"
+              "version": "[23.2.2, )"
             },
             "Ocelot.Provider.Kubernetes": {
               "target": "Package",
-              "version": "[18.0.0, )"
-            },
-            "Serilog.Sinks.Console": {
-              "target": "Package",
-              "version": "[4.1.0, )"
+              "version": "[23.2.2, )"
             }
           },
           "imports": [
@@ -80,7 +59,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -92,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.313\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

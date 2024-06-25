@@ -1,8 +1,11 @@
 ﻿using Azure.Messaging.ServiceBus;
 using Common;
+using Common.OptionsConfig;
 using MediatR;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Posts.API.IntegrationEvents;
+using Posts.Domain.Models;
 using Posts.Domain.Repositories;
 using System.Net.Mime;
 using System.Text;
@@ -14,15 +17,21 @@ namespace Posts.API.Commands
     {
         private readonly IPostRepository _postRepository;
         private readonly ILogger<DeletePostCommandHandler> _logger;
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
 
         public DeletePostCommandHandler(IPostRepository postRepository, 
-                                        ILogger<DeletePostCommandHandler> logger, 
-                                        IConfiguration configuration)
+                                        ILogger<DeletePostCommandHandler> logger,
+                                        IConfiguration baseConfiguration,
+                                        IOptions<ConnectionOptions> optionsConfiguration)
         {
             _postRepository = postRepository;
             _logger = logger;
-            _configuration = configuration;
+
+            if (baseConfiguration["ServiceBus"] != null)
+                _connectionString = baseConfiguration["ServiceBus"];
+            else
+                _connectionString = optionsConfiguration.Value.ServiceBus;
         }
 
         /// <summary>
@@ -41,11 +50,12 @@ namespace Posts.API.Commands
                 List<string> mediaList = new();
                 foreach(var v in mediaItemIds)
                 {
-                    mediaList.Add(Convert.ToString(v));
+                    mediaList.Add(Convert.ToString(v.Id));
                 }
 
                 PostDeletedIntegrationEvent integrationEvent = new()
                 {
+                    UserId = command.UserId,
                     MediaItemIds = mediaList
                 };
                 PublishIntegrationEvent(integrationEvent);
@@ -60,7 +70,7 @@ namespace Posts.API.Commands
         {
             var jsonMessage = JsonConvert.SerializeObject(integrationEvent);
             var body = Encoding.UTF8.GetBytes(jsonMessage);
-            var client = new ServiceBusClient(_configuration["ConnectionStrings:ServiceBus"]);
+            var client = new ServiceBusClient(_connectionString);
             var sender = client.CreateSender(integrationEvent.GetType().Name);
 
             var message = new ServiceBusMessage()
@@ -72,7 +82,7 @@ namespace Posts.API.Commands
             };
 
             await sender.SendMessageAsync(message);
-            _logger.LogInformation("----- New PostDeletedIntegrationEvent created and send. " +
+            _logger.LogInformation("----- New PostDeletedIntegrationEvent created and sent. " +
                 "MessageId: {@MessageId}, Body: {@Body}", message.MessageId, message.Body);
         }
     }

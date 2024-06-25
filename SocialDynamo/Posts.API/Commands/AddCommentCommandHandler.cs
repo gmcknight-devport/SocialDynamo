@@ -5,7 +5,7 @@ using Posts.Domain.Repositories;
 namespace Posts.API.Commands
 {
     //Command handler to add a comment. 
-    public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, bool>
+    public class AddCommentCommandHandler : IRequestHandler<AddCommentCommand, Guid>
     {
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
@@ -27,7 +27,7 @@ namespace Posts.API.Commands
         /// <param name="command"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public async Task<bool> Handle(AddCommentCommand command, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddCommentCommand command, CancellationToken cancellationToken)
         {
             Post post = await _postRepository.GetPostAsync(command.PostId);
             Comment comment = new()
@@ -42,8 +42,8 @@ namespace Posts.API.Commands
             _logger.LogInformation("----- Comment added to post. Comment: {@Comment}, Post ID: {@PostId}"
                 , command.Comment, command.PostId);
 
-            await _commentRepository.AddCommentAsync(post.PostId, comment);
-            return true;
+            Guid commentId = await _commentRepository.AddCommentAsync(post.PostId, comment);
+            return commentId;
         }
     }
 }

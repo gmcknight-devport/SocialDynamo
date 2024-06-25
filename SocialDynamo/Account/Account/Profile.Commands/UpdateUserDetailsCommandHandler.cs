@@ -1,8 +1,8 @@
-﻿using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Models.Users;
 using MediatR;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     //Command handler to update user details when called. 
     //Updates forename and/or surname
@@ -28,10 +28,10 @@ namespace Account.API.Profile.Commands
         {
             User user = await _userRepository.GetUserAsync(updateUserDetailsCommand.UserId);
 
-            user.Forename = updateUserDetailsCommand.Forename != null
+            user.Forename = updateUserDetailsCommand.Forename != null && updateUserDetailsCommand.Forename != ""
                             ? updateUserDetailsCommand.Forename
                             : user.Forename;
-            user.Surname = updateUserDetailsCommand.Surname != null
+            user.Surname = updateUserDetailsCommand.Surname != null && updateUserDetailsCommand.Surname != ""
                             ? updateUserDetailsCommand.Surname
                             : user.Surname;
 

@@ -1,7 +1,7 @@
-﻿using Account.Models.Users;
+﻿using Common.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace Account.Infrastructure.Persistence
+namespace Common.Infrastructure.Persistence
 {
     public class AccountDbContext : DbContext
     {

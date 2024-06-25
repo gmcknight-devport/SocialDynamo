@@ -1,10 +1,10 @@
-﻿using Account.Domain.Repositories;
-using Account.Infrastructure.Persistence;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Infrastructure.Persistence;
+using Common.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Account.API.Infrastructure.Repositories
+namespace Common.API.Infrastructure.Repositories
 {
     public class FollowerRepository : IFollowerRepository
     {
@@ -27,15 +27,12 @@ namespace Account.API.Infrastructure.Repositories
 
         public async Task<IEnumerable<Follower>> GetUserFollowingAsync(string userId)
         {
-            var users = await _accountDbContext.Users
-                                                    .Where(user => user.Followers.SelectMany(follower => follower.Users)
-                                                    .SelectMany(user => user.Followers)
-                                                    .Select(user => user.FollowerId)
-                                                    .Contains(userId))                                                    
-                                                    .ToListAsync();
-            
-            List<Follower> followers = users.Select(x => new Follower { FollowerId = x.UserId }).ToList();
+            var userIds = await _accountDbContext.Followers
+                                                   .Where(follower => follower.FollowerId == userId)
+                                                   .SelectMany(follower => follower.Users)
+                                                   .ToListAsync();
 
+            var followers = userIds.Select(id => new Follower { FollowerId = id.UserId }).ToList();
             return followers;
         }
 
@@ -53,7 +50,7 @@ namespace Account.API.Infrastructure.Repositories
         {
             //Check if user exists
             var user = await _accountDbContext.Users.Include(x => x.Followers).SingleAsync(x => x.UserId == userId);                
-            if (user == null) throw new ArgumentNullException(nameof(user));
+            if (user == null) throw new ArgumentNullException("Error getting User.");
 
             //Check if follower exists and create if not
             bool exists = await _accountDbContext.Followers.AnyAsync(f => f.FollowerId == follower.FollowerId);
@@ -63,15 +60,18 @@ namespace Account.API.Infrastructure.Repositories
                 await _accountDbContext.SaveChangesAsync();
             }
 
-            //Check if follows user and add link if not
-            bool followsUser = user.Followers.Any(f => f.FollowerId == follower.FollowerId);            
+            //Check if following user
+            var followingUser = user.Followers.FirstOrDefault(f => f.FollowerId == follower.FollowerId);
 
-            if (!followsUser)
+            if (followingUser != null)
+                user.Followers.Remove(followingUser);
+            else
             {
                 var existingFollower = await _accountDbContext.Followers.SingleAsync(f => f.FollowerId == follower.FollowerId);
-                user.Followers.Add(existingFollower);                    
+                user.Followers.Add(existingFollower);
             }
-            await _accountDbContext.SaveChangesAsync();            
+
+            await _accountDbContext.SaveChangesAsync();
         }
 
         public async Task RemoveFollower(Follower follower)

@@ -1,10 +1,10 @@
-﻿using Account.Domain.Repositories;
-using Account.Domain.ViewModels;
-using Account.Infrastructure.Persistence;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Domain.ViewModels;
+using Common.Infrastructure.Persistence;
+using Common.Models.Users;
 using Microsoft.EntityFrameworkCore;
 
-namespace Account.API.Infrastructure.Repositories
+namespace Common.API.Infrastructure.Repositories
 {
     public class AuthenticationRepository : IAuthenticationRepository
     {
@@ -24,6 +24,7 @@ namespace Account.API.Infrastructure.Repositories
             }
             return false;
         }
+
         public async Task RemoveToken(string userId)
         {
             var user = await GetUserAsync(userId);
@@ -50,7 +51,7 @@ namespace Account.API.Infrastructure.Repositories
 
             if (user == null)
             {
-                throw new NullReferenceException(nameof(user));                
+                throw new NullReferenceException("Error getting User.");                
             }
 
             return new RefreshTokenVM
@@ -65,7 +66,7 @@ namespace Account.API.Infrastructure.Repositories
             var user = await _accountDbContext.Users.Include(x => x.Followers).FirstOrDefaultAsync(x => x.UserId == userId);
             if(user == null)
             {
-                throw new NullReferenceException(nameof(user));
+                throw new NullReferenceException("Error getting User.");
             }
 
             return user;

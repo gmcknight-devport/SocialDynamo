@@ -10,3 +10,15 @@ D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\De
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\refint\Posts.Domain.dll
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.pdb
 D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\ref\Posts.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.deps.json
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\bin\Debug\net6.0\Posts.Domain.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.AssemblyInfoInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.AssemblyInfo.cs
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.csproj.CoreCompileInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.sourcelink.json
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\refint\Posts.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\Posts.Domain.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Posts.Domain\obj\Debug\net6.0\ref\Posts.Domain.dll

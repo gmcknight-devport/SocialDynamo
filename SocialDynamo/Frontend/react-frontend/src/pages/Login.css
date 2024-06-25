@@ -1,0 +1,151 @@
+#root{
+  background-color: black;
+}
+
+body {
+  background-color: black;
+}
+
+.login-container {
+  display: flex; 
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px!important;
+  align-items: center;
+  height: 100vh;    
+}
+
+.login-image-container {
+  display: flex; 
+  width: 60%; 
+}
+
+.login-image-container > img {
+  display: block; 
+  max-width: 100%; 
+  height: auto;
+  border-radius: 5px;
+}
+  
+.login-form-container {
+  display: flex; 
+  flex-direction: column; 
+  width: 40%; 
+  border: 1px solid white;
+  border-radius: 5px;
+}
+
+.login-form-content {
+  display: flex; 
+  padding: 1rem; 
+  margin-bottom: 1rem; 
+  flex-direction: column; 
+  align-items: center; 
+  border-radius: 0.25rem; 
+  border-width: 1px; 
+  border-color: rgba(219, 219, 219, 1);
+}
+
+.login-logo-container {
+  display: flex; 
+  justify-content: center; 
+  width: 100%; 
+  margin: 0;
+}
+
+.login-logo-container > img {
+  border-radius: 5px;
+}
+  
+.login-logo {
+  margin-top: 0.5rem; 
+  margin-bottom: 1rem; 
+  width: 50%; 
+}
+
+.login-message {
+  margin-bottom: 1rem; 
+  font-size: 0.75rem;
+  line-height: 1rem; 
+  color: rgba(237, 73, 86, 1)
+}
+
+.login-form-container > form > input{
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+  margin: 0;
+  color: #a1a1aa;
+  padding: 0;
+  background-color: rgb(26, 62, 194);
+}
+
+.login-input {
+  padding-left: 1rem;
+  padding-right: 1rem; 
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem; 
+  margin-bottom: 0.5rem; 
+  margin-right: 0.75rem; 
+  border-radius: 0.25rem; 
+  border-width: 1px; 
+  width: 100%; 
+  height: 0.5rem; 
+  font-size: 0.875rem;
+  color: rgba(97, 97, 97, 1);
+  background-color: black;
+}
+
+.login-input-button {
+  background-color: rgb(0, 92, 152);
+  border-radius: 0.5rem; 
+  width: 100%; 
+  height: 2rem; 
+  font-weight: 700; 
+  color: black; 
+  cursor: pointer;
+}
+
+.login-button-disabled {
+  opacity: 0.5; 
+}
+
+.login-signup-container {
+  display: flex; 
+  padding: 1rem; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  border-radius: 0.25rem; 
+  border-top: 1px solid white; 
+  width: 100%; 
+  background-color: black;
+}
+
+.login-signup-text {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.login-signup-link {
+  font-weight: 700; 
+  color: rgba(0, 92, 152, 1)
+}
+
+/* Media query for mobile view */
+@media (max-width: 600px) {
+  .login-container{
+    margin-right: 0;
+    width: 90%;
+    height: 80vh;
+  }
+
+  .login-image-container {
+    display: none;
+  }
+
+  .login-form-container{
+    width: 90%;
+  }
+}

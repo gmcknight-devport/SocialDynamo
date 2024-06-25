@@ -1,0 +1,36 @@
+.comment-profile-header{
+    padding-top: 0.5vh;
+}
+
+.comment-body{
+    display: inline-block;
+    word-wrap: break-word;
+    word-break: break-all;
+    max-width: 100%;    
+    white-space: normal;
+    overflow-y: auto;
+    overflow-x: hidden; 
+    color: white;
+    background-color: black;
+}
+
+.comment-footer{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1vh;
+    background-color: black;
+    border-bottom: .6px solid hsla(0, 0%, 50%, .516);
+}
+
+.footer-left{
+    display: inline-block;
+    font-weight: bold;
+    color: white;
+    background-color: black;    
+}
+
+.footer-right{
+    display: inline-block;
+    color: white;
+    background-color: black;
+}

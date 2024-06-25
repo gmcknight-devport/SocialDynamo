@@ -1,10 +1,11 @@
-﻿using Account.Models.Users;
+﻿using Common.Models.Users;
 
-namespace Account.Domain.Repositories
+namespace Common.Domain.Repositories
 {
     public interface IUserRepository
     {
-        Task<bool> IsUserIdUnique(string userId);
+        bool IsUserIdUnique(string userId);
+        bool IsEmailUnique(string emailAddress);
         Task AddUserAsync(User user);
         Task DeleteUserAsync(string userId);
         Task<User> GetUserAsync(string userId);

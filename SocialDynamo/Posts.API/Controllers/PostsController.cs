@@ -27,8 +27,8 @@ namespace Posts.API.Controllers
         {
             try
             {
-                bool executed = await _mediator.Send(command);
-                return Ok();
+                Guid executed = await _mediator.Send(command);
+                return Ok(executed);
             }
             catch (Exception ex)
             {

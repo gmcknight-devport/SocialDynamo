@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.ComponentModel.DataAnnotations;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     public class ChangePasswordCommand : IRequest<bool>
     {

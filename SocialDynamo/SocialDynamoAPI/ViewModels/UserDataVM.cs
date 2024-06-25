@@ -11,6 +11,6 @@ namespace SocialDynamoAPI.BaseAggregator.ViewModels
         [Required]
         public string Surname { get; set; }
         [MaxLength(15 * 1024 * 1024)]
-        public byte[] ProfilePicture { get; set; } = new byte[1];
+        public byte[] ProfilePicture { get; set; } = new byte[0];
     }
 }

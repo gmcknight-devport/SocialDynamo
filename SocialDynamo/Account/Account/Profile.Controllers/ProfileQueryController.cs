@@ -1,16 +1,16 @@
-﻿using Account.API.Profile.Queries;
+﻿using Common.API.Profile.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Common.Exceptions;
 
-namespace Account.API.Account.Profile.Controllers
+namespace Common.API.Account.Profile.Controllers
 {
     [ApiController]
     [Route("account")]
     [Authorize]
     public class ProfileQueryController : Controller
     {
-
         private readonly IProfileQueries _queryService;
         private readonly ILogger<ProfileQueryController> _logger;
 
@@ -34,7 +34,25 @@ namespace Account.API.Account.Profile.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
+            }
+        }
+
+        [HttpPut]
+        [Route("Profiles")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetProfileInformation(List<string> userIds)
+        {
+            try
+            {
+                var profileInformation = await _queryService.GetProfileInformation(userIds);
+                return Ok(profileInformation);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -52,7 +70,7 @@ namespace Account.API.Account.Profile.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -70,7 +88,7 @@ namespace Account.API.Account.Profile.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -88,7 +106,7 @@ namespace Account.API.Account.Profile.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
     }

@@ -1,109 +1,80 @@
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.API.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.API.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\xunit.runner.visualstudio.dotnetcore.testadapter.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\xunit.runner.reporters.netcoreapp10.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\xunit.runner.utility.netcoreapp10.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\appsettings.Development.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\appsettings.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.API.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Media.API.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Media.API.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Media.API.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\appsettings.production.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.deps.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.runtimeconfig.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\libman.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\ocelot.json
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.exe
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Program.cs
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Dockerfile
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.API.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Media.API.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Common.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.OpenApi.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.Domain.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Tokens.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Azure.Messaging.ServiceBus.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\MediatR.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\MediatR.Contracts.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET-Q16-AnyCPU.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Serilog.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Settings.Configuration.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DependencyModel.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.Infrastructure.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\MediatR.Extensions.Microsoft.DependencyInjection.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Extensions.Hosting.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Extensions.Logging.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Serilog.AspNetCore.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Newtonsoft.Json.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.Memory.Data.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.Domain.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.Infrastructure.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Azure.Core.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Azure.Storage.Blobs.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.Net.Http.Formatting.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Ocelot.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Ocelot.Provider.Kubernetes.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Newtonsoft.Json.Bson.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DependencyInjection.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Logging.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Azure.Amqp.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Azure.Core.Amqp.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET.Core.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Data.SqlClient.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Azure.Storage.Common.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.IO.Hashing.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DiagnosticAdapter.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\FluentValidation.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.MiddlewareAnalysis.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Core.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.Extensions.DependencyInjection.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Formatters.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Identity.Client.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Diagnostics.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\YamlDotNet.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Formatters.Json.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.Reactive.Linq.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.Extensions.KubeConfig.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\System.Reactive.Interfaces.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\BouncyCastle.Crypto.dll
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.API.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Media.API.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Common.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.Domain.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Account.Infrastructure.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.Domain.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\bin\Debug\Posts.Infrastructure.pdb
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.CopyComplete
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.API.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Media.API.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.BaseAggregator.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Common.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.Options.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\MediatR.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Tokens.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Azure.Messaging.ServiceBus.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\MediatR.Contracts.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET-Q16-AnyCPU.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Serilog.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Settings.Configuration.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.Infrastructure.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Extensions.Hosting.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Serilog.Extensions.Logging.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Serilog.AspNetCore.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Newtonsoft.Json.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.OpenApi.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.Memory.Data.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Ocelot.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Ocelot.Provider.Kubernetes.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Azure.Storage.Blobs.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Azure.Core.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Azure.Storage.Common.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.Domain.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.Infrastructure.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Newtonsoft.Json.Bson.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Protocols.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Logging.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Azure.Amqp.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Azure.Core.Amqp.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Magick.NET.Core.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DependencyModel.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Data.SqlClient.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Extensions.DiagnosticAdapter.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\FluentValidation.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\IPAddressRange.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.AspNetCore.MiddlewareAnalysis.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Core.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.Extensions.DependencyInjection.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Formatters.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.IO.Hashing.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.ClientModel.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Microsoft.Identity.Client.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Diagnostics.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\YamlDotNet.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\HTTPlease.Formatters.Json.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.Reactive.Linq.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\KubeClient.Extensions.KubeConfig.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\System.Reactive.Interfaces.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.API.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\SocialDynamoAPI.Gateway.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Media.API.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.API.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Common.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.Domain.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Account.Infrastructure.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.Domain.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\bin\Debug\Posts.Infrastructure.pdb
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Microsoft.IdentityModel.Tokens;
 using Posts.Domain.Models;
 using Posts.Domain.Repositories;
 using Posts.Domain.ViewModels;
@@ -37,9 +38,22 @@ namespace Posts.API.Queries
 
             List<Post>? hashtagPosts = await _fuzzySearch.FuzzySearch(completeHashtag) as List<Post>;
             _logger.LogInformation("Attempting to return posts found with hashtag through fuzzy search, " +
-                "Number found: {@hashtagPosts}", hashtagPosts);
+                "Number found: {@hashtagPosts.Count}", hashtagPosts?.Count);
 
             return hashtagPosts;
+        }
+
+        /// <summary>
+        /// Return the specified post with the postId parameter.
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public async Task<Post> GetPost(Guid postId)
+        {
+            Post post = await _postRepository.GetPostAsync(postId);
+            _logger.LogInformation("Returning post: {@post}", post);
+
+            return post;
         }
 
         /// <summary>
@@ -53,6 +67,24 @@ namespace Posts.API.Queries
             _logger.LogInformation("Returning comment likes. Comment: {@commentId}", commentId);
 
             return commentLikes;
+        }
+
+        /// <summary>
+        /// Get likes for all comments for specified commentIds. 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<IEnumerable<LikeVM>>> GetCommentsLikesAsync(List<Guid> commentIds)
+        {
+            List<IEnumerable<LikeVM>> likeVMs = new();
+            foreach (var id in commentIds)
+            {
+                var commentLikes = await GetCommentLikesAsync(id);//_commentRepository.GetCommentLikesAsync(id);
+                likeVMs.Add(commentLikes);
+                _logger.LogInformation("Returning comment likes. Comment: {@commentId}", id);
+            }
+
+            return likeVMs;
         }
 
         /// <summary>

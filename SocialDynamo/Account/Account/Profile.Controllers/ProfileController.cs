@@ -1,10 +1,11 @@
-﻿using Account.API.Profile.Commands;
+﻿using Common.API.Profile.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Common.Exceptions;
 
-namespace Account.API.Controllers
+namespace Common.API.Controllers
 {
     [ApiController]
     [Route("account")]
@@ -31,9 +32,9 @@ namespace Account.API.Controllers
                 return Ok();
             }
             catch (Exception ex)
-            {
+            {                
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -50,7 +51,7 @@ namespace Account.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -67,7 +68,7 @@ namespace Account.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -84,7 +85,7 @@ namespace Account.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -101,7 +102,8 @@ namespace Account.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
+                //return BadRequest(ex.Message);
             }
         }
     }

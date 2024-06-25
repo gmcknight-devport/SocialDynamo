@@ -1,4 +1,7 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
+using Azure.Storage.Sas;
 using Common.OptionsConfig;
 using Media.API.Exceptions;
 using Microsoft.Extensions.Options;
@@ -8,14 +11,17 @@ namespace Media.API.Queries
     public class MediaQueries : IMediaQueries
     {
         private readonly string _azureStorage;
+        private readonly ILogger<MediaQueries> _logger;
 
-        public MediaQueries(IConfiguration configuration, IOptions<ConnectionOptions> options)
+        public MediaQueries(IConfiguration configuration, IOptions<ConnectionOptions> options, ILogger<MediaQueries> logger)
         {
 
             if (configuration["AzureStorage"] != null)
                 _azureStorage = configuration["AzureStorage"];
             else
                 _azureStorage = options.Value.AzureStorage;
+
+            _logger = logger;
         }
 
         /// <summary>
@@ -26,29 +32,41 @@ namespace Media.API.Queries
         /// <returns></returns>
         /// <exception cref="NoUserContainerException"></exception>
         /// <exception cref="NullReferenceException"></exception>
-        public async Task<byte[]> GetBlob(string userId, string mediaItemId)
+        public async Task<Uri> GetBlob(string userId, string mediaItemId)
         {
             try
             {
-                BlobContainerClient container = new BlobContainerClient(_azureStorage, userId);                
-                string newId = mediaItemId.Replace("%2F", "/");
-                newId = newId.Replace("%3a", ":");
-                
+                BlobServiceClient client = new BlobServiceClient(_azureStorage);
+                var container = client.GetBlobContainerClient(userId.ToLower());
+
                 if (!container.Exists())
                     throw new NoUserContainerException("No user container found");
 
-                using(MemoryStream memoryStream = new())
-                {
-                    await container.GetBlobClient(newId).DownloadToAsync(memoryStream);
-                    memoryStream.Position = 0;
+                string newId = mediaItemId.Replace("/", "%2F").Replace(":", "%3A");
+                BlobClient blob = container.GetBlobClient(newId);
 
-                    return memoryStream.ToArray();
-                }
+                return await BlobSASToken(blob);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                throw new Exception(e.StackTrace);
+                throw new Exception("Unexpected error occurred");
             }        
+        }
+
+        private async Task<Uri> BlobSASToken(BlobClient blobClient)
+        {
+            BlobSasBuilder sasBuilder = new BlobSasBuilder()
+            {
+                BlobContainerName = blobClient.GetParentBlobContainerClient().Name,
+                BlobName = blobClient.Name,
+                Resource = "b"
+            };
+            sasBuilder.ExpiresOn = DateTimeOffset.UtcNow.AddDays(1);
+            sasBuilder.SetPermissions(BlobContainerSasPermissions.Read);
+
+            _logger.LogInformation("----- SAS URI has been generated");
+
+            return blobClient.GenerateSasUri(sasBuilder);
         }
     }
 }

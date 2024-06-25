@@ -1,10 +1,10 @@
-﻿using Account.API.Services;
-using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.API.Services;
+using Common.Domain.Repositories;
+using Common.Models.Users;
 using MediatR;
 using System.Security;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     //Command handler to change user's password when called. 
     public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, bool>

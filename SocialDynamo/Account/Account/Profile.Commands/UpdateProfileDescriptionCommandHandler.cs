@@ -1,8 +1,8 @@
-﻿using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Models.Users;
 using MediatR;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     //Command handler to update specified profile desciption when called. 
     public class UpdateProfileDescriptionCommandHandler : IRequestHandler<UpdateProfileDescriptionCommand, bool>

@@ -55,14 +55,13 @@ namespace Media.API.IntegrationEvents
 
             List<DeleteBlobCommand> commands = new();
             
-
-            
             try
             {
                 foreach (var i in theEvent.MediaItemIds)
                 {
                     DeleteBlobCommand command = new()
                     {
+                        UserId = theEvent.UserId,
                         MediaItemId = i
                     };
                     commands.Add(command);

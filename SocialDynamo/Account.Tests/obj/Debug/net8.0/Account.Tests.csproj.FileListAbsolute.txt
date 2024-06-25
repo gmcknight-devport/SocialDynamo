@@ -1,0 +1,7 @@
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_Account.Tests
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.csproj.AssemblyReference.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.AssemblyInfoInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.AssemblyInfo.cs
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.csproj.CoreCompileInputs.cache
+C:\Users\glenn\Documents\GitHub\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net8.0\Account.Tests.sourcelink.json

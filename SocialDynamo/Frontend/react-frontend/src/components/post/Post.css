@@ -1,0 +1,90 @@
+#root{
+  background-color: black;
+  width: 100vw;
+  height: 100vh;
+}
+
+.post {
+    width: 40vw;
+    margin: auto;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 1vh;
+    margin-top: auto;
+  }
+  
+  .post-header{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .post-header-left{
+    display: flex; 
+    flex-direction: row;   
+    left: 0;
+  }
+
+  .post-header-right{
+    display: flex; 
+    flex-direction: row;   
+    right: 0;
+  }
+
+  .post-body-caption{
+    text-wrap: wrap;
+  }
+  
+  .post-body-link {
+    color: rgb(0, 92, 152)!important
+  }
+
+  .delete-button-container{
+    padding-right: 2vh;
+  }
+
+  .post-footer {
+    padding-top: 1vh;
+  }
+  
+  .post-footer-icons {
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .post-footer-info{
+        
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1vh;
+  }
+
+  .post-footer-left{
+    display: flex; 
+    flex-direction: row;   
+    left: 0;
+  }
+
+  .post-footer-left :hover{
+    cursor: pointer;
+  }
+
+  .post-footer-right{
+    display: flex; 
+    flex-direction: row;    
+    right: 0;
+  }
+  
+  .postIcon {
+    padding: 7px;
+    font-size: 30px;
+  }
+  
+  .post-footer-icons :hover {
+    cursor: pointer;
+  }
+
+  /* Mobile view adjustments */
+@media (max-width: 600px) {
+  .post {
+      width: 100%; /* Ensure post takes up full width on mobile */
+  }
+}

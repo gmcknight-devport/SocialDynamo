@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialDynamoAPI.BaseAggregator.Models;
 using SocialDynamoAPI.BaseAggregator.ViewModels;
+using System.Net.Http.Headers;
 
 namespace SocialDynamoAPI.BaseAggregator.Services
 {
@@ -9,22 +10,17 @@ namespace SocialDynamoAPI.BaseAggregator.Services
     public class SearchService : ISearchService
     {
         private readonly HttpClient _client;
-        private readonly IConfiguration _configuration;
         private readonly ILogger<PostService> _logger;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly Task<string?>? _authorisationToken;
+        private readonly IPostSearch _postSearch;
+        private readonly string _urlAddress = "https://api.socdyn.com:443";
 
-        public SearchService(IConfiguration configuration, ILogger<PostService> logger, IHttpContextAccessor httpContextAccessor)
+        public SearchService(ILogger<PostService> logger, IPostSearch postSearch)
         {
             _client = new HttpClient();
-            _configuration = configuration;
             _logger = logger;
-            _httpContextAccessor = httpContextAccessor;
+            _postSearch = postSearch;
 
-            //Get stored bearer token and add to authorisation header of client
-            _authorisationToken = _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-            _client.DefaultRequestHeaders.Authorization =
-                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _authorisationToken.Result);
+            _client.DefaultRequestHeaders.Add("Origin", "https://socdyn.com");
         }
 
         /// <summary>
@@ -33,16 +29,20 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         /// </summary>
         /// <param name="searchTerm"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<IActionResult>> Search(string searchTerm)
+        public async Task<object> Search(string searchTerm, string httpCookie)
         {
-            List<OkObjectResult> results = new();
+            setHttpHeaderCookie(httpCookie);
 
-            var searchedUsers = await GetUsers(searchTerm);
-            var searchedHashtags = await GetPosts(searchTerm);
+            IEnumerable<UserDataVM> searchedUsers = await GetUsers(searchTerm);
+            List<Post> searchedHashtags = (List<Post>)await GetPosts(searchTerm);
 
-            results.Add(new OkObjectResult(searchedUsers));
-            results.Add(new OkObjectResult(searchedHashtags));
+            List<CompletePostVM> completePosts = await _postSearch.GetPostDetailsAsync(searchedHashtags, httpCookie);
 
+            var results = new
+            {
+                users = searchedUsers,
+                posts = completePosts
+            };
             return results;
         }
 
@@ -55,7 +55,7 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         private async Task<IEnumerable<Post>> GetPosts(string searchTerm)
         {
             List<Post> postsDetails = new();
-            string postsPath = _configuration["Service:Posts"]+ "/posts/fuzzy/" + searchTerm;
+            string postsPath = _urlAddress + "/posts/fuzzy/" + searchTerm;
 
             //Get post details from microservice.
             //If microservice fails, logs failure but allows original call to continue as other services 
@@ -82,14 +82,13 @@ namespace SocialDynamoAPI.BaseAggregator.Services
         private async Task<IEnumerable<UserDataVM>> GetUsers(string searchTerm)
         {
             List<UserDataVM> users = new();
-            string accountPath = "http://host.docker.internal:8080/account/search/" + searchTerm;
+            string accountPath = _urlAddress + "/account/search/" + searchTerm;
 
             //Get followers from service
             var accountResponse = await _client.GetAsync(accountPath);
 
             if (accountResponse.IsSuccessStatusCode)
-            {
-                throw new Exception(accountResponse.Content.ReadAsStringAsync().Result);
+            { 
                 users = await accountResponse.Content.ReadAsAsync<List<UserDataVM>>();
                 _logger.LogInformation("----- Users searched for term in account microservice" +
                 "Search term: {searchTerm}", searchTerm);
@@ -98,6 +97,12 @@ namespace SocialDynamoAPI.BaseAggregator.Services
                 "Search term: {searchTerm}", searchTerm);
 
             return users;
+        }
+
+        private void setHttpHeaderCookie(string httpCookie)
+        {            
+            _client.DefaultRequestHeaders.Authorization = null;
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpCookie);
         }
     }
 }

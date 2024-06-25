@@ -1,9 +1,11 @@
-﻿using Account.API.Commands;
-using Account.API.Services;
+﻿using Common.API.Commands;
+using Common.API.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Common.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Account.API.Authentication.Authentication.Controllers
+namespace Common.API.Authentication.Authentication.Controllers
 {
     [ApiController]
     [Route("authentication")]
@@ -16,6 +18,7 @@ namespace Account.API.Authentication.Authentication.Controllers
         {
             _authenticationService = authenticationService;
             _logger = logger;
+
         }
 
         [HttpPut("register")]
@@ -31,7 +34,7 @@ namespace Account.API.Authentication.Authentication.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
 
         }
@@ -42,14 +45,14 @@ namespace Account.API.Authentication.Authentication.Controllers
         public async Task<IActionResult> Login(LoginUserCommand command)
         {
             try
-            {
-                var token = await _authenticationService.HandleCommandAsync(command);
+            {                
+                var token = await _authenticationService.HandleCommandAsync(command, HttpContext);
                 return new OkObjectResult(token);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -66,7 +69,7 @@ namespace Account.API.Authentication.Authentication.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -77,13 +80,13 @@ namespace Account.API.Authentication.Authentication.Controllers
         {
             try
             {
-                var token = await _authenticationService.HandleCommandAsync(command);
+                var token = await _authenticationService.HandleCommandAsync(command, HttpContext);
                 return new OkObjectResult(token);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
     }

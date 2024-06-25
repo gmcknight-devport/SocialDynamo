@@ -29,12 +29,12 @@
       "DownstreamPathTemplate": "/authentication/{everything}",
       "DownstreamScheme": "http",
       "ServiceName": "account-api",
-      //"DownstreamHostAndPorts": [
-      //  {
-      //    "Host": "localhost",
-      //    "Port": 80
-      //  }
-      //],
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-api",
+          "Port": 80
+        }
+      ],
       "UpstreamPathTemplate": "/authentication/{everything}",
       "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
       "RouteIsCaseSensitive": true,

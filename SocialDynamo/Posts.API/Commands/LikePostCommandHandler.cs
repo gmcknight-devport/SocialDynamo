@@ -7,9 +7,9 @@ namespace Posts.API.Commands
     public class LikePostCommandHandler : IRequestHandler<LikePostCommand, bool>
     {
         private readonly IPostRepository _postRepository;
-        private readonly ILogger<DeletePostCommandHandler> _logger;
+        private readonly ILogger<LikePostCommandHandler> _logger;
 
-        public LikePostCommandHandler(IPostRepository postRepository, ILogger<DeletePostCommandHandler> logger)
+        public LikePostCommandHandler(IPostRepository postRepository, ILogger<LikePostCommandHandler> logger)
         {
             _postRepository = postRepository;
             _logger = logger;

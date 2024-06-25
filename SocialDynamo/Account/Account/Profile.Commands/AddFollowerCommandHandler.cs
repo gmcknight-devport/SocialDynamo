@@ -1,8 +1,8 @@
-﻿using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Models.Users;
 using MediatR;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     //Command handler to add a follower when called. 
     public class AddFollowerCommandHandler : IRequestHandler<AddFollowerCommand, bool>
@@ -27,12 +27,10 @@ namespace Account.API.Profile.Commands
         {
             Follower follower = new()
             {
-                FollowerId = addFollowerCommand.FollowerId,
-                //UserId = addFollowerCommand.UserId
+                FollowerId = addFollowerCommand.FollowerId
             };
 
-            _logger.LogInformation("----- Add user follower - User: {@UserId}, " +
-                "Follower: {@FollowerId}", follower.FollowerId);//follower.UserId, follower.FollowerId);
+            _logger.LogInformation("----- Add user follower - Follower: {@FollowerId}", follower.FollowerId);
 
             await _followerRepository.AddFollower(addFollowerCommand.UserId, follower);
             return true;

@@ -1,37 +1,32 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {}
+    "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {}
   },
   "projects": {
-    "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {
+    "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj",
+        "projectUniqueName": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj",
         "projectName": "Common",
-        "projectPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj",
-        "packagesPath": "C:\\Users\\Glenn McKnight\\.nuget\\packages\\",
-        "outputPath": "D:\\Glenn McKnight\\Documents\\Github\\SocialDynamo\\SocialDynamo\\Common\\obj\\",
+        "projectPath": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\Common\\Common.csproj",
+        "packagesPath": "C:\\Users\\glenn\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\glenn\\Documents\\GitHub\\SocialDynamo\\SocialDynamo\\Common\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Glenn McKnight\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\glenn\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "net6.0"
+          "net8.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net6.0": {
-            "targetAlias": "net6.0",
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -42,32 +37,36 @@
         }
       },
       "frameworks": {
-        "net6.0": {
-          "targetAlias": "net6.0",
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
             "Microsoft.AspNetCore.Http.Features": {
+              "target": "Package",
+              "version": "[5.0.17, )"
+            },
+            "Microsoft.AspNetCore.Mvc": {
               "target": "Package",
               "version": "[2.2.0, )"
             },
             "Moq": {
               "target": "Package",
-              "version": "[4.18.2, )"
+              "version": "[4.20.70, )"
             },
             "xunit": {
               "target": "Package",
-              "version": "[2.4.2, )"
+              "version": "[2.7.0, )"
             },
             "xunit.runner.console": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.4.2, )"
+              "version": "[2.7.0, )"
             },
             "xunit.runner.visualstudio": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.4.5, )"
+              "version": "[2.5.7, )"
             }
           },
           "imports": [
@@ -76,7 +75,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -85,7 +85,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.313\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

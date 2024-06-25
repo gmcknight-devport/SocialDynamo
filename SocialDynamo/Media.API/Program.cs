@@ -1,4 +1,5 @@
 using Common.OptionsConfig;
+using Media.API.Commands;
 using Media.API.IntegrationEvents;
 using Media.API.Queries;
 using MediatR;
@@ -9,18 +10,12 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
 
-var config = new ConfigurationBuilder()
+//var config = new ConfigurationBuilder()
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
     .AddKeyPerFile("/mnt/secrets-media", optional: true, reloadOnChange: true)
-    .AddKeyPerFile("/mnt/secrets-base", optional: true, reloadOnChange: true)
-    .AddJsonFile("appsettings.json");
-
-//if (Directory.Exists("/mnt/secrets-base") && Directory.Exists("/mnt/secrets-media"))
-//    config.AddKeyPerFile("/mnt/secrets-base")
-//                 .AddKeyPerFile("/mnt/secrets-media");
-
-config.Build();
-
-var configuration = config.Build();
+    .AddKeyPerFile("/mnt/secrets-base", optional: true, reloadOnChange: true)    
+    .Build();
 
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
@@ -34,8 +29,9 @@ builder.Services.AddControllers().AddNewtonsoftJson(x =>
 
 builder.Services.AddTransient<IMediaQueries, MediaQueries>();
 
+//Add Mediatr
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddScoped<Mediator>();
-builder.Services.AddMediatR(typeof(Program).Assembly);
 
 //Add IOption service for background services to receive secret values.
 ConnectionOptions options = new() { ServiceBus = configuration["ServiceBus"], AzureStorage = configuration["AzureStorage"] };
@@ -48,7 +44,12 @@ builder.Services.AddHostedService<NewUserIntegrationEventHandler>();
 builder.Services.AddHostedService<PostDeletedIntegrationEventHandler>();
 
 //Add authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddCookie(x => 
+    { 
+        x.Cookie.Name = "token"; 
+    })
+    .AddJwtBearer("Bearer", options =>
 {
     if (builder.Environment.IsDevelopment())
     {
@@ -76,6 +77,15 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["JwtSecret"]))
         };
     }
+
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["token"];
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -87,34 +97,12 @@ builder.Services.AddSwaggerGen(c => {
         Title = "JWTToken_Auth_API",
         Version = "v1"
     });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 1safsfsdfdfd\"",
-    });
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement {
-        {
-            new OpenApiSecurityScheme {
-                Reference = new OpenApiReference {
-                    Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
 });
 
 //Add serilog
 builder.Host.UseSerilog();
 
 var app = builder.Build();
-
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

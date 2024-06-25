@@ -1,4 +1,4 @@
-﻿namespace Account.API.ViewModels
+﻿namespace Common.API.ViewModels
 {
     public record ProfileInformationVM
     {

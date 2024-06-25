@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Posts.Domain.Models;
 using Posts.Domain.Repositories;
+using Posts.Domain.ValueObjects;
 
 namespace Posts.API.Commands
 {
@@ -28,7 +29,18 @@ namespace Posts.API.Commands
             string hashtag = string.Empty;
 
             if (command.Hashtag != null)
+            {
                 hashtag = command.Hashtag;
+                if (!hashtag.StartsWith("#"))
+                {
+                    hashtag = "#" + hashtag;
+                }
+            }
+
+            //for(int i = 0; i < command.MediaItemIds.Count; i++)
+            //{
+            //    command.MediaItemIds.ElementAt(i).Id = command.MediaItemIds.ElementAt(i).Id.Replace("/", "%2F").Replace(":", "%3A");
+            //}
 
             Post post = new()
             {

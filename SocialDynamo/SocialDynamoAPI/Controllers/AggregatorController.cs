@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialDynamoAPI.BaseAggregator.Services;
 using SocialDynamoAPI.BaseAggregator.ViewModels;
 using System.Net;
+using Common.Exceptions;
 
 namespace SocialDynamoAPI.BaseAggregator.Controllers
 {
@@ -30,13 +31,14 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
         {
             try
             {
-                bool executed = await _postService.CreatePostAsync(createPostVM);
+                var httpOnlyCookie = Request.Cookies["token"];
+                bool executed = await _postService.CreatePostAsync(createPostVM, httpOnlyCookie);
                 return Ok();
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -48,13 +50,14 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
         {
             try
             {
-                var searchResults = await _searchService.Search(searchTerm);
-                return new OkObjectResult(searchResults);
+                var httpOnlyCookie = Request.Cookies["token"];
+                var searchResults = await _searchService.Search(searchTerm, httpOnlyCookie);
+                return Ok(searchResults);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -66,8 +69,10 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
         {
             try
             {
-                var feed = await _postService.GetFeedAsync(userId, page);
-                return new JsonResult(feed);
+                var httpOnlyCookie = Request.Cookies["token"];
+                var feed = await _postService.GetFeedAsync(userId, page, httpOnlyCookie);
+
+                return Ok(feed);
             }
             catch (Exception ex)
             {
@@ -84,13 +89,14 @@ namespace SocialDynamoAPI.BaseAggregator.Controllers
         {
             try
             {
-                var userPosts = await _postService.GetUserPosts(userId, page);
-                return new OkObjectResult(userPosts);
+                var httpOnlyCookie = Request.Cookies["token"];
+                var userPosts = await _postService.GetUserPosts(userId, page, httpOnlyCookie);
+                return Ok(userPosts);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
     }

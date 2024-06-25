@@ -2,12 +2,36 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-srv
+  namespace: default
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Content-Type, Authorization, Credentials, User-Agent, Accept, 
+        Accept-Language, Accept-Encoding, Connection, Origin, Host, Access-Control-Allow-Origin"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, POST, GET, DELETE"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"    
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:3000, https://socdyn.com/, https://socdyn.com, https://*.socdyn.com"
+    nginx.ingress.kubernetes.io/proxy-body-size: "33m"
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.socdyn.com
+    - socdyn.com
+    secretName: tls-cert
   rules:
-    - http:
+    - host: socdyn.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: react-front
+                port:
+                  number: 443
+    - host: api.socdyn.com
+      http:
         paths:
           - path: /authentication/login
             pathType: Prefix
@@ -15,53 +39,39 @@ spec:
               service:
                 name: account-api
                 port:
-                  number: 80
+                  number: 443
           - path: /authentication
             pathType: Prefix
             backend:
               service:
                 name: account-api
                 port:
-                  number: 80
+                  number: 443
           - path: /account
             pathType: Prefix
             backend:
               service:
                 name: account-api
                 port:
-                  number: 80
+                  number: 443
           - path: /posts
             pathType: Prefix
             backend:
               service:
                 name: posts-api
                 port:
-                  number: 80
-          - path: /baseaggregate/search/{searchTerm}
-            pathType: ImplementationSpecific
+                  number: 443
+          - path: /media
+            pathType: Prefix
+            backend:
+              service:
+                name: media-api
+                port:
+                  number: 443
+          - path: /baseaggregate
+            pathType: Prefix
             backend:
               service:
                 name: aggregator-api
                 port:
-                  number: 80
-          - path: /baseaggregate/feed/{userId}/{page}
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: aggregator-api
-                port:
-                  number: 80
-          - path: /baseaggregate/userposts/{userId}/{page}
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: aggregator-api
-                port:
-                  number: 80
-          - path: /baseaggregate/post
-            pathType: Exact
-            backend:
-              service:
-                name: aggregator-api
-                port:
-                  number: 80
+                  number: 443

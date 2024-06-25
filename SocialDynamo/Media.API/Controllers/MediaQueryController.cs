@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Common.Exceptions;
 
 namespace Media.API.Controllers
 {
@@ -33,7 +34,7 @@ namespace Media.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
     }

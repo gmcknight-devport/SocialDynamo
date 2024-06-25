@@ -1,7 +1,7 @@
-﻿using Account.Models.Users;
+﻿using Common.Models.Users;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Account.Domain.Repositories
+namespace Common.Domain.Repositories
 {
     public interface IFollowerRepository
     {

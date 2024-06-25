@@ -1,6 +1,0 @@
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\bin\Debug\net6.0\CoverletSourceRootsMapping
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.csproj.AssemblyReference.cache
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.GeneratedMSBuildEditorConfig.editorconfig
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.AssemblyInfoInputs.cache
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.AssemblyInfo.cs
-D:\Glenn McKnight\Documents\Github\SocialDynamo\SocialDynamo\Account.Tests\obj\Debug\net6.0\Account.Tests.csproj.CoreCompileInputs.cache

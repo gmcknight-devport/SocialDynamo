@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿  using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Posts.API.Queries;
 using System.Net;
+using Common.Exceptions;
 
 namespace Posts.API.Controllers
 {
@@ -20,6 +21,24 @@ namespace Posts.API.Controllers
         }
 
         [HttpGet]
+        [Route("post/{postId}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetPost(Guid postId)
+        {
+            try
+            {
+                var post = await _postService.GetPost(postId);
+                return new OkObjectResult(post);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
+            }
+        }
+
+        [HttpGet]
         [Route("user/{userId}/{page}")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
@@ -33,7 +52,7 @@ namespace Posts.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -51,7 +70,7 @@ namespace Posts.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -87,7 +106,7 @@ namespace Posts.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return BadRequest(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
 
@@ -109,21 +128,39 @@ namespace Posts.API.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("fuzzy/{searchTerm}")]
+        [HttpPut]
+        [Route("commentslikes")]
         [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> FuzzySearch(string hashtag)
+        public async Task<IActionResult> GetCommentLikes(List<Guid> commentIds)
         {
             try
             {
-                var searchedposts = await _postService.FuzzySearchHashtag(hashtag);
-                return new OkObjectResult(searchedposts);
+                var userPosts = await _postService.GetCommentsLikesAsync(commentIds);
+                return new OkObjectResult(userPosts);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
                 return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("fuzzy/{searchTerm}")]
+        [ProducesResponseType(typeof(OkObjectResult), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> FuzzySearch(string searchTerm)
+        {
+            try
+            {
+                var searchedposts = await _postService.FuzzySearchHashtag(searchTerm);
+                return new OkObjectResult(searchedposts);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return ControllerExceptionHandler.HandleException(ex);
             }
         }
     }

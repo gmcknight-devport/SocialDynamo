@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Posts.Domain.Models;
+using Posts.Domain.ValueObjects;
 
 namespace Posts.Infrastructure.Persistence
 {

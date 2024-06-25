@@ -1,7 +1,6 @@
 ﻿using SocialDynamoAPI.BaseAggregator.ValueObjects;
 using SocialDynamoAPI.BaseAggregator.Models;
 using System.ComponentModel.DataAnnotations;
-using Azure;
 
 namespace SocialDynamoAPI.BaseAggregator.ViewModels
 {
@@ -13,6 +12,13 @@ namespace SocialDynamoAPI.BaseAggregator.ViewModels
         [Required]
 
         public string UserId { get; set; }
+
+        [Required]
+
+        public string UsersName { get; set; }
+
+        [MaxLength(15 * 1024 * 1024)]
+        public byte[] ProfilePicture { get; set; } = new byte[1];
 
         [Required]
 
@@ -32,7 +38,7 @@ namespace SocialDynamoAPI.BaseAggregator.ViewModels
 
         [Required]
 
-        public List<byte[]> Files { get; set; }
+        public List<Uri> Files { get; set; }
 
         [Required]
 
@@ -41,19 +47,21 @@ namespace SocialDynamoAPI.BaseAggregator.ViewModels
         [Required]
         public ICollection<Comment> Comments { get; set; }
 
-        public CompletePostVM(Post postDetailsVM, List<byte[]> mediaData)
+        public CompletePostVM(Post post, UserDataVM userDataVM, List<Uri> mediaData)
         {
-            PostId = postDetailsVM.PostId;
-            UserId = postDetailsVM.AuthorId;
-            if (postDetailsVM.Hashtag == null)
-                postDetailsVM.Hashtag = "";
-            Hashtag = postDetailsVM.Hashtag;
-            Caption = postDetailsVM.Caption;
-            PostedAt = postDetailsVM.PostedAt;
-            MediaItemIds = (List<MediaItemId>)postDetailsVM.MediaItemIds;
+            PostId = post.PostId;
+            UserId = post.AuthorId;
+            UsersName = userDataVM.Forename + " " + userDataVM.Surname;
+            ProfilePicture = userDataVM.ProfilePicture;
+            if (post.Hashtag == null)
+                post.Hashtag = "";
+            Hashtag = post.Hashtag;
+            Caption = post.Caption;
+            PostedAt = post.PostedAt;
+            MediaItemIds = (List<MediaItemId>)post.MediaItemIds;
             Files = mediaData;
-            Likes = postDetailsVM.Likes;
-            Comments = postDetailsVM.Comments;
+            Likes = post.Likes;
+            Comments = post.Comments;
         }
     }
 }

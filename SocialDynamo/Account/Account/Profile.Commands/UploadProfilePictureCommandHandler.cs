@@ -1,9 +1,9 @@
-﻿using Account.Domain.Repositories;
-using Account.Models.Users;
+﻿using Common.Domain.Repositories;
+using Common.Models.Users;
 using ImageMagick;
 using MediatR;
 
-namespace Account.API.Profile.Commands
+namespace Common.API.Profile.Commands
 {
     //Command handler for UploadProfilePictureCommand.
     public class UploadProfilePictureCommandHandler : IRequestHandler<UploadProfilePictureCommand, bool>

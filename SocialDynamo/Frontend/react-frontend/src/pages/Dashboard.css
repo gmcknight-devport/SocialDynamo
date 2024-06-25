@@ -1,0 +1,57 @@
+#root{
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+  }
+
+body {
+    background-color: black;
+}
+
+.dash-base{
+    left: 0;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-results{
+    width: 70vw;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    padding-top: 1vh;
+    justify-content: center;
+}
+
+.dash-results > span{
+    color: white;
+    font-size: 18px;
+    font-weight: bolder;
+}
+
+.dash-end{
+    color: white;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bolder;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 600px) {
+    .dash-base {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 85%;
+        margin: 0 auto;
+    }
+
+    .dash-results {
+        width: 100%;
+        padding: 1rem;
+    }
+}

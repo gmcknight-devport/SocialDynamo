@@ -1,0 +1,161 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/account/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "account-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/authentication/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "account-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "account-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/authentication/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 40
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/posts/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "posts-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "posts-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/posts/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/baseaggregate/search/{searchTerm}",
+      "DownstreamScheme": "http",
+      "ServiceName": "aggregator-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "aggregator-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/search/{searchTerm}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/baseaggregate/feed/{userId}/{page}",
+      "DownstreamScheme": "http",
+      "ServiceName": "aggregator-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "aggregator-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/feed/{userId}/{page}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/baseaggregate/{everything}",
+      "DownstreamScheme": "http",
+      "ServiceName": "aggregator-api",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "aggregator-api",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/api/aggregate/{everything}",
+      "UpstreamHttpMethod": [ "Get", "POST", "PUT", "DELETE" ],
+      "RouteIsCaseSensitive": true,
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 1,
+        "Limit": 5
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "QuotaExceededMessage": "Exceeded api rate quota",
+      "HttpStatusCode": 999
+    },
+    "ServiceDiscoveryProvider": {
+      "Namespace": "default",
+      "Type": "KubernetesServiceDiscoveryProvider"
+    }
+  }
+}
