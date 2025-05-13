@@ -83,6 +83,7 @@ body.active-modal {
     border-radius: 3px;
     white-space: nowrap;
     z-index: 4;
+    overflow-y: auto;
 }
 
 .profile-close-modal {

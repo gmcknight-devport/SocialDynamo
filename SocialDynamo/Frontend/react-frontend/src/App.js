@@ -12,6 +12,8 @@ const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Profile = lazy(() => import('./pages/Profile'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Search = lazy(() => import('./pages/Search'));
+const Cookies = lazy(() => import('./pages/Cookies'));
+const Privacy = lazy(() => import('./pages/Privacy'));
 
 export default function App() {
   return (
@@ -27,6 +29,8 @@ export default function App() {
             </Route>
             <Route element={<Login/>} path={ROUTES.LOGIN}/>
             <Route element={<SignUp/>} path={ROUTES.SIGN_UP} exact/>
+            <Route element={<Cookies/>} path={ROUTES.COOKIES}/>
+            <Route element={<Privacy/>} path={ROUTES.PRIVACY}/>
           </Routes>
         </Suspense>
         <ToastContainer limit={1} position='top-center' theme='light' closeToast/>

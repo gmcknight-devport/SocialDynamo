@@ -134,6 +134,7 @@ body.search-active-modal {
     padding: 1.4vh 2.8vw;
     border-radius: 0.3vh;
     z-index: 4;
+    overflow-y: auto;
 }
 
 .search-close-modal {

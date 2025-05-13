@@ -66,11 +66,14 @@ export default function Login() {
     <div className="login-container">
       <CookieConsent
         location="bottom"
-        cookieName="myAppCookieConsent"
+        cookieName="token"
         style={{ backgroundColor: "black", border: "1px solid white", borderRadius:"5px", width: "80vw", justifyContent: "center", margin: "auto", marginLeft: "10vw" }}
         expires={150}
       >
-        This website uses cookies for authentication only. Refusing them may cause errors.
+        This website uses strictly necessary cookies for authentication only.{" "}
+        <a href="/cookies" style={{ color: "rgba(0, 92, 152, 1)", textDecoration: "underline" }}>
+          Cookie Policy
+        </a>.
       </CookieConsent>
 
       <div className="login-image-container">
